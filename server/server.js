@@ -1,10 +1,13 @@
 import express from 'express'
+import {graphqlExpress, graphiqlExpress} from 'graphql-server-express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import jwt from 'jsonwebtoken'
 import passport from 'passport'
 import passportJWT from 'passport-jwt'
 import morgan from 'morgan'
+
+import { schema } from './src/schema'
 
 const ExtractJwt = passportJWT.ExtractJwt
 const JwtStrategy = passportJWT.Strategy
@@ -66,6 +69,15 @@ server.post('/login', function(req, res) {
 server.get('/secret', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({message: 'Success! You can not see this without a token'});
 });
+
+server.use('/graphql', bodyParser.json(), graphqlExpress({
+  schema
+}));
+
+server.use('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql'
+}));
+
 
 server.listen(PORT, () =>
   console.log(`Server is now running on http://localhost:${PORT}`)

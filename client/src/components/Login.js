@@ -55,7 +55,7 @@ class Login extends Component {
       this.setState({status: STATUS_CODE.UNAUTHORIZED})
     } else {
       this._saveUserData(result)
-      this.props.history.push(`/rides`)
+      this.props.history.push(`/ridelist`)
     }
 
     this.setState({email: '', password: ''})

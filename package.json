@@ -15,5 +15,7 @@
   "bugs": {
     "url": "https://github.com/lujakob/nature-cab/issues"
   },
-  "homepage": "https://github.com/lujakob/nature-cab#readme"
+  "homepage": "https://github.com/lujakob/nature-cab#readme",
+  "dependencies": {
+  }
 }
