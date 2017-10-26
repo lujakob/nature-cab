@@ -25,7 +25,7 @@ export const resolvers = {
         seats: ride.seats,
         activity: ride.activity
       };
-      rides.push(newRide);
+      rideList.push(newRide);
       return newRide;
     }
   },

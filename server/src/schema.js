@@ -16,7 +16,6 @@ type Ride {
 }
 
 input RideInput {
-  rideId: ID!
   name: String!
   start: String!
   end: String!

@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
-import Header from './Header'
-import RideList from './RideList'
+import Header from './components/Header'
+import RideList from './components/RideList'
+import CreateRide from './components/CreateRide'
+import Login from './components/Login'
 
-import '../styles/App.css'
-import Login from './Login'
+import './styles/App.css'
+
 
 const networkInterface = createNetworkInterface({ uri: 'http://localhost:4000/graphql' });
 const client = new ApolloClient({networkInterface});
@@ -22,6 +24,7 @@ class App extends Component {
               <Route exact path='/' render={() => <Redirect to='/login'/> }/>
               <Route exact path='/login' component={Login}/>
               <Route exact path='/ridelist' component={RideList}/>
+              <Route exact path='/create' component={CreateRide}/>
             </Switch>
           </div>
         </div>
