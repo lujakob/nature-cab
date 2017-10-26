@@ -41,15 +41,15 @@ class Login extends Component {
             Login
           </div>
         </div>
-        <p>{this.state.email}</p>
       </div>
-
     )
   }
 
   _confirm = async () => {
 
     let result = await this.fetchAsync()
+
+    this.setState({email: '', password: ''})
 
     if (result.status && result.status === STATUS_CODE.UNAUTHORIZED) {
       this.setState({status: STATUS_CODE.UNAUTHORIZED})
@@ -58,7 +58,6 @@ class Login extends Component {
       this.props.history.push(`/ridelist`)
     }
 
-    this.setState({email: '', password: ''})
   }
 
   _saveUserData = ({id, token}) => {

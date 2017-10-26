@@ -12,17 +12,16 @@ class Header extends Component {
       <div className='flex pa1 justify-between nowrap orange'>
         <div className='flex flex-fixed black'>
           <div className='fw7 mr1'>Nature Cab</div>
-          <Link to='/' className='ml1 no-underline black'>new</Link>
-          {userId &&
+          <Link to='/create' className='ml1 no-underline black'>new</Link>
           <div className='flex'>
             <div className='ml1'>|</div>
             <Link to='/ridelist' className='ml1 no-underline black'>ride list</Link>
           </div>
-          }
+
           {userId &&
           <div className='flex'>
             <div className='ml1'>|</div>
-            <Link to='/create' className='ml1 no-underline black'>submit</Link>
+            <Link to='/myrides'  className='ml1 no-underline black'>my rides</Link>
           </div>
           }
         </div>

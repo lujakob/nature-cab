@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken'
 import passport from 'passport'
 import passportJWT from 'passport-jwt'
 import morgan from 'morgan'
+import bearerToken from 'express-bearer-token'
 
 import { schema } from './src/schema'
 
@@ -17,7 +18,8 @@ jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt')
 jwtOptions.secretOrKey = 'tasmanianDevil'
 
 const users = [
-  {id:1, email: 'test', password: 'test'}
+  {id:1, email: 'test', password: 'test', name: 'Lukas'},
+  {id:2, email: 'test2', password: 'test', name: 'Tom'}
 ]
 
 let strategy = new JwtStrategy(jwtOptions, (jwt_payload, next) => {
@@ -35,6 +37,7 @@ passport.use(strategy);
 
 const PORT = 4000
 const server = express()
+server.use(bearerToken())
 
 server.use(morgan('dev'))
 
@@ -64,49 +67,29 @@ server.post('/login', function(req, res) {
   } else {
     res.status(401).json({message:"passwords did not match"});
   }
-});
+})
 
 server.get('/secret', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({message: 'Success! You can not see this without a token'});
-});
+})
 
-server.use('/graphql', bodyParser.json(), graphqlExpress({
-  schema
-}));
+server.use((req, res, next) => {
+  console.log('token', req.token)
+  next()
+})
+
+// add request token to context
+server.post('/graphql', graphqlExpress(request => ({
+  schema,
+  context: { token: request.token }
+})))
+
 
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql'
-}));
+}))
 
 
 server.listen(PORT, () =>
   console.log(`Server is now running on http://localhost:${PORT}`)
 )
-
-// function serialize(req, res, next) {
-//     console.log(req);
-//   req.user = {
-//     id: users[0].id
-//   }
-//
-//   next()
-// }
-//
-// const jwt = require('jsonwebtoken');
-//
-// function generateToken(req, res, next) {
-//   req.token = jwt.sign({
-//     id: req.user.id,
-//   }, 'server secret', {
-//     expiresInMinutes: 120
-//   })
-//
-//   next()
-// }
-//
-// function respond(req, res) {
-//   res.status(200).json({
-//     user: req.user,
-//     token: req.token
-//   })
-// }
