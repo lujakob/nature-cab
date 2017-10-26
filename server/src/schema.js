@@ -25,15 +25,30 @@ input RideInput {
   seats: String!
 }
 
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+}
+
+input UserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
 type Query {
   rides: [Ride]
   ride(id: ID!): Ride
   myRides(userId: ID!): [Ride]
+  user(id: ID!): User
 }
 
 
 type Mutation {
   addRide(ride: RideInput!): Ride
+  createUser(user: UserInput): User
 }
 `;
 

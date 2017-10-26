@@ -7,6 +7,7 @@ import RideListWithData from './components/RideListWithData'
 import MyRidesWithData from './components/MyRidesWithData'
 import CreateRide from './components/CreateRide'
 import Login from './components/Login'
+import Register from './components/Register'
 
 import {GC_AUTH_TOKEN} from './constants'
 import './styles/App.css'
@@ -38,6 +39,7 @@ class App extends Component {
               <Route exact path='/ridelist' component={RideListWithData}/>
               <Route exact path='/myrides' component={MyRidesWithData}/>
               <Route exact path='/create' component={CreateRide}/>
+              <Route exact path='/register' component={Register}/>
             </Switch>
           </div>
         </div>

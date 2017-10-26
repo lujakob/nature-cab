@@ -41,6 +41,15 @@ class Login extends Component {
             Login
           </div>
         </div>
+        <div>
+          <div
+            className='pointer mr2 button'
+            onClick={() => this.props.history.push('/register')}
+          >
+            Register
+          </div>
+        </div>
+
       </div>
     )
   }

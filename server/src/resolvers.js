@@ -1,3 +1,5 @@
+import {users} from '../server'
+
 const rideList = [
   {userId: 1, name: 'Lukas', start: 'Munich', end: 'Garmisch', seats: 3, activity: 'Hike', id: 1},
   {userId: 2, name: 'Tom', start: 'Munich', end: 'Tegernsee', seats: 2, activity: 'Hike', id: 2},
@@ -5,6 +7,8 @@ const rideList = [
 ]
 
 let nextRideId = 4
+
+let nextUserId = 3
 
 export const resolvers = {
   Query: {
@@ -18,6 +22,9 @@ export const resolvers = {
     },
     ride: (root, {id}, context) => {
       return rides.find(ride => ride.id === id)
+    },
+    user: (root, {id}, context) => {
+      return users.find(user => user.id === parseInt(id))
     }
   },
   Mutation: {
@@ -30,9 +37,19 @@ export const resolvers = {
         end: ride.end,
         seats: ride.seats,
         activity: ride.activity
-      };
-      rideList.push(newRide);
-      return newRide;
+      }
+      rideList.push(newRide)
+      return newRide
+    },
+    createUser: (root, {user}) => {
+      const newUser = {
+        id: String(nextUserId++),
+        name: user.name,
+        email: user.email,
+        password: user.password
+      }
+      users.push(newUser)
+      return newUser
     }
   },
 }

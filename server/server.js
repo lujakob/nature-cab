@@ -10,7 +10,7 @@ import { schema } from './src/schema'
 
 const jwtSecret = 'tasmanianDevil'
 
-const users = [
+export const users = [
   {id:1, email: 'test', password: 'test', name: 'Lukas'},
   {id:2, email: 'test2', password: 'test', name: 'Tom'}
 ]
@@ -66,7 +66,7 @@ const authenticate = (req, res, next) => {
   next()
 }
 
-// graphql resource - add request token to context
+// graphql resource - add request token and user to context
 server.post('/graphql', authenticate, graphqlExpress(request => ({
   schema,
   context: {
