@@ -23,6 +23,9 @@ export const resolvers = {
     ride: (root, {id}, context) => {
       return rides.find(ride => ride.id === id)
     },
+    users: (root, args, context) => {
+      return users
+    },
     user: (root, {id}, context) => {
       return users.find(user => user.id === parseInt(id))
     }

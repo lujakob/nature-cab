@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {GC_USER_ID, GC_AUTH_TOKEN, STATUS_CODE} from '../constants'
+import gql from 'graphql-tag'
+import {graphql} from 'react-apollo'
 
 class Register extends Component {
   state = {
@@ -64,15 +65,34 @@ class Register extends Component {
       return
     }
 
+    let newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password
+    }
+
+    await this.props.createUserMutation({
+      variables: {user: newUser},
+      update: (store, {data: {createUser}}) => {
+
+console.log('addUser', createUser)
+      }
+    })
+
     this.setState({name: '', email: '', password: '', status: null})
     this.props.history.push('/login')
   }
 
-  _saveUserData = ({id, token}) => {
-    localStorage.setItem(GC_USER_ID, id)
-    localStorage.setItem(GC_AUTH_TOKEN, token)
-  }
-
 }
 
-export default Register
+const CreateUserMutation = gql`
+  mutation createUser($user: UserInput!) {
+    createUser(user: $user) {
+      name
+      email
+      password
+    }
+  }
+`
+
+export default graphql(CreateUserMutation, {name: 'createUserMutation'})(Register)

@@ -2,6 +2,7 @@ import React from 'react'
 import {graphql} from 'react-apollo'
 import gql from 'graphql-tag';
 import RideList from './RideList'
+import {GC_USER_ID} from '../constants'
 
 const MyRidesWithData = ({ data: {loading, error, myRides }}) => {
 
@@ -30,4 +31,6 @@ export const myRidesQuery = gql`
   }
 `;
 
-export default graphql(myRidesQuery, {options: {variables: {userId: 1}}})(MyRidesWithData)
+const userId = localStorage.getItem(GC_USER_ID)
+
+export default graphql(myRidesQuery, {options: {variables: {userId: parseInt(userId)}}})(MyRidesWithData)

@@ -42,13 +42,14 @@ type Query {
   rides: [Ride]
   ride(id: ID!): Ride
   myRides(userId: ID!): [Ride]
+  users: [User]
   user(id: ID!): User
 }
 
 
 type Mutation {
   addRide(ride: RideInput!): Ride
-  createUser(user: UserInput): User
+  createUser(user: UserInput!): User
 }
 `;
 
