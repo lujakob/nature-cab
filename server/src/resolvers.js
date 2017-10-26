@@ -13,6 +13,7 @@ export const resolvers = {
     },
     myRides: (root, args, context) => {
       console.log(args)
+      console.log(context)
       return rideList.filter(ride => ride.userId === parseInt(args.userId))
     },
     ride: (root, {id}, context) => {
