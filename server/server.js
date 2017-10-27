@@ -6,11 +6,13 @@ import jwt from 'jsonwebtoken'
 import morgan from 'morgan'
 import bearerToken from 'express-bearer-token'
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
 
-import { schema } from './src/schema'
+
+import {schema} from './src/schema'
 import USER from './src/user'
 
-const jwtSecret = 'tasmanianDevil'
+import {JWT_SECRET} from './constants'
 
 export const users = [
   {id:1, email: 'test', password: 'test', name: 'Lukas'},
@@ -46,12 +48,17 @@ server.post('/login', function(req, res) {
 
       if( !user ){
         res.status(401).json({message:'no such user found'});
-      } else if(user.password === req.body.password) {
-        let payload = {id: user.userId};
-        let token = jwt.sign(payload, jwtSecret);
-        res.json({message: 'ok', token: token, id: user.userId});
       } else {
-        res.status(401).json({message:'passwords did not match'});
+
+        bcrypt.compare(req.body.password, user.password).then(authenticated => {
+          if(authenticated) {
+            let payload = {id: user.userId};
+            let token = jwt.sign(payload, JWT_SECRET);
+            res.json({message: 'ok', token: token, id: user.userId});
+          } else {
+            res.status(401).json({message:'passwords did not match'});
+          }
+        }).catch(err => console.log(err))
       }
     }
   })
@@ -61,7 +68,7 @@ server.post('/login', function(req, res) {
 const authenticate = (req, res, next) => {
   console.log('token', req.token)
   if (req.token) {
-    jwt.verify(req.token, jwtSecret, (err, decoded) => {
+    jwt.verify(req.token, JWT_SECRET, (err, decoded) => {
       if (err) {
         console.log(err)
       } else if (decoded && decoded.id) {
@@ -91,7 +98,7 @@ mongoose.connect('mongodb://localhost:27017/naturecab', {useMongoClient: true})
 const db = mongoose.connection;
 db.on('error', ()=> {console.log( '---FAILED to connect to mongoose')})
 db.once('open', () => {
-  console.log( '+++Connected to mongoose')
+  console.log('+++Connected to mongoose')
 })
 
 

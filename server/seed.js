@@ -1,5 +1,8 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
 import USER from './src/user'
+
+import saltRounds from './constants'
 
 mongoose.connect('mongodb://localhost:27017/naturecab', {useMongoClient: true})
 const db = mongoose.connection
@@ -37,19 +40,25 @@ const users = [
 ]
 
 users.map(user => {
-  let newUser = new USER(user)
-  let savePromise = newUser.save((err, result) => {
+  let savePromise = bcrypt.hash(user.password, saltRounds).then(hash => {
 
-    if (err) {
-      console.log("---User save failed " + err)
-    } else {
-      console.log("+++User " + newUser.userId + " saved successfully")
-    }
+    let newUser = new USER(Object.assign({}, user, {password: hash}))
+
+    return newUser.save((err, result) => {
+
+      if (err) {
+        console.log("---User save failed " + err)
+      } else {
+        console.log("+++User " + result.userId + " saved successfully")
+      }
+
+    })
 
   })
 
   // store save promises here to exit after all resolved
   savePromises.push(savePromise)
+
 })
 
 // disconnect to exit node script, when all save's are resolved

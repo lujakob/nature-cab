@@ -1,8 +1,8 @@
 import USER from './user'
+import bcrypt from 'bcrypt'
+import {saltRounds} from '../constants'
 
 let nextRideId = 4
-
-let nextUserId = 3
 
 const rideList = [
   {userId: 1, name: 'Lukas', start: 'Munich', end: 'Garmisch', seats: 3, activity: 'Hike', id: 1},
@@ -80,34 +80,37 @@ export const resolvers = {
       return newRide
     },
     createUser: (root, {user}) => {
-      const newUser = new USER({
-        name: user.name,
-        email: user.email,
-        password: user.password
-      })
 
       return new Promise((resolve, reject) => {
-        newUser.save((err, user) => {
-          if (err) {
-            console.log('---TodoItem save failed ' + JSON.stringify(err))
 
-            if (isEmailValidationError(err)) {
-              console.log("jooo");
-              reject('VALIDATION_EMAIL_UNIQUE')
-            } else {
+        // bcrypt password
+        bcrypt.hash(user.password, saltRounds).then(hash => {
+
+          const newUser = new USER({
+            name: user.name,
+            email: user.email,
+            password: hash
+          })
+
+          // save user
+          newUser.save((err, user) => {
+            if (err) {
+
+              if (isEmailValidationError(err)) {
+                reject('VALIDATION_EMAIL_UNIQUE')
+              } else {
+                reject(err)
+              }
               reject(err)
+            } else {
+
+              resolve(newUser)
+              return newUser
             }
-            reject(err)
-          } else {
-            console.log('+++TodoItem saved successfully ' + user)
-            resolve(newUser)
-            return newUser
-          }
-        })
+          })
+        }).catch(err => console.log(err))
+
       })
-
-
-
 
     }
   },
