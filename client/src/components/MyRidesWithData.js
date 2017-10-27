@@ -33,4 +33,4 @@ export const myRidesQuery = gql`
 
 const userId = localStorage.getItem(GC_USER_ID)
 
-export default graphql(myRidesQuery, {options: {variables: {userId: parseInt(userId)}}})(MyRidesWithData)
+export default graphql(myRidesQuery, {options: {variables: {userId: parseInt(userId, 10)}}})(MyRidesWithData)

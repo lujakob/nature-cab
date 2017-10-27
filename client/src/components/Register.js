@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
+import {VALIDATION} from '../constants'
 
 class Register extends Component {
   state = {
@@ -40,9 +41,15 @@ class Register extends Component {
           />
         </div>
 
-        {this.state.status &&
+        {this.state.status === VALIDATION.VALIDATION_REQUIRED &&
         <div className="error-message dark-red">
           Please fill out all fields.
+        </div>
+        }
+
+        {this.state.status === VALIDATION.VALIDATION_EMAIL_UNIQUE &&
+        <div className="error-message dark-red">
+          This email is already taken.
         </div>
         }
 
@@ -61,7 +68,7 @@ class Register extends Component {
   _submit = async () => {
 
     if (!this.state.name || !this.state.email || !this.state.password) {
-      this.setState({status: true})
+      this.setState({status: VALIDATION.VALIDATION_REQUIRED})
       return
     }
 
@@ -75,9 +82,17 @@ class Register extends Component {
       variables: {user: newUser},
       update: (store, {data: {createUser}}) => {}
     })
+    .then(() => {
+      this.setState({name: '', email: '', password: '', status: null})
+      this.props.history.push('/login')
+    })
+    .catch(err => {
+      if (err.message.indexOf(VALIDATION.VALIDATION_EMAIL_UNIQUE) >= 0) {
+        this.setState({status: VALIDATION.VALIDATION_EMAIL_UNIQUE})
+      }
+      console.log('error', err)
+    })
 
-    this.setState({name: '', email: '', password: '', status: null})
-    this.props.history.push('/login')
   }
 
 }

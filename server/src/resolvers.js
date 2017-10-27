@@ -25,6 +25,10 @@ const removePassword = (data) => {
   }
 }
 
+const isEmailValidationError = (err) => {
+  return err.errors && err.errors.email && err.errors.email.properties && err.errors.email.properties.type && err.errors.email.properties.type === 'unique'
+}
+
 export const resolvers = {
   Query: {
     rides: (root, args, context) => {
@@ -85,7 +89,14 @@ export const resolvers = {
       return new Promise((resolve, reject) => {
         newUser.save((err, user) => {
           if (err) {
-            console.log('---TodoItem save failed ' + err)
+            console.log('---TodoItem save failed ' + JSON.stringify(err))
+
+            if (isEmailValidationError(err)) {
+              console.log("jooo");
+              reject('VALIDATION_EMAIL_UNIQUE')
+            } else {
+              reject(err)
+            }
             reject(err)
           } else {
             console.log('+++TodoItem saved successfully ' + user)
