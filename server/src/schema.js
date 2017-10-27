@@ -27,6 +27,7 @@ input RideInput {
 
 type User {
   id: ID!
+  userId: Int!
   name: String!
   email: String!
   password: String
@@ -43,7 +44,7 @@ type Query {
   ride(id: ID!): Ride
   myRides(userId: ID!): [Ride]
   users: [User]
-  user(id: ID!): User
+  user(userId: Int!): User
 }
 
 

@@ -12,7 +12,10 @@ const removePassword = (data) => {
       return item
     })
   } else {
-    data.password = null
+    if (!!data) {
+      data.password = null
+    }
+
     return data
   }
 }
@@ -41,9 +44,16 @@ export const resolvers = {
         })
       })
     },
-    user: (root, {id}, context) => {
-      let user = users.find(user => user.id === parseInt(id))
-      return removePassword(user)
+    user: (root, {userId}, context) => {
+      return new Promise((resolve, reject) => {
+        USER.findOne({userId: userId}, (err, user) =>{
+          if (err) {
+            reject(err)
+          } else {
+            resolve(removePassword(user))
+          }
+        })
+      })
     }
   },
   Mutation: {
