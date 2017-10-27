@@ -1,4 +1,5 @@
 import {users} from '../server'
+import USER from './user'
 
 const rideList = [
   {userId: 1, name: 'Lukas', start: 'Munich', end: 'Garmisch', seats: 3, activity: 'Hike', id: 1},
@@ -58,13 +59,26 @@ export const resolvers = {
       return newRide
     },
     createUser: (root, {user}) => {
-      const newUser = {
-        id: String(nextUserId++),
+      // const newUser = {
+      //   id: String(nextUserId++),
+      //   name: user.name,
+      //   email: user.email,
+      //   password: user.password
+      // }
+      // users.push(newUser)
+
+      const newUser = new USER({
+        userId: nextUserId++,
         name: user.name,
         email: user.email,
         password: user.password
-      }
-      users.push(newUser)
+      })
+
+      newUser.save((err, result) => {
+        if (err) {console.log("---TodoItem save failed " + err)}
+        console.log("+++TodoItem saved successfully " + newUser)
+      })
+
       return newUser
     }
   },

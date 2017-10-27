@@ -5,6 +5,7 @@ import cors from 'cors'
 import jwt from 'jsonwebtoken'
 import morgan from 'morgan'
 import bearerToken from 'express-bearer-token'
+import mongoose from 'mongoose'
 
 import { schema } from './src/schema'
 
@@ -79,6 +80,14 @@ server.post('/graphql', authenticate, graphqlExpress(request => ({
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql'
 }))
+
+mongoose.connect('mongodb://localhost:27017/naturecab', {useMongoClient: true})
+const db = mongoose.connection;
+db.on('error', ()=> {console.log( '---FAILED to connect to mongoose')})
+db.once('open', () => {
+  console.log( '+++Connected to mongoose')
+})
+
 
 // run server
 server.listen(PORT, () =>
