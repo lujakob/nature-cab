@@ -1,12 +1,6 @@
 import {users} from '../server'
 import USER from './user'
 
-const rideList = [
-  {userId: 1, name: 'Lukas', start: 'Munich', end: 'Garmisch', seats: 3, activity: 'Hike', id: 1},
-  {userId: 2, name: 'Tom', start: 'Munich', end: 'Tegernsee', seats: 2, activity: 'Hike', id: 2},
-  {userId: 1, name: 'Lukas', start: 'Munich', end: 'Spitzingsee', seats: 2, activity: 'Bike', id: 3}
-]
-
 let nextRideId = 4
 
 let nextUserId = 3
@@ -37,7 +31,15 @@ export const resolvers = {
       return rides.find(ride => ride.id === id)
     },
     users: (root, args, context) => {
-      return removePassword(users)
+      return new Promise((resolve, reject) => {
+        USER.find((err, users) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(removePassword(users))
+          }
+        })
+      })
     },
     user: (root, {id}, context) => {
       let user = users.find(user => user.id === parseInt(id))
