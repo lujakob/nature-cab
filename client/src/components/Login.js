@@ -56,17 +56,24 @@ class Login extends Component {
 
   _confirm = async () => {
 
+    // return if fields are empty
+    if (!this.state.email || !this.state.password) {
+      this.setState({status: true})
+      return
+    }
+
     let result = await this.fetchAsync()
 
     this.setState({email: '', password: ''})
 
-    if (result.status && result.status === STATUS_CODE.UNAUTHORIZED) {
-      this.setState({status: STATUS_CODE.UNAUTHORIZED})
-    } else {
+    if (result.message === 'ok') {
       this._saveUserData(result)
       this.props.history.push(`/ridelist`)
+    } else if (result.status && result.status === STATUS_CODE.UNAUTHORIZED) {
+      this.setState({status: STATUS_CODE.UNAUTHORIZED})
+    } else {
+      throw new Error('Login failed')
     }
-
   }
 
   _saveUserData = ({id, token}) => {
@@ -74,6 +81,7 @@ class Login extends Component {
     localStorage.setItem(GC_AUTH_TOKEN, token)
   }
 
+  // request login
   async fetchAsync () {
     const response = await fetch('http://localhost:4000/login', {
       method: 'POST',
@@ -93,8 +101,6 @@ class Login extends Component {
     } else {
       return response;
     }
-
-
   }
 }
 

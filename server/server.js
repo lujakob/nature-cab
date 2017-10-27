@@ -8,6 +8,7 @@ import bearerToken from 'express-bearer-token'
 import mongoose from 'mongoose'
 
 import { schema } from './src/schema'
+import USER from './src/user'
 
 const jwtSecret = 'tasmanianDevil'
 
@@ -36,19 +37,24 @@ server.post('/login', function(req, res) {
   }
 
   let {email, password} = req.body
-  // usually this would be a database call:
-  let user = users.find(user => user.email === email);
-  if( ! user ){
-    res.status(401).json({message:"no such user found"});
-  }
 
-  if(user.password === req.body.password) {
-    var payload = {id: user.id};
-    var token = jwt.sign(payload, jwtSecret);
-    res.json({message: "ok", token: token, id: user.id});
-  } else {
-    res.status(401).json({message:"passwords did not match"});
-  }
+  // find user in DB and check password
+  USER.findOne({email: email}, (err, user) => {
+    if (err) {
+      console.log('Login failed, user not found', err)
+    } else {
+
+      if( !user ){
+        res.status(401).json({message:'no such user found'});
+      } else if(user.password === req.body.password) {
+        let payload = {id: user.userId};
+        let token = jwt.sign(payload, jwtSecret);
+        res.json({message: 'ok', token: token, id: user.userId});
+      } else {
+        res.status(401).json({message:'passwords did not match'});
+      }
+    }
+  })
 })
 
 // check valid token and add user if available
