@@ -10,6 +10,18 @@ let nextRideId = 4
 
 let nextUserId = 3
 
+const removePassword = (data) => {
+  if (Array.isArray(data)) {
+    return data.map(item => {
+      item.password = null
+      return item
+    })
+  } else {
+    data.password = null
+    return data
+  }
+}
+
 export const resolvers = {
   Query: {
     rides: (root, args, context) => {
@@ -24,10 +36,11 @@ export const resolvers = {
       return rides.find(ride => ride.id === id)
     },
     users: (root, args, context) => {
-      return users
+      return removePassword(users)
     },
     user: (root, {id}, context) => {
-      return users.find(user => user.id === parseInt(id))
+      let user = users.find(user => user.id === parseInt(id))
+      return removePassword(user)
     }
   },
   Mutation: {
