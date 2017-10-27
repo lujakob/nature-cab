@@ -71,27 +71,28 @@ export const resolvers = {
       return newRide
     },
     createUser: (root, {user}) => {
-      // const newUser = {
-      //   id: String(nextUserId++),
-      //   name: user.name,
-      //   email: user.email,
-      //   password: user.password
-      // }
-      // users.push(newUser)
-
       const newUser = new USER({
-        userId: nextUserId++,
         name: user.name,
         email: user.email,
         password: user.password
       })
 
-      newUser.save((err, result) => {
-        if (err) {console.log("---TodoItem save failed " + err)}
-        console.log("+++TodoItem saved successfully " + newUser)
+      return new Promise((resolve, reject) => {
+        newUser.save((err, user) => {
+          if (err) {
+            console.log('---TodoItem save failed ' + err)
+            reject(err)
+          } else {
+            console.log('+++TodoItem saved successfully ' + user)
+            resolve(newUser)
+            return newUser
+          }
+        })
       })
 
-      return newUser
+
+
+
     }
   },
 }

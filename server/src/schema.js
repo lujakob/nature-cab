@@ -26,7 +26,7 @@ input RideInput {
 }
 
 type User {
-  id: ID!
+  _id: ID!
   userId: Int!
   name: String!
   email: String!

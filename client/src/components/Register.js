@@ -73,10 +73,7 @@ class Register extends Component {
 
     await this.props.createUserMutation({
       variables: {user: newUser},
-      update: (store, {data: {createUser}}) => {
-
-console.log('addUser', createUser)
-      }
+      update: (store, {data: {createUser}}) => {}
     })
 
     this.setState({name: '', email: '', password: '', status: null})
