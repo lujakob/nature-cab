@@ -1,4 +1,5 @@
 import USER from './models/user'
+import RIDE from './models/ride'
 import bcrypt from 'bcrypt'
 import {saltRounds} from '../constants'
 
@@ -67,17 +68,27 @@ export const resolvers = {
   },
   Mutation: {
     addRide: (root, {ride}) => {
-      const newRide = {
-        id: String(nextRideId++),
-        userId: ride.userId,
-        name: ride.name,
-        start: ride.start,
-        end: ride.end,
-        seats: ride.seats,
-        activity: ride.activity
-      }
-      rideList.push(newRide)
-      return newRide
+      return new Promise((resolve, reject) => {
+        const newRide = new RIDE({
+          userId: ride.userId,
+          name: ride.name,
+          start: ride.start,
+          end: ride.end,
+          seats: ride.seats,
+          activity: ride.activity
+        })
+
+        // save ride
+        newRide.save((err, ride) => {
+          if (err) {
+            reject(err)
+          } else {
+            console.log(newRide);
+            return resolve(newRide)
+
+          }
+        }).catch(err => console.log(err))
+      })
     },
     createUser: (root, {user}) => {
 
@@ -103,11 +114,9 @@ export const resolvers = {
               }
               reject(err)
             } else {
-
-              resolve(newUser)
-              return newUser
+              return resolve(newUser)
             }
-          })
+          }).catch(err => console.log(err))
         }).catch(err => console.log(err))
 
       })

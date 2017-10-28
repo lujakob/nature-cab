@@ -8,21 +8,21 @@ import { resolvers } from './resolvers';
 const typeDefs = `
 type Ride {
   id: ID!
-  userId: String!
+  userId: Int!
   name: String!
   start: String!
   end: String!
   activity: String!
-  seats: String!
+  seats: Int!
 }
 
 input RideInput {
   name: String!
-  userId: String!
+  userId: Int!
   start: String!
   end: String!
   activity: String!
-  seats: String!
+  seats: Int!
 }
 
 type User {
