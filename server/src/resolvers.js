@@ -33,11 +33,17 @@ const isEmailValidationError = (err) => {
 export const resolvers = {
   Query: {
     rides: (root, args, context) => {
-      return rideList
+      return new Promise((resolve, reject) => {
+        RIDE.find((err, rides) => {
+          if (err) {
+            reject(err)
+          } else {
+            return resolve(rides)
+          }
+        })
+      })
     },
     myRides: (root, args, context) => {
-      console.log(args)
-      console.log(context)
       return rideList.filter(ride => ride.userId === parseInt(args.userId))
     },
     ride: (root, {id}, context) => {
