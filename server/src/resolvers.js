@@ -44,7 +44,15 @@ export const resolvers = {
       })
     },
     myRides: (root, args, context) => {
-      return rideList.filter(ride => ride.userId === parseInt(args.userId))
+      return new Promise((resolve, reject) => {
+        RIDE.find({'userId': args.userId}, (err, rides) => {
+          if (err) {
+            reject(err)
+          } else {
+            return resolve(rides)
+          }
+        })
+      })
     },
     ride: (root, {id}, context) => {
       return rides.find(ride => ride.id === id)
