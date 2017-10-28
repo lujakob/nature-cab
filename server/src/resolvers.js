@@ -1,4 +1,4 @@
-import USER from './user'
+import USER from './models/user'
 import bcrypt from 'bcrypt'
 import {saltRounds} from '../constants'
 

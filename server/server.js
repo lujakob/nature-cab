@@ -10,7 +10,7 @@ import bcrypt from 'bcrypt'
 
 
 import {schema} from './src/schema'
-import USER from './src/user'
+import USER from './src/models/user'
 
 import {JWT_SECRET} from './constants'
 
