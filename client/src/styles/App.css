@@ -30,3 +30,8 @@
 .error-message {
   padding:5px 0;
 }
+
+.ride-list-filter {
+  display:flex;
+  padding:10px 0;
+}

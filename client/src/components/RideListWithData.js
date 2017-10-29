@@ -1,21 +1,40 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {graphql} from 'react-apollo'
 import gql from 'graphql-tag';
 import RideList from './RideList'
+import RideListFilter from './RideListFilter'
 
-const RideListWithData = ({ data: {loading, error, rides }}) => {
+class RideListWithData extends Component {
 
-  if (loading) {
-    return <p>Loading ...</p>;
+  filterData = {
+    start: '',
+    end: ''
   }
-  if (error) {
-    return <p>{error.message}</p>;
+
+  render() {
+    if (this.props.data.loading) {
+      return <p>Loading ...</p>;
+    }
+    if (this.props.data.error) {
+      return <p>{this.props.data.error.message}</p>;
+    }
+
+    return (
+      <div>
+        <RideListFilter filterFunc={this._filter} />
+        <RideList rides={this.props.data.rides}/>
+      </div>
+    )
   }
 
-  return (
-    <RideList rides={rides}/>
-  )
-};
+  _filter = (data) => {
+    this.filterData = {
+      start: data.start,
+      end: data.end
+    }
+    console.log(this.filterData)
+  }
+}
 
 export const rideListQuery = gql`
   query RideListQuery {
