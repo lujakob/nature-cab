@@ -3,14 +3,6 @@ import RIDE from './models/ride'
 import bcrypt from 'bcrypt'
 import {saltRounds} from '../constants'
 
-let nextRideId = 4
-
-const rideList = [
-  {userId: 1, name: 'Lukas', start: 'Munich', end: 'Garmisch', seats: 3, activity: 'Hike', id: 1},
-  {userId: 2, name: 'Tom', start: 'Munich', end: 'Tegernsee', seats: 2, activity: 'Hike', id: 2},
-  {userId: 1, name: 'Lukas', start: 'Munich', end: 'Spitzingsee', seats: 2, activity: 'Bike', id: 3}
-]
-
 const removePassword = (data) => {
   if (Array.isArray(data)) {
     return data.map(item => {
@@ -33,8 +25,20 @@ const isEmailValidationError = (err) => {
 export const resolvers = {
   Query: {
     rides: (root, args, context) => {
+      let filter = {}
+
+      // add 'start' filter
+      if (args.start && args.start.length > 0) {
+        Object.assign(filter, {start: args.start})
+      }
+
+      // add 'end' filter
+      if (args.end && args.end.length > 0) {
+        Object.assign(filter, {end: args.end})
+      }
+
       return new Promise((resolve, reject) => {
-        RIDE.find((err, rides) => {
+        RIDE.find(filter, (err, rides) => {
           if (err) {
             reject(err)
           } else {

@@ -4,12 +4,13 @@ import gql from 'graphql-tag';
 import RideList from './RideList'
 import RideListFilter from './RideListFilter'
 
+let filterData = {
+  start: '',
+  end: ''
+}
+
 class RideListWithData extends Component {
 
-  filterData = {
-    start: '',
-    end: ''
-  }
 
   render() {
     if (this.props.data.loading) {
@@ -21,24 +22,25 @@ class RideListWithData extends Component {
 
     return (
       <div>
-        <RideListFilter filterFunc={this._filter} />
+        <RideListFilter filterFunc={this._filter} start={filterData.start} end={filterData.end}/>
         <RideList rides={this.props.data.rides}/>
       </div>
     )
   }
 
   _filter = (data) => {
-    this.filterData = {
+    filterData = {
       start: data.start,
       end: data.end
     }
-    console.log(this.filterData)
+
+    this.props.data.refetch(filterData)
   }
 }
 
 export const rideListQuery = gql`
-  query RideListQuery {
-    rides {
+  query RideListQuery($start: String, $end: String) {
+    rides(start: $start, end: $end) {
       id
       name
       start

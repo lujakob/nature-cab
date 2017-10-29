@@ -77,7 +77,7 @@ db.dropCollection('RideList').then((err, result) => {
 const rideList = [
   {userId: 1, name: 'Lukas', start: 'Munich', end: 'Garmisch', seats: 3, activity: 'Hike', id: 1},
   {userId: 2, name: 'Tom', start: 'Munich', end: 'Tegernsee', seats: 2, activity: 'Hike', id: 2},
-  {userId: 1, name: 'Lukas', start: 'Munich', end: 'Spitzingsee', seats: 2, activity: 'Bike', id: 3}
+  {userId: 1, name: 'Lukas', start: 'Augsburg', end: 'Spitzingsee', seats: 2, activity: 'Bike', id: 3}
 ]
 
 rideList.map(ride => {

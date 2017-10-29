@@ -99,7 +99,7 @@ class Login extends Component {
     if (response.ok) {
       return await response.json()
     } else {
-      return response;
+      return response
     }
   }
 }

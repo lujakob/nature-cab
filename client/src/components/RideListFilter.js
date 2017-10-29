@@ -3,8 +3,8 @@ import React, {Component} from 'react'
 class RideListFilter extends Component {
 
   state = {
-    start: '',
-    end: '',
+    start: this.props.start ? this.props.start : '',
+    end: this.props.end ? this.props.end : '',
     activity: ''
   }
 
