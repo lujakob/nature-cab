@@ -4,13 +4,15 @@ import gql from 'graphql-tag';
 import RideList from './RideList'
 import RideListFilter from './RideListFilter'
 
-let filterData = {
-  start: '',
-  end: ''
-}
 
 class RideListWithData extends Component {
 
+  state = {
+    filterData: {
+      start: '',
+      end: ''
+    }
+  }
 
   render() {
     if (this.props.data.loading) {
@@ -22,19 +24,17 @@ class RideListWithData extends Component {
 
     return (
       <div>
-        <RideListFilter filterFunc={this._filter} start={filterData.start} end={filterData.end}/>
+        <RideListFilter filterFunc={this._filter} start={this.state.filterData.start} end={this.state.filterData.end}/>
         <RideList rides={this.props.data.rides}/>
       </div>
     )
   }
 
-  _filter = (data) => {
-    filterData = {
-      start: data.start,
-      end: data.end
-    }
-
-    this.props.data.refetch(filterData)
+  _filter = ({start, end}) => {
+    this.setState({filterData: {
+      start: start,
+      end: end
+    }}, () => this.props.data.refetch(this.state.filterData))
   }
 }
 
