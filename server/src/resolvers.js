@@ -37,6 +37,11 @@ export const resolvers = {
         Object.assign(filter, {end: args.end})
       }
 
+      // add 'activity' filter
+      if (args.activity && args.activity.length > 0) {
+        Object.assign(filter, {activity: args.activity})
+      }
+
       return new Promise((resolve, reject) => {
         RIDE.find(filter, (err, rides) => {
           if (err) {

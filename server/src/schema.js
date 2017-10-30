@@ -40,7 +40,7 @@ input UserInput {
 }
 
 type Query {
-  rides(start: String, end: String): [Ride]
+  rides(start: String, end: String, activity: String): [Ride]
   ride(id: ID!): Ride
   myRides(userId: ID!): [Ride]
   users: [User]

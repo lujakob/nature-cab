@@ -10,7 +10,8 @@ class RideListWithData extends Component {
   state = {
     filterData: {
       start: '',
-      end: ''
+      end: '',
+      activity: ''
     }
   }
 
@@ -24,23 +25,34 @@ class RideListWithData extends Component {
 
     return (
       <div>
-        <RideListFilter filterFunc={this._filter} start={this.state.filterData.start} end={this.state.filterData.end}/>
-        <RideList rides={this.props.data.rides}/>
+        <RideListFilter
+          filterFunc={this._filter}
+          start={this.state.filterData.start}
+          end={this.state.filterData.end}
+          activity={this.state.filterData.activity}
+        />
+        {this.props.data.rides.length === 0 &&
+          <p>Sorry, your filter has no results.</p>
+        }
+        {this.props.data.rides.length > 0 &&
+          <RideList rides={this.props.data.rides}/>
+        }
       </div>
     )
   }
 
-  _filter = ({start, end}) => {
+  _filter = ({start, end, activity}) => {
     this.setState({filterData: {
       start: start,
-      end: end
+      end: end,
+      activity: activity,
     }}, () => this.props.data.refetch(this.state.filterData))
   }
 }
 
 export const rideListQuery = gql`
-  query RideListQuery($start: String, $end: String) {
-    rides(start: $start, end: $end) {
+  query RideListQuery($start: String, $end: String, $activity: String) {
+    rides(start: $start, end: $end, activity: $activity) {
       id
       name
       start

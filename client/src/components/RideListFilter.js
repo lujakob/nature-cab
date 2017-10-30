@@ -1,21 +1,48 @@
 import React, {Component} from 'react'
+import {ACTIVITIES} from '../constants'
 
 class RideListFilter extends Component {
 
   state = {
     start: this.props.start ? this.props.start : '',
     end: this.props.end ? this.props.end : '',
-    activity: ''
+    activity: this.props.activity ? this.props.activity : '',
   }
 
   render() {
     return (
       <div className="ride-list-filter">
         <div className="ride-list-filter-field">
-          <input type="text" placeholder="Start" value={this.state.start} name="start" onChange={this._onChange}/>
+          <input
+            type="text"
+            placeholder="Start"
+            value={this.state.start}
+            name="start"
+            onChange={this._onChange}
+          />
         </div>
         <div className="ride-list-filter-field">
-          <input type="text" placeholder="Start" value={this.state.end} name="end" onChange={this._onChange}/>
+          <input
+            type="text"
+            placeholder="End"
+            value={this.state.end}
+            name="end"
+            onChange={this._onChange}
+          />
+        </div>
+        <div className="ride-list-filter-field">
+          <select
+            onChange={this._onChange}
+            name="activity"
+          >
+            {Object.keys(ACTIVITIES).map((activity, index) => {
+              return <option
+                key={index}
+                value={activity}
+                selected={this.state.activity === activity ? 'selected' : ''}
+              >{activity}</option>
+            })}
+          </select>
         </div>
         <div className="ride-list-filter-field">
           <div

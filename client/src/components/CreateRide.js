@@ -2,7 +2,12 @@ import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql}from 'react-apollo'
 import {rideListQuery} from './RideListWithData'
-import {GC_USER_ID} from '../constants'
+import {GC_USER_ID, ACTIVITIES} from '../constants'
+
+const VIEWS = {
+  FORM: 'FORM',
+  SUCCESS: 'SUCCESS'
+}
 
 class CreateRide extends Component {
   state = {
@@ -11,73 +16,71 @@ class CreateRide extends Component {
       start: '',
       end: '',
       activity: '',
-      seats: ''
+      seats: 3
     },
-    error: null
+    error: null,
+    view: VIEWS.FORM
   }
 
   render() {
-    return (
-      <div>
+    if (this.state.view === VIEWS.FORM) {
+      return (
         <div>
-          <input
-            type="text"
-            placeholder="Name"
-            value={this.state.ride.name}
-            onChange={(evt) => this._setFieldValue('name', evt.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Start"
-            value={this.state.ride.start}
-            onChange={(evt) => this._setFieldValue('start', evt.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="End"
-            value={this.state.ride.end}
-            onChange={(evt) => this._setFieldValue('end', evt.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Activity"
-            value={this.state.ride.activity}
-            onChange={(evt) => this._setFieldValue('activity', evt.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Seats"
-            value={this.state.ride.seats}
-            onChange={(evt) => this._setFieldValue('seats', evt.target.value)}
-          />
-        </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Name"
+              value={this.state.ride.name}
+              onChange={(evt) => this._setFieldValue('name', evt.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Start"
+              value={this.state.ride.start}
+              onChange={(evt) => this._setFieldValue('start', evt.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="End"
+              value={this.state.ride.end}
+              onChange={(evt) => this._setFieldValue('end', evt.target.value)}
+            />
+          </div>
+          <div>
+            <select
+              onChange={(evt) => this._setFieldValue('activity', evt.target.value)}>
+              {Object.keys(ACTIVITIES).map((activity, index) => {
+                return <option key={index} value={activity}>{activity}</option>
+              })}
+            </select>
+          </div>
 
-        {this.state.error &&
-        <div className="error-message dark-red">
-          Please fill in all fields.
-        </div>
-        }
+          {this.state.error &&
+          <div className="error-message dark-red">
+            Please fill in all fields.
+          </div>
+          }
 
-        <div>
-          <div
-            className='pointer mr2 button'
-            onClick={() => this._submit()}
-          >
-            Submit
+          <div>
+            <div
+              className='pointer mr2 button'
+              onClick={() => this._submit()}
+            >
+              Submit
+            </div>
           </div>
         </div>
+      )
+    } else if (this.state.view === VIEWS.SUCCESS) {
+      return (
+        <div>Your ride was saved successfully.</div>
+      )
+    }
 
-      </div>
-
-    )
   }
 
   /**
@@ -110,6 +113,10 @@ class CreateRide extends Component {
           ride
         },
         update: (store, { data: { addRide } }) => {
+
+          // show success message
+          this.setState({view: VIEWS.SUCCESS})
+          
           // if rideListQuery was not queried yet, the store has no 'rides' prop and will err
           try {
             const data = store.readQuery({ query: rideListQuery });
