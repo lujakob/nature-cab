@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql}from 'react-apollo'
 import {rideListQuery} from './RideListWithData'
+import {GC_USER_ID} from '../constants'
 
 class CreateRide extends Component {
   state = {
@@ -99,10 +100,11 @@ class CreateRide extends Component {
 
     if (this._formIsValid(this.state.ride)) {
 
+      const userId = localStorage.getItem(GC_USER_ID)
       const {ride} = this.state
+
       // add userId
-      // @Todo get from loggedIn user
-      ride.userId = 1
+      ride.userId = userId
       await this.props.addRideMutation({
         variables: {
           ride
