@@ -1,3 +1,6 @@
+export const saltRounds = 10
+export const JWT_SECRET = '$2a$10$pMRidZQKptdTysstQtjsN.S0c'
+
 export const GC_USER_ID = 'graphcool-user-id'
 export const GC_AUTH_TOKEN = 'graphcool-auth-token'
 
@@ -11,4 +14,9 @@ export const VALIDATION = {
   VALIDATION_EMAIL_UNIQUE: 'VALIDATION_EMAIL_UNIQUE'
 }
 
-export const JWT_SECRET = '$2a$10$pMRidZQKptdTysstQtjsN.S0c'
+export const ACTIVITIES = {
+  NONE: 'NONE',
+  HIKE: 'HIKE',
+  SKI: 'SKI',
+  TRAILRUN: 'TRAILRUN'
+}
