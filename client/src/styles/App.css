@@ -1,3 +1,5 @@
+@import '../../node_modules/react-datepicker/dist/react-datepicker.min.css';
+
 .App {
   text-align: center;
 }
@@ -46,3 +48,35 @@
   margin-right:10px;
 }
 
+.ride-form-fieldset {
+  border: 1px solid #ddd;
+  background-color:#f2f2f2;
+  padding:20px;
+  border-radius:2px;
+}
+.ride-form-fieldset h3 {
+  font-weight:normal;
+  border-bottom:1px solid #ddd;
+  margin:-20px -20px  20px;
+  padding:20px 20px 20px;
+}
+
+.ride-form-row {
+  margin-bottom:10px;
+}
+
+.ride-form-row label {
+  display:block;
+}
+
+.ride-form-row input, .ride-form-row select {
+  border:1px solid #ddd;
+  border-radius:2px;
+  padding:3px;
+  width:100%;
+}
+
+.ride-form-row--button {
+  margin-top:20px;
+  text-align:right;
+}

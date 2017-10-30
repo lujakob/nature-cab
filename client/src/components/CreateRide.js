@@ -2,6 +2,9 @@ import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql}from 'react-apollo'
 import {rideListQuery} from './RideListWithData'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
+import "moment/locale/de"
 import {GC_USER_ID, ACTIVITIES} from '../constants'
 
 const VIEWS = {
@@ -10,54 +13,88 @@ const VIEWS = {
 }
 
 class CreateRide extends Component {
-  state = {
-    ride: {
-      name: '',
-      start: '',
-      end: '',
-      activity: '',
-      seats: 3
-    },
-    error: null,
-    view: VIEWS.FORM
+
+
+  constructor(props) {
+    super(props)
+
+    console.log(moment.locale('de'));
+    console.log(moment().add(4, 'days').format('LL'))
+
+    this.state = {
+      ride: {
+        name: '',
+        start: '',
+        end: '',
+        activity: '',
+        seats: 3,
+        startDate: moment().add(4, 'days')
+      },
+      error: null,
+      view: VIEWS.FORM
+    }
+
+
+    this._handleDatePicker = this._handleDatePicker.bind(this)
+  }
+  componentWillMount() {
+
   }
 
   render() {
+
     if (this.state.view === VIEWS.FORM) {
       return (
         <div>
-          <div>
-            <input
-              type="text"
-              placeholder="Name"
-              value={this.state.ride.name}
-              onChange={(evt) => this._setFieldValue('name', evt.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Start"
-              value={this.state.ride.start}
-              onChange={(evt) => this._setFieldValue('start', evt.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="End"
-              value={this.state.ride.end}
-              onChange={(evt) => this._setFieldValue('end', evt.target.value)}
-            />
-          </div>
-          <div>
-            <select
-              onChange={(evt) => this._setFieldValue('activity', evt.target.value)}>
-              {Object.keys(ACTIVITIES).map((activity, index) => {
-                return <option key={index} value={activity}>{activity}</option>
-              })}
-            </select>
-          </div>
+          <fieldset className="ride-form-fieldset">
+            <h3>Abfahrt und Ankunft</h3>
+
+            <div className="ride-form-row">
+              <label htmlFor="ride-start">Wo geht's los?</label>
+              <input
+                type="text"
+                placeholder="Zum Beispiel: Marienplatz, München"
+                value={this.state.ride.start}
+                name="ride-start"
+                onChange={(evt) => this._setFieldValue('start', evt.target.value)}
+              />
+            </div>
+            <div className="ride-form-row">
+              <label htmlFor="ride-end">Wohin geht die Fahrt?</label>
+              <input
+                type="text"
+                placeholder="Seesauna, Tegernsee"
+                value={this.state.ride.end}
+                name="ride-end"
+                onChange={(evt) => this._setFieldValue('end', evt.target.value)}
+              />
+            </div>
+            <div className="ride-form-row">
+              <label htmlFor="ride-activity">Welche Aktivität haben Sie vor?</label>
+              <select
+                onChange={(evt) => this._setFieldValue('activity', evt.target.value)}
+                name="ride-activity"
+              >
+                {Object.keys(ACTIVITIES).map((activity, index) => {
+                  return <option key={index} value={activity}>{activity}</option>
+                })}
+              </select>
+            </div>
+          </fieldset>
+
+          <fieldset className="ride-form-fieldset">
+            <h3>Abfahrt und Ankunft</h3>
+
+            <div className="ride-form-row">
+              <label htmlFor="ride-start">Datum und Uhrzeit</label>
+              <DatePicker
+                selected={this.state.ride.startDate}
+                onChange={this._handleDatePicker}
+                dateFormat="LL"
+              />
+            </div>
+          </fieldset>
+
 
           {this.state.error &&
           <div className="error-message dark-red">
@@ -65,13 +102,13 @@ class CreateRide extends Component {
           </div>
           }
 
-          <div>
-            <div
-              className='pointer mr2 button'
+          <div className="ride-form-row ride-form-row--button">
+            <button
+              className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
               onClick={() => this._submit()}
             >
               Submit
-            </div>
+            </button>
           </div>
         </div>
       )
@@ -81,6 +118,15 @@ class CreateRide extends Component {
       )
     }
 
+  }
+
+  _handleDatePicker(date) {
+    this.setState({
+      ride: {
+        ...this.state.ride,
+        startDate: date
+      },
+    })
   }
 
   /**
