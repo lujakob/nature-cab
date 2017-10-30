@@ -116,7 +116,7 @@ class CreateRide extends Component {
 
           // show success message
           this.setState({view: VIEWS.SUCCESS})
-          
+
           // if rideListQuery was not queried yet, the store has no 'rides' prop and will err
           try {
             const data = store.readQuery({ query: rideListQuery });

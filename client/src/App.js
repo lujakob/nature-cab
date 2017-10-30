@@ -5,6 +5,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import Header from './components/Header'
 import RideListWithData from './components/RideListWithData'
 import MyRidesWithData from './components/MyRidesWithData'
+import RideDetail from './components/RideDetail'
 import CreateRide from './components/CreateRide'
 import Login from './components/Login'
 import Register from './components/Register'
@@ -38,6 +39,7 @@ class App extends Component {
               <Route exact path='/login' component={Login}/>
               <Route exact path='/ridelist' component={RideListWithData}/>
               <Route exact path='/myrides' component={MyRidesWithData}/>
+              <Route exact path='/ride/:id' component={RideDetail}/>
               <Route exact path='/create' component={CreateRide}/>
               <Route exact path='/register' component={Register}/>
             </Switch>

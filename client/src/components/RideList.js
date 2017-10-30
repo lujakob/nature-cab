@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 
 class RideList extends Component {
 
@@ -11,7 +12,7 @@ class RideList extends Component {
             <div className="fl w-20">{ride.end}</div>
             <div className="fl w-20">{ride.seats}</div>
             <div className="fl w-20">{ride.activity}</div>
-            <div className="fl w-20">{ride.name}</div>
+            <div className="fl w-20"><Link to={`/ride/${ride.id}`}>Detail</Link></div>
           </div>
         ))
         }
