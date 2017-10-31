@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import USER from './src/models/user'
 import RIDE from './src/models/ride'
+import moment from 'moment'
+import 'moment/locale/de'
 
 import {saltRounds, ACTIVITIES} from './constants'
 
@@ -74,10 +76,12 @@ db.dropCollection('RideList').then((err, result) => {
 
 
 // insert users into UserList
+moment.locale('de')
+const mockDate = moment().add(7, 'days').toDate()
 const rideList = [
-  {userId: 1, name: 'Lukas', start: 'Munich', end: 'Garmisch', seats: 3, activity: ACTIVITIES.HIKE, id: 1},
-  {userId: 2, name: 'Tom', start: 'Munich', end: 'Tegernsee', seats: 2, activity: ACTIVITIES.HIKE, id: 2},
-  {userId: 1, name: 'Lukas', start: 'Augsburg', end: 'Spitzingsee', seats: 2, activity: ACTIVITIES.TRAILRUN, id: 3}
+  {userId: 1, start: 'Munich', end: 'Garmisch', seats: 3, activity: ACTIVITIES.HIKE, id: 1, startDate: mockDate},
+  {userId: 2, start: 'Munich', end: 'Tegernsee', seats: 2, activity: ACTIVITIES.HIKE, id: 2, startDate: mockDate},
+  {userId: 1, start: 'Augsburg', end: 'Spitzingsee', seats: 2, activity: ACTIVITIES.TRAILRUN, id: 3, startDate: mockDate}
 ]
 
 rideList.map(ride => {

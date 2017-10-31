@@ -94,11 +94,12 @@ export const resolvers = {
       return new Promise((resolve, reject) => {
         const newRide = new RIDE({
           userId: ride.userId,
-          name: ride.name,
           start: ride.start,
           end: ride.end,
           seats: ride.seats,
-          activity: ride.activity
+          activity: ride.activity,
+          startDate: ride.startDate,
+          returnInfo: ride.returnInfo
         })
 
         // save ride
@@ -106,7 +107,6 @@ export const resolvers = {
           if (err) {
             reject(err)
           } else {
-            console.log(newRide);
             return resolve(newRide)
 
           }

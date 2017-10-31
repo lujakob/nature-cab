@@ -4,11 +4,21 @@ import {graphql}from 'react-apollo'
 import {rideListQuery} from './RideListWithData'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
-import "moment/locale/de"
-import {GC_USER_ID, ACTIVITIES} from '../constants'
+import 'moment/locale/de'
+import {GC_USER_ID, ACTIVITIES, HOURS, MINS} from '../constants'
 
-const hours = ['', '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
-const mins = ['', '00', '15', '30', '45']
+const rideSkipMandatoryFields = ['returnInfo']
+
+const resetRide = {
+  start: '',
+  end: '',
+  activity: '',
+  seats: 3,
+  startDate: '',
+  startTimeHour: '',
+  startTimeMin: '',
+  returnInfo: ''
+}
 
 const VIEWS = {
   FORM: 'FORM',
@@ -17,27 +27,15 @@ const VIEWS = {
 
 class CreateRide extends Component {
 
-
   constructor(props) {
     super(props)
     moment.locale('de')
 
     this.state = {
-      ride: {
-        name: '',
-        start: '',
-        end: '',
-        activity: '',
-        seats: 3,
-        startDate: moment().add(4, 'days'),
-        startTimeHour: '',
-        startTimeMin: ''
-      },
+      ride: resetRide,
       error: null,
       view: VIEWS.FORM
     }
-
-    this._handleDatePicker = this._handleDatePicker.bind(this)
   }
 
 
@@ -55,25 +53,25 @@ class CreateRide extends Component {
                 type="text"
                 placeholder="Zum Beispiel: Marienplatz, München"
                 value={this.state.ride.start}
-                name="ride-start"
-                onChange={(evt) => this._setFieldValue('start', evt.target.value)}
+                name="start"
+                onChange={this._setFieldValue}
               />
             </div>
             <div className="ride-form-row">
               <label htmlFor="ride-end">Wohin geht die Fahrt?</label>
               <input
                 type="text"
-                placeholder="Seesauna, Tegernsee"
+                placeholder="Zum Beispiel: Seesauna, Tegernsee"
                 value={this.state.ride.end}
-                name="ride-end"
-                onChange={(evt) => this._setFieldValue('end', evt.target.value)}
+                name="end"
+                onChange={this._setFieldValue}
               />
             </div>
             <div className="ride-form-row">
               <label htmlFor="ride-activity">Welche Aktivität haben Sie vor?</label>
               <select
-                onChange={(evt) => this._setFieldValue('activity', evt.target.value)}
-                name="ride-activity"
+                onChange={this._setFieldValue}
+                name="activity"
               >
                 {Object.keys(ACTIVITIES).map((activity, index) => {
                   return <option key={index} value={activity}>{activity}</option>
@@ -89,7 +87,7 @@ class CreateRide extends Component {
               <label htmlFor="ride-start">Abfahrt</label>
               <div className="datepicker-wrapper">
                 <DatePicker
-                  popperClassName="date-picker-container"
+                  placeholderText={moment().add(4, 'days').format('LL')}
                   selected={this.state.ride.startDate}
                   onChange={this._handleDatePicker}
                   dateFormat="LL"
@@ -97,24 +95,24 @@ class CreateRide extends Component {
                 <select
                   className="select-start-time-hour"
                   onChange={(evt) => {
-                    this._setFieldValue('startTimeHour', evt.target.value)
+                    this._setFieldValue(evt)
                     this._syncStartTimeFields(evt.target.value)
                   }}
                   value={this.state.ride.startTimeHour}
-                  name="ride-start-time-hour"
+                  name="startTimeHour"
                 >
-                  {hours.map((hour, index) => {
+                  {HOURS.map((hour, index) => {
                     return <option key={index} value={hour}>{hour}</option>
                   })}
                 </select>
                 <div className="select-start-time-spacer">:</div>
                 <select
                   className="select-start-time-min"
-                  onChange={(evt) => this._setFieldValue('startTimeMin', evt.target.value)}
+                  onChange={this._setFieldValue}
                   value={this.state.ride.startTimeMin}
-                  name="ride-start-time-min"
+                  name="startTimeMin"
                 >
-                  {mins.map((min, index) => {
+                  {MINS.map((min, index) => {
                     return <option key={index} value={min}>{min}</option>
                   })}
                 </select>
@@ -125,7 +123,11 @@ class CreateRide extends Component {
             </div>
             <div className="ride-form-row">
               <label htmlFor="ride-return-info">Infos zur Rückfahrt</label>
-              <textarea name="ride-return-info"></textarea>
+              <textarea
+                name="returnInfo"
+                placeholder="Zum Beispiel: Rückfahrt um 16:00 Uhr am Parkplatz"
+                onChange={this._setFieldValue}
+              ></textarea>
             </div>
           </fieldset>
 
@@ -153,7 +155,7 @@ class CreateRide extends Component {
 
   }
 
-  _handleDatePicker(date) {
+  _handleDatePicker = (date) => {
     this.setState({
       ride: {
         ...this.state.ride,
@@ -164,23 +166,24 @@ class CreateRide extends Component {
 
   /**
    * set field value on state, reset error prop
-   * @param key
-   * @param val
+   * @param evt
    * @private
    */
-  _setFieldValue(key, val) {
+  _setFieldValue = (evt) => {
+    let {name, value} = evt.target
+
     let newState = Object.assign({}, this.state, {error: null})
-    newState['ride'][key] = val
+    newState['ride'][name] = value
     this.setState(newState)
   }
 
-  _syncStartTimeFields(value) {
+  _syncStartTimeFields = (value) => {
     let newState = null
     if (this.state.ride.startTimeMin === '' && value !== '') {
       newState = {
         ride: {
           ...this.state.ride,
-          startTimeMin: '15'
+          startTimeMin: '00'
         }
       }
     }
@@ -201,16 +204,13 @@ class CreateRide extends Component {
    */
   _submit = async () => {
 
-    if (this._formIsValid(this.state.ride)) {
+    let rideData = this._buildRide()
 
-      const userId = localStorage.getItem(GC_USER_ID)
-      const {ride} = this.state
+    if (this._formIsValid(rideData)) {
 
-      // add userId
-      ride.userId = userId
       await this.props.addRideMutation({
         variables: {
-          ride
+          ride: rideData
         },
         update: (store, { data: { addRide } }) => {
 
@@ -219,25 +219,42 @@ class CreateRide extends Component {
 
           // if rideListQuery was not queried yet, the store has no 'rides' prop and will err
           try {
-            const data = store.readQuery({ query: rideListQuery });
-            data.rides.push(Object.assign({}, {id: Math.round(Math.random() * -1000000)}, addRide));
+            const data = store.readQuery({ query: rideListQuery, variables: {start: '', end: '', activity: ''} });
+            data.rides.push(Object.assign({}, addRide));
             store.writeQuery({ query: rideListQuery, data });
           } catch(e) {
-            console.log('Update store not possible. Maybe it was not fetched yet.')
+            console.log('Update store not possible. Maybe it was not fetched yet.', e)
           }
         }
       })
 
-      this.setState({'ride': {
-        name: '',
-        start: '',
-        end: '',
-        activity: '',
-        seats: ''
-      }})
+      this.setState({'ride': resetRide})
+
     } else {
       this.setState({error: true})
     }
+  }
+
+  /**
+   * _buildRide
+   * - add userId
+   * - add date object
+   * @returns {*}
+   * @private
+   */
+  _buildRide() {
+    return Object.assign({}, {
+      userId: localStorage.getItem(GC_USER_ID),
+      start: this.state.ride.start,
+      end: this.state.ride.end,
+      activity: this.state.ride.activity,
+      seats: this.state.ride.seats,
+      startDate: this.state.ride.startDate
+        .add(parseInt(this.state.ride.startTimeHour, 10), 'hours')
+        .add(parseInt(this.state.ride.startTimeMin, 10), 'minutes')
+        .toDate(),
+      returnInfo: this.state.ride.returnInfo
+    })
   }
 
   /**
@@ -246,10 +263,13 @@ class CreateRide extends Component {
    * @returns {boolean}
    * @private
    */
-  _formIsValid(ride) {
+  _formIsValid = (ride) => {
     for (let prop in ride) {
-      if (!ride[prop])
+      let isMandatory = !rideSkipMandatoryFields.includes(prop)
+
+      if (isMandatory && !ride[prop]) {
         return false
+      }
     }
     return true
   }
@@ -259,13 +279,16 @@ class CreateRide extends Component {
 const AddRideMutation = gql`
   mutation addRide($ride: RideInput!) {
     addRide(ride: $ride) {
-      name
+      id
+      userId
       start
       end
       activity
       seats
+      startDate
+      returnInfo
     }
   }
 `
 
-export default graphql(AddRideMutation,{name: 'addRideMutation'})(CreateRide)
+export default graphql(AddRideMutation, {name: 'addRideMutation'})(CreateRide)

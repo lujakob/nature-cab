@@ -7,11 +7,12 @@ const Schema = mongoose.Schema
 const rideSchema = new Schema({
   id: Number,
   userId: {type: Number, required: true},
-  name: {type: String, required: true},
   start: {type: String, required: true},
   end: {type: String, required: true},
   seats: {type: Number},
-  activity: {type: String}
+  activity: {type: String},
+  startDate: {type: String, required: true},
+  returnInfo: {type: String}
 }, {collection: 'RideList'})
 
 autoIncrement.initialize(mongoose.connection);

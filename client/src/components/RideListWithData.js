@@ -15,6 +15,10 @@ class RideListWithData extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.data.refetch(this.state.filterData)
+  }
+
   render() {
     if (this.props.data.loading) {
       return <p>Loading ...</p>;
@@ -54,13 +58,15 @@ export const rideListQuery = gql`
   query RideListQuery($start: String, $end: String, $activity: String) {
     rides(start: $start, end: $end, activity: $activity) {
       id
-      name
+      userId
       start
       end
       activity
       seats
+      startDate
+      returnInfo
     }
   }
 `;
 
-export default graphql(rideListQuery)(RideListWithData)
+export default graphql(rideListQuery, {options: {variables: {start: '', end: '', activity: ''}}})(RideListWithData)

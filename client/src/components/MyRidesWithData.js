@@ -22,11 +22,12 @@ export const myRidesQuery = gql`
   query MyRidesQuery($userId: ID!) {
     myRides(userId: $userId) {
       id
-      name
       start
       end
       activity
       seats
+      startDate
+      returnInfo
     }
   }
 `;

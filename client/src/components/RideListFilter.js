@@ -33,13 +33,13 @@ class RideListFilter extends Component {
         <div className="ride-list-filter-field">
           <select
             onChange={this._onChange}
+            value={this.state.activity}
             name="activity"
           >
             {Object.keys(ACTIVITIES).map((activity, index) => {
               return <option
                 key={index}
                 value={activity}
-                selected={this.state.activity === activity ? 'selected' : ''}
               >{activity}</option>
             })}
           </select>

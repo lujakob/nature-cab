@@ -9,20 +9,22 @@ const typeDefs = `
 type Ride {
   id: ID!
   userId: Int!
-  name: String!
   start: String!
   end: String!
   activity: String!
   seats: Int!
+  startDate: String!
+  returnInfo: String
 }
 
 input RideInput {
-  name: String!
   userId: Int!
   start: String!
   end: String!
   activity: String!
   seats: Int!
+  startDate: String!
+  returnInfo: String
 }
 
 type User {
