@@ -7,6 +7,9 @@ import moment from 'moment'
 import "moment/locale/de"
 import {GC_USER_ID, ACTIVITIES} from '../constants'
 
+const hours = ['', '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
+const mins = ['', '00', '15', '30', '45']
+
 const VIEWS = {
   FORM: 'FORM',
   SUCCESS: 'SUCCESS'
@@ -17,9 +20,7 @@ class CreateRide extends Component {
 
   constructor(props) {
     super(props)
-
-    console.log(moment.locale('de'));
-    console.log(moment().add(4, 'days').format('LL'))
+    moment.locale('de')
 
     this.state = {
       ride: {
@@ -28,18 +29,17 @@ class CreateRide extends Component {
         end: '',
         activity: '',
         seats: 3,
-        startDate: moment().add(4, 'days')
+        startDate: moment().add(4, 'days'),
+        startTimeHour: '',
+        startTimeMin: ''
       },
       error: null,
       view: VIEWS.FORM
     }
 
-
     this._handleDatePicker = this._handleDatePicker.bind(this)
   }
-  componentWillMount() {
 
-  }
 
   render() {
 
@@ -83,18 +83,51 @@ class CreateRide extends Component {
           </fieldset>
 
           <fieldset className="ride-form-fieldset">
-            <h3>Abfahrt und Ankunft</h3>
+            <h3>Datum und Uhrzeit</h3>
 
             <div className="ride-form-row">
-              <label htmlFor="ride-start">Datum und Uhrzeit</label>
-              <DatePicker
-                selected={this.state.ride.startDate}
-                onChange={this._handleDatePicker}
-                dateFormat="LL"
-              />
+              <label htmlFor="ride-start">Abfahrt</label>
+              <div className="datepicker-wrapper">
+                <DatePicker
+                  popperClassName="date-picker-container"
+                  selected={this.state.ride.startDate}
+                  onChange={this._handleDatePicker}
+                  dateFormat="LL"
+                />
+                <select
+                  className="select-start-time-hour"
+                  onChange={(evt) => {
+                    this._setFieldValue('startTimeHour', evt.target.value)
+                    this._syncStartTimeFields(evt.target.value)
+                  }}
+                  value={this.state.ride.startTimeHour}
+                  name="ride-start-time-hour"
+                >
+                  {hours.map((hour, index) => {
+                    return <option key={index} value={hour}>{hour}</option>
+                  })}
+                </select>
+                <div className="select-start-time-spacer">:</div>
+                <select
+                  className="select-start-time-min"
+                  onChange={(evt) => this._setFieldValue('startTimeMin', evt.target.value)}
+                  value={this.state.ride.startTimeMin}
+                  name="ride-start-time-min"
+                >
+                  {mins.map((min, index) => {
+                    return <option key={index} value={min}>{min}</option>
+                  })}
+                </select>
+                <div className="select-start-time-spacer select-start-time-spacer--time">Uhr</div>
+
+                <br style={{clear: "both"}}/>
+              </div>
+            </div>
+            <div className="ride-form-row">
+              <label htmlFor="ride-return-info">Infos zur Rückfahrt</label>
+              <textarea name="ride-return-info"></textarea>
             </div>
           </fieldset>
-
 
           {this.state.error &&
           <div className="error-message dark-red">
@@ -138,6 +171,27 @@ class CreateRide extends Component {
   _setFieldValue(key, val) {
     let newState = Object.assign({}, this.state, {error: null})
     newState['ride'][key] = val
+    this.setState(newState)
+  }
+
+  _syncStartTimeFields(value) {
+    let newState = null
+    if (this.state.ride.startTimeMin === '' && value !== '') {
+      newState = {
+        ride: {
+          ...this.state.ride,
+          startTimeMin: '15'
+        }
+      }
+    }
+    if (value === '') {
+      newState = {
+        ride: {
+          ...this.state.ride,
+          startTimeMin: ''
+        }
+      }
+    }
     this.setState(newState)
   }
 

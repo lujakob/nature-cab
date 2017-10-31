@@ -53,6 +53,7 @@
   background-color:#f2f2f2;
   padding:20px;
   border-radius:2px;
+  margin-bottom:20px;
 }
 .ride-form-fieldset h3 {
   font-weight:normal;
@@ -62,20 +63,70 @@
 }
 
 .ride-form-row {
-  margin-bottom:10px;
+  margin-bottom:20px;
 }
 
 .ride-form-row label {
   display:block;
+  padding-bottom:2px;
 }
 
 .ride-form-row input, .ride-form-row select {
   border:1px solid #ddd;
   border-radius:2px;
-  padding:3px;
+  padding:10px 10px 8px;
   width:100%;
+  font-size:16px;
 }
 
+
+.datepicker-wrapper {
+
+}
+
+.datepicker-wrapper > * {
+  float:left;
+}
+
+.datepicker-wrapper > div {
+  width: calc(100% - 120px)
+}
+
+.datepicker-wrapper > select {
+  width: 35px;
+  padding-left:7px;
+  padding-right:0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.select-start-time-spacer {
+  float:left;
+  width:12px !important;
+  text-align:center;
+  padding-top:10px;
+}
+.select-start-time-spacer--time {
+  width:32px !important;
+}
+.ride-form-row textarea {
+  width:100%;
+  height:80px;
+  border:1px solid #ddd;
+}
+.ride-form-row:last-child {
+  margin-bottom:0;
+}
+.react-datepicker-wrapper {
+  width: 100%;
+  display:block;
+}
+.react-datepicker__input-container {
+  width:100%;
+  display:block;
+}
+.react-datepicker__input-container input {
+  width: calc(100% - 10px);
+}
 .ride-form-row--button {
   margin-top:20px;
   text-align:right;
