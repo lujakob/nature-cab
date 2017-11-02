@@ -77,11 +77,12 @@ db.dropCollection('RideList').then((err, result) => {
 
 // insert users into UserList
 moment.locale('de')
-const mockDate = moment().add(7, 'days').toDate()
+
 const rideList = [
-  {userId: 1, start: 'Munich', end: 'Garmisch', seats: 3, activity: ACTIVITIES.HIKE, id: 1, startDate: mockDate},
-  {userId: 2, start: 'Munich', end: 'Tegernsee', seats: 2, activity: ACTIVITIES.HIKE, id: 2, startDate: mockDate},
-  {userId: 1, start: 'Augsburg', end: 'Spitzingsee', seats: 2, activity: ACTIVITIES.TRAILRUN, id: 3, startDate: mockDate}
+  {userId: 1, start: 'Munich', end: 'Garmisch', seats: 3, activity: ACTIVITIES.HIKE, id: 1, startDate: moment().add(-1, 'days').toDate()},
+  {userId: 2, start: 'Munich', end: 'Tegernsee', seats: 2, activity: ACTIVITIES.HIKE, id: 2, startDate: moment().toDate()},
+  {userId: 1, start: 'Augsburg', end: 'Spitzingsee', seats: 2, activity: ACTIVITIES.TRAILRUN, id: 3, startDate: moment().add(4, 'days').toDate()},
+  {userId: 1, start: 'Munich', end: 'Garmisch', seats: 2, activity: ACTIVITIES.TRAILRUN, id: 4, startDate: moment().add(4, 'days').toDate()}
 ]
 
 rideList.map(ride => {

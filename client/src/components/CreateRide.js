@@ -243,16 +243,18 @@ class CreateRide extends Component {
    * @private
    */
   _buildRide() {
+    let startDate = this.state.ride.startDate
+      .add(parseInt(this.state.ride.startTimeHour, 10), 'hours')
+      .add(parseInt(this.state.ride.startTimeMin, 10), 'minutes')
+      .toDate()
+    console.log(startDate)
     return Object.assign({}, {
       userId: localStorage.getItem(GC_USER_ID),
       start: this.state.ride.start,
       end: this.state.ride.end,
       activity: this.state.ride.activity,
       seats: this.state.ride.seats,
-      startDate: this.state.ride.startDate
-        .add(parseInt(this.state.ride.startTimeHour, 10), 'hours')
-        .add(parseInt(this.state.ride.startTimeMin, 10), 'minutes')
-        .toDate(),
+      startDate: startDate,
       returnInfo: this.state.ride.returnInfo
     })
   }

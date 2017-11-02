@@ -11,7 +11,8 @@ const rideSchema = new Schema({
   end: {type: String, required: true},
   seats: {type: Number},
   activity: {type: String},
-  startDate: {type: String, required: true},
+  createdAt: {type: Date, default: Date.now()},
+  startDate: {type: Date, required: true},
   returnInfo: {type: String}
 }, {collection: 'RideList'})
 

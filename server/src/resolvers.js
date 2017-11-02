@@ -2,6 +2,7 @@ import USER from './models/user'
 import RIDE from './models/ride'
 import bcrypt from 'bcrypt'
 import {saltRounds} from '../constants'
+import {getYesterday} from './utils'
 
 const removePassword = (data) => {
   if (Array.isArray(data)) {
@@ -41,6 +42,8 @@ export const resolvers = {
       if (args.activity && args.activity.length > 0) {
         Object.assign(filter, {activity: args.activity})
       }
+
+      Object.assign(filter, {startDate: {$gt: getYesterday()}})
 
       return new Promise((resolve, reject) => {
         RIDE
@@ -96,6 +99,7 @@ export const resolvers = {
   Mutation: {
     addRide: (root, {ride}) => {
       return new Promise((resolve, reject) => {
+
         const newRide = new RIDE({
           userId: ride.userId,
           start: ride.start,
