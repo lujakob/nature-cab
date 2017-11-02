@@ -43,24 +43,28 @@ export const resolvers = {
       }
 
       return new Promise((resolve, reject) => {
-        RIDE.find(filter, (err, rides) => {
-          if (err) {
-            reject(err)
-          } else {
-            return resolve(rides)
-          }
-        })
+        RIDE
+          .find(filter, (err, rides) => {
+            if (err) {
+              reject(err)
+            } else {
+              return resolve(rides)
+            }
+          })
+          .sort({startDate: 'asc'})
       })
     },
     myRides: (root, args, context) => {
       return new Promise((resolve, reject) => {
-        RIDE.find({'userId': args.userId}, (err, rides) => {
-          if (err) {
-            reject(err)
-          } else {
-            return resolve(rides)
-          }
-        })
+        RIDE
+          .find({'userId': args.userId}, (err, rides) => {
+            if (err) {
+              reject(err)
+            } else {
+              return resolve(rides)
+            }
+          })
+          .sort({startDate: 'asc'})
       })
     },
     ride: (root, {id}, context) => {
