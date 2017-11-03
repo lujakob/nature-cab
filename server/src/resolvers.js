@@ -71,28 +71,39 @@ export const resolvers = {
       })
     },
     ride: (root, {id}, context) => {
-      return rides.find(ride => ride.id === id)
+      return new Promise((resolve, reject) => {
+        RIDE
+          .findOne({'id': id}, (err, ride) => {
+            if (err) {
+              reject(err)
+            } else {
+              return resolve(ride)
+            }
+          })
+      })
     },
     users: (root, args, context) => {
       return new Promise((resolve, reject) => {
-        USER.find((err, users) => {
-          if (err) {
-            reject(err)
-          } else {
-            resolve(removePassword(users))
-          }
-        })
+        USER
+          .find((err, users) => {
+            if (err) {
+              reject(err)
+            } else {
+              resolve(removePassword(users))
+            }
+          })
       })
     },
     user: (root, {userId}, context) => {
       return new Promise((resolve, reject) => {
-        USER.findOne({userId: userId}, (err, user) =>{
-          if (err) {
-            reject(err)
-          } else {
-            resolve(removePassword(user))
-          }
-        })
+        USER
+          .findOne({userId: userId}, (err, user) =>{
+            if (err) {
+              reject(err)
+            } else {
+              resolve(removePassword(user))
+            }
+          })
       })
     }
   },
@@ -111,14 +122,15 @@ export const resolvers = {
         })
 
         // save ride
-        newRide.save((err, ride) => {
-          if (err) {
-            reject(err)
-          } else {
-            return resolve(newRide)
+        newRide
+          .save((err, ride) => {
+            if (err) {
+              reject(err)
+            } else {
+              return resolve(newRide)
 
-          }
-        }).catch(err => console.log(err))
+            }
+          }).catch(err => console.log(err))
       })
     },
     createUser: (root, {user}) => {
@@ -135,20 +147,21 @@ export const resolvers = {
           })
 
           // save user
-          newUser.save((err, user) => {
-            if (err) {
+          newUser
+            .save((err, user) => {
+              if (err) {
 
-              if (isEmailValidationError(err)) {
-                reject('VALIDATION_EMAIL_UNIQUE')
-              } else {
+                if (isEmailValidationError(err)) {
+                  reject('VALIDATION_EMAIL_UNIQUE')
+                } else {
+                  reject(err)
+                }
                 reject(err)
+              } else {
+                return resolve(newUser)
               }
-              reject(err)
-            } else {
-              return resolve(newUser)
-            }
+            }).catch(err => console.log(err))
           }).catch(err => console.log(err))
-        }).catch(err => console.log(err))
 
       })
 
