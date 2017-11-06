@@ -3,15 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "apollo-client": "1.9.0",
-    "apollo-test-utils": "0.1.1",
+    "apollo-client": "2.0.1",
+    "apollo-link-http": "1.1.0",
     "false": "0.0.4",
     "graphql": "0.11.7",
     "graphql-tag": "2.5.0",
-    "graphql-tools": "2.6.1",
-    "moment": "^2.19.1",
-    "react": "^16.0.0",
-    "react-apollo": "^1.4.15",
+    "graphql-tools": "2.7.2",
+    "react": "16.0.0",
+    "react-apollo": "2.0.0",
+    "moment": "2.19.1",
     "react-datepicker": "^0.57.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
@@ -22,5 +22,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "apollo-cache-inmemory": "^1.1.0",
+    "apollo-link-context": "^1.0.0"
   }
 }

@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { ApolloProvider } from 'react-apollo';
-import ApolloClient, { createNetworkInterface } from 'apollo-client';
+
+import { ApolloClient } from 'apollo-client'
+import { createHttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloProvider } from 'react-apollo'
+import { setContext } from 'apollo-link-context'
+
+
 import Header from './components/Header'
 import RideListWithData from './components/RideListWithData'
 import MyRidesWithData from './components/MyRidesWithData'
@@ -14,18 +20,21 @@ import {GC_AUTH_TOKEN} from './constants'
 import './styles/App.css'
 
 
-const networkInterface = createNetworkInterface({ uri: 'http://localhost:4000/graphql' });
-networkInterface.use([{
-  applyMiddleware(req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {}
-    }
-    const token = localStorage.getItem(GC_AUTH_TOKEN)
-    req.options.headers.authorization = token ? `Bearer ${token}` : null
-    next()
+const httpLink = createHttpLink({uri: 'http://localhost:4000/graphql'})
+const token = localStorage.getItem(GC_AUTH_TOKEN)
+
+const middlewareLink = setContext(() => ({
+  headers: {
+    authorization: token ? `Bearer ${token}` : null
   }
-}])
-const client = new ApolloClient({networkInterface});
+}));
+
+const link = middlewareLink.concat(httpLink);
+
+const client = new ApolloClient({
+  link,
+  cache: new InMemoryCache(),
+});
 
 class App extends Component {
   render() {
