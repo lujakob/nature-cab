@@ -1,0 +1,18 @@
+.ride-item {
+  padding-bottom:10px;
+  margin-bottom:10px;
+  border-bottom:1px solid #ddd;
+}
+
+.ride-item a {
+  text-decoration:none;
+  color:inherit;
+}
+
+.ride-item-start-date {
+  font-weight:bold;
+}
+
+.ride-item-start-end {
+  margin-bottom:8px;
+}

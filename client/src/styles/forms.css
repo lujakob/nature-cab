@@ -1,0 +1,62 @@
+
+input, select {
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 10px 10px 8px;
+  width: 100%;
+  height:34px;
+}
+
+label {
+  display: block;
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  background-color:#f2f2f2;
+  padding:20px;
+  border-radius:2px;
+  margin-bottom:20px;
+}
+
+fieldset label {
+  padding-bottom: 2px;
+}
+
+fieldset .form-row {
+  margin-bottom:20px;
+}
+
+fieldset .form-row:last-child {
+  margin-bottom:0;
+}
+
+fieldset h3 {
+  font-weight:normal;
+  border-bottom:1px solid #ddd;
+  margin:-20px -20px  20px;
+  padding:20px 20px 20px;
+}
+
+.form-row--button-right {
+  margin-top:20px;
+  text-align:right;
+}
+
+textarea {
+  width:100%;
+  height:80px;
+  padding: 10px;
+  border:1px solid #ddd;
+}
+
+.time-spacer {
+  float:left;
+  width:12px !important;
+  text-align:center;
+  padding-top:10px;
+}
+.time-spacer--time {
+  width:32px !important;
+}
+

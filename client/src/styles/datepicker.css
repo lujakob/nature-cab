@@ -1,0 +1,27 @@
+.datepicker-wrapper > * {
+  float:left;
+}
+
+.datepicker-wrapper > div {
+  width: calc(100% - 120px)
+}
+
+.datepicker-wrapper > select {
+  width: 35px;
+  padding-left:7px;
+  padding-right:0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+  display:block;
+}
+.react-datepicker__input-container {
+  width:100%;
+  display:block;
+}
+.react-datepicker__input-container input {
+  width: calc(100% - 10px);
+}

@@ -1,0 +1,15 @@
+.ride-list-filter {
+  display:flex;
+  padding:10px 0;
+}
+
+.ride-list-filter-field input {
+  width: 100px;
+  margin-right:10px;
+}
+
+.ride-list-filter-field select {
+  width: 100px;
+  margin-right:10px;
+}
+

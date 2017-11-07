@@ -47,7 +47,7 @@ class CreateRide extends Component {
           <fieldset className="ride-form-fieldset">
             <h3>Abfahrt und Ankunft</h3>
 
-            <div className="ride-form-row">
+            <div className="form-row">
               <label htmlFor="ride-start">Wo geht's los?</label>
               <input
                 type="text"
@@ -57,7 +57,7 @@ class CreateRide extends Component {
                 onChange={this._setFieldValue}
               />
             </div>
-            <div className="ride-form-row">
+            <div className="form-row">
               <label htmlFor="ride-end">Wohin geht die Fahrt?</label>
               <input
                 type="text"
@@ -67,7 +67,7 @@ class CreateRide extends Component {
                 onChange={this._setFieldValue}
               />
             </div>
-            <div className="ride-form-row">
+            <div className="form-row">
               <label htmlFor="ride-activity">Welche Aktivität haben Sie vor?</label>
               <select
                 onChange={this._setFieldValue}
@@ -83,7 +83,7 @@ class CreateRide extends Component {
           <fieldset className="ride-form-fieldset">
             <h3>Datum und Uhrzeit</h3>
 
-            <div className="ride-form-row">
+            <div className="form-row">
               <label htmlFor="ride-start">Abfahrt</label>
               <div className="datepicker-wrapper">
                 <DatePicker
@@ -105,7 +105,7 @@ class CreateRide extends Component {
                     return <option key={index} value={hour}>{hour}</option>
                   })}
                 </select>
-                <div className="select-start-time-spacer">:</div>
+                <div className="time-spacer">:</div>
                 <select
                   className="select-start-time-min"
                   onChange={this._setFieldValue}
@@ -116,12 +116,12 @@ class CreateRide extends Component {
                     return <option key={index} value={min}>{min}</option>
                   })}
                 </select>
-                <div className="select-start-time-spacer select-start-time-spacer--time">Uhr</div>
+                <div className="time-spacer select-time-spacer--time">Uhr</div>
 
                 <br style={{clear: "both"}}/>
               </div>
             </div>
-            <div className="ride-form-row">
+            <div className="form-row">
               <label htmlFor="ride-return-info">Infos zur Rückfahrt</label>
               <textarea
                 name="returnInfo"
@@ -137,7 +137,7 @@ class CreateRide extends Component {
           </div>
           }
 
-          <div className="ride-form-row ride-form-row--button">
+          <div className="form-row form-row--button-right">
             <button
               className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
               onClick={() => this._submit()}
