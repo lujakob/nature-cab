@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
-import moment from 'moment'
-import 'moment/locale/de'
 
 class RideDetail extends Component {
 
@@ -19,7 +17,6 @@ class RideDetail extends Component {
       <div>
         <div className="trip-details">{this.props.data.ride.start}</div>
         RideDetail {this.props.match.params.id}
-        {console.log(this.props.data.ride)}
       </div>
     )
   }

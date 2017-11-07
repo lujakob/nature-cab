@@ -7,7 +7,6 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
 import { setContext } from 'apollo-link-context'
 
-
 import Header from './components/Header'
 import RideListWithData from './components/RideListWithData'
 import MyRidesWithData from './components/MyRidesWithData'
@@ -15,10 +14,10 @@ import RideDetail from './components/RideDetail'
 import CreateRide from './components/CreateRide'
 import Login from './components/Login'
 import Register from './components/Register'
+import {UserProfileWithData} from './components/UserProfile'
 
 import {GC_AUTH_TOKEN} from './constants'
 import './styles/App.css'
-
 
 const httpLink = createHttpLink({uri: 'http://localhost:4000/graphql'})
 const token = localStorage.getItem(GC_AUTH_TOKEN)
@@ -51,6 +50,7 @@ class App extends Component {
               <Route exact path='/ride/:id' component={RideDetail}/>
               <Route exact path='/create' component={CreateRide}/>
               <Route exact path='/register' component={Register}/>
+              <Route exact path='/profile' component={UserProfileWithData}/>
             </Switch>
           </div>
         </div>

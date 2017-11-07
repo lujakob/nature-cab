@@ -165,6 +165,25 @@ export const resolvers = {
 
       })
 
+    },
+    updateUser: (root, {user}) => {
+      return new Promise((resolve, reject) => {
+        const query = {userId: user.userId}
+        const update = {
+          name: user.name,
+          email: user.email
+        }
+        const options = {new: true}
+
+        USER.findOneAndUpdate(query, update, options, (err, updatedUser) => {
+          if (err) {
+            reject(err)
+          } else {
+            return resolve(updatedUser)
+          }
+        })
+      })
+
     }
   },
 }

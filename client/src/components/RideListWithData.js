@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 import RideList from './RideList'
 import RideListFilter from './RideListFilter'
 
-
 class RideListWithData extends Component {
 
   state = {
@@ -67,6 +66,6 @@ export const rideListQuery = gql`
       returnInfo
     }
   }
-`;
+`
 
 export default graphql(rideListQuery, {options: {variables: {start: '', end: '', activity: ''}}})(RideListWithData)

@@ -41,18 +41,25 @@ input UserInput {
   password: String!
 }
 
+input UserUpdateInput {
+  userId: Int!
+  name: String!
+  email: String!
+}
+
 type Query {
   rides(start: String, end: String, activity: String): [Ride]
   ride(id: ID!): Ride
   myRides(userId: ID!): [Ride]
   users: [User]
-  user(userId: Int!): User
+  user(userId: ID!): User
 }
 
 
 type Mutation {
   addRide(ride: RideInput!): Ride
   createUser(user: UserInput!): User
+  updateUser(user: UserUpdateInput!): User
 }
 `;
 

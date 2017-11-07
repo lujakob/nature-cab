@@ -9,7 +9,7 @@ class Header extends Component {
     const userId = localStorage.getItem(GC_USER_ID)
 
     return (
-      <div className='flex pa1 justify-between nowrap orange'>
+      <div className='flex pa1 justify-between nowrap'>
         <div className='flex flex-fixed black'>
           <div className='fw7 mr1'>Nature Cab</div>
           {userId &&
@@ -29,20 +29,31 @@ class Header extends Component {
           </div>
           }
         </div>
-        <div className='flex flex-fixed'>
-          {userId ?
-            <div className='ml1 pointer black' onClick={() => {
-              localStorage.removeItem(GC_USER_ID)
-              localStorage.removeItem(GC_AUTH_TOKEN)
-              this.props.history.push(`/login`)
-            }}>logout</div>
-            :
+
+        {userId ?
+          <div className='flex flex-fixed'>
+            <div className='flex'>
+              <Link to='/profile'  className='mr1 no-underline black'>my profile</Link>
+              <div>|</div>
+            </div>
+            <div className='ml1 pointer black' onClick={() => this._logout()}>logout</div>
+          </div>
+          :
+          <div className='flex flex-fixed'>
             <Link to='/login' className='ml1 no-underline black'>login</Link>
-          }
-        </div>
+          </div>
+        }
+
       </div>
     )
   }
+
+  _logout = () => {
+    localStorage.removeItem(GC_USER_ID)
+    localStorage.removeItem(GC_AUTH_TOKEN)
+    this.props.history.push('/login')
+  }
+
 }
 
 export default withRouter(Header)
