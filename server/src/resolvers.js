@@ -141,7 +141,10 @@ export const resolvers = {
         bcrypt.hash(user.password, saltRounds).then(hash => {
 
           const newUser = new USER({
-            name: user.name,
+            gender: user.gender,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            yearOfBirth: user.yearOfBirth,
             email: user.email,
             password: hash
           })
@@ -170,8 +173,12 @@ export const resolvers = {
       return new Promise((resolve, reject) => {
         const query = {userId: user.userId}
         const update = {
-          name: user.name,
-          email: user.email
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          phone: user.phone,
+          yearOfBirth: user.yearOfBirth,
+          car: user.car
         }
         const options = {new: true}
 

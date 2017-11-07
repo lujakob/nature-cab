@@ -30,21 +30,33 @@ input RideInput {
 type User {
   _id: ID!
   userId: Int!
-  name: String!
+  gender: String
+  firstname: String!
+  lastname: String!
   email: String!
+  phone: String
   password: String
+  yearOfBirth: String!
+  car: String
 }
 
 input UserInput {
-  name: String!
+  gender: String!
+  firstname: String!
+  lastname: String!
   email: String!
   password: String!
+  yearOfBirth: String!
 }
 
 input UserUpdateInput {
   userId: Int!
-  name: String!
+  firstname: String!
+  lastname: String!
   email: String!
+  phone: String
+  yearOfBirth: String!
+  car: String
 }
 
 type Query {

@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'moment/locale/de'
 import {GC_USER_ID, ACTIVITIES, HOURS, MINS} from '../constants'
+import {formIsValid} from '../utils'
 
 const rideSkipMandatoryFields = ['returnInfo']
 
@@ -206,7 +207,7 @@ class CreateRide extends Component {
 
     let rideData = this._buildRide()
 
-    if (this._formIsValid(rideData)) {
+    if (formIsValid(rideData, rideSkipMandatoryFields)) {
 
       await this.props.addRideMutation({
         variables: {
@@ -247,7 +248,7 @@ class CreateRide extends Component {
       .add(parseInt(this.state.ride.startTimeHour, 10), 'hours')
       .add(parseInt(this.state.ride.startTimeMin, 10), 'minutes')
       .toDate()
-    console.log(startDate)
+
     return Object.assign({}, {
       userId: localStorage.getItem(GC_USER_ID),
       start: this.state.ride.start,

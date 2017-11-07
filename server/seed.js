@@ -37,9 +37,9 @@ db.dropCollection('UserList').then((err, result) => {
 
 // insert users into UserList
 const users = [
-  {email: 'test', password: 'test', name: 'test'},
-  {email: 'tom@tom.de', password: 'test', name: 'Tom'},
-  {email: 'lukas@lukas.de', password: 'test', name: 'Lukas'}
+  {email: 'test', password: 'test', firstname: 'test', lastname: 'test'},
+  {email: 'tom@tom.de', password: 'test', firstname: 'Tom', lastname: 'Dooley'},
+  {email: 'lukas@jackson.de', password: 'test', firstname: 'Lukas', lastname: 'Jackson'}
 ]
 
 users.map(user => {

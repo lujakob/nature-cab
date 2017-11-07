@@ -1,5 +1,7 @@
 
-input, select {
+
+
+input[type=text], select {
   border: 1px solid #ddd;
   border-radius: 2px;
   padding: 10px 10px 8px;
@@ -7,8 +9,17 @@ input, select {
   height:34px;
 }
 
+input[type=radio] {
+
+}
+
 label {
   display: block;
+}
+
+label.radio-label {
+  display:inline-block;
+  margin:0 10px;
 }
 
 fieldset {
