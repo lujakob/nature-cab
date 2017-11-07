@@ -14,3 +14,19 @@ export const formIsValid = (dataObj, skipFields) => {
   }
   return true
 }
+
+/**
+ * getYearOfBirthOptions - returns array of all birthyears older than currently 18 - max 80 elements
+ * @returns {Array}
+ */
+export const getYearOfBirthOptions = (limit = 80) => {
+  let result = []
+  let startYear = (new Date()).getFullYear() - 18
+  let stopYear = startYear - limit
+
+  while(startYear > stopYear) {
+    result.push(startYear)
+    startYear--
+  }
+  return result
+}

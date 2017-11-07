@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import {GC_USER_ID} from '../constants'
 import gql from 'graphql-tag'
 import {graphql, compose} from 'react-apollo'
+import {formIsValid, getYearOfBirthOptions} from '../utils'
 
-const userSkipMandatoryFields = ['email']
+const userSkipMandatoryFields = ['phone']
 
 const VIEWS = {SUCCESS: 'SUCCESS'}
 
@@ -13,9 +14,11 @@ class UserProfile extends Component {
 
   state = {
     user: {
-      userId: localStorage.getItem(GC_USER_ID),
-      name: '',
-      email: ''
+      firstname: '',
+      lastname: '',
+      email: '',
+      phone: '',
+      yearOfBirth: ''
     },
     error: null,
     view: null
@@ -29,8 +32,11 @@ class UserProfile extends Component {
     if (nextProps.data.user) {
       const newState = Object.assign({}, this.state, {
         user: {
-          name: nextProps.data.user.name,
-          email: nextProps.data.user.email
+          firstname: nextProps.data.user.firstname,
+          lastname: nextProps.data.user.lastname,
+          email: nextProps.data.user.email,
+          phone: nextProps.data.user.phone,
+          yearOfBirth: nextProps.data.user.yearOfBirth
         }})
       this.setState(newState)
     }
@@ -52,13 +58,62 @@ class UserProfile extends Component {
           <h3>Deine persönlichen Daten</h3>
 
           <div className="form-row">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="firstname">Vorname</label>
             <input
+              id="firstname"
               type="text"
-              value={this.state.user.name}
-              name="name"
+              value={this.state.user.firstname}
+              name="firstname"
               onChange={this._setFieldValue}
             />
+          </div>
+
+          <div className="form-row">
+            <label htmlFor="lastname">Nachname</label>
+            <input
+              id="lastname"
+              type="text"
+              value={this.state.user.lastname}
+              name="lastname"
+              onChange={this._setFieldValue}
+            />
+          </div>
+
+          <div className="form-row">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="text"
+              value={this.state.user.email}
+              name="email"
+              onChange={this._setFieldValue}
+            />
+          </div>
+
+          <div className="form-row">
+            <label htmlFor="phone">Telefon</label>
+            <input
+              id="phone"
+              type="text"
+              value={this.state.user.phone}
+              name="phone"
+              onChange={this._setFieldValue}
+            />
+          </div>
+
+          <div className="form-row">
+            <label htmlFor="yearOfBirth">Geburtsjahr</label>
+            <select
+              id="yearOfBirth"
+              onChange={(evt) => this.setState({yearOfBirth: evt.target.value, status: null})}
+              value={this.state.user.yearOfBirth}
+              name="activity"
+            >
+              <option value="">Geburtsjahr</option>
+              {getYearOfBirthOptions().map((year, index) => {
+                return <option key={index} value={year}>{year}</option>
+              })}
+            </select>
           </div>
         </fieldset>
 
@@ -90,9 +145,9 @@ class UserProfile extends Component {
    */
   _submit = async () => {
 
-    let userData = this._buildUser()
+    let userData = Object.assign({}, this.state.user)
 
-    if (this._formIsValid(userData)) {
+    if (formIsValid(userData, userSkipMandatoryFields)) {
 
       // add userId for the server to identify user
       userData = Object.assign(userData, {userId})
@@ -109,13 +164,6 @@ class UserProfile extends Component {
 
     } else {
       this.setState({error: true})
-    }
-  }
-
-  _buildUser() {
-    return {
-      name: this.state.user.name,
-      email: this.state.user.email
     }
   }
 
@@ -153,8 +201,12 @@ class UserProfile extends Component {
 export const userQuery = gql`
   query UserQuery($userId: ID!) {
     user(userId: $userId) {
-      name
+      firstname
+      lastname
       email
+      yearOfBirth
+      phone
+      car
     }
   }
 `
@@ -162,8 +214,12 @@ export const userQuery = gql`
 export const updateUserMutation = gql`
   mutation UpdateUserMutation($user: UserUpdateInput!) {
     updateUser(user: $user) {
-      name
+      firstname
+      lastname
       email
+      yearOfBirth
+      phone
+      car
     }
   }  
 `

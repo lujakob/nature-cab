@@ -260,23 +260,6 @@ class CreateRide extends Component {
     })
   }
 
-  /**
-   * check ride props for not empty
-   * @param ride
-   * @returns {boolean}
-   * @private
-   */
-  _formIsValid = (ride) => {
-    for (let prop in ride) {
-      let isMandatory = !rideSkipMandatoryFields.includes(prop)
-
-      if (isMandatory && !ride[prop]) {
-        return false
-      }
-    }
-    return true
-  }
-
 }
 
 const AddRideMutation = gql`

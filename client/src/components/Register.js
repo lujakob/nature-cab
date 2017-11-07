@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
 import {VALIDATION} from '../constants'
-import {formIsValid} from '../utils'
+import {formIsValid, getYearOfBirthOptions} from '../utils'
 
 const userSkipMandatoryFields = ['status']
 
@@ -85,7 +85,7 @@ class Register extends Component {
               name="activity"
             >
               <option value="">Geburtsjahr</option>
-              {this._getYearOfBirthOptions().map((year, index) => {
+              {getYearOfBirthOptions().map((year, index) => {
                 return <option key={index} value={year}>{year}</option>
               })}
             </select>
@@ -148,18 +148,6 @@ class Register extends Component {
       console.log('error', err)
     })
 
-  }
-
-  _getYearOfBirthOptions() {
-    let result = []
-    let startYear = (new Date()).getFullYear() - 18
-    let stopYear = startYear - 80
-
-    while(startYear > stopYear) {
-      result.push(startYear)
-      startYear--
-    }
-    return result
   }
 
 }
