@@ -116,6 +116,7 @@ export const resolvers = {
           start: ride.start,
           end: ride.end,
           seats: ride.seats,
+          price: ride.price,
           activity: ride.activity,
           startDate: ride.startDate,
           returnInfo: ride.returnInfo

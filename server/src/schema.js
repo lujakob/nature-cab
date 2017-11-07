@@ -13,6 +13,7 @@ type Ride {
   end: String!
   activity: String!
   seats: Int!
+  price: Int!
   startDate: String!
   returnInfo: String
 }
@@ -23,6 +24,7 @@ input RideInput {
   end: String!
   activity: String!
   seats: Int!
+  price: Int!
   startDate: String!
   returnInfo: String
 }

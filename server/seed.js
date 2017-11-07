@@ -79,10 +79,10 @@ db.dropCollection('RideList').then((err, result) => {
 moment.locale('de')
 
 const rideList = [
-  {userId: 1, start: 'Munich', end: 'Garmisch', seats: 3, activity: ACTIVITIES.HIKE, id: 1, startDate: moment().add(-1, 'days').toDate()},
-  {userId: 2, start: 'Munich', end: 'Tegernsee', seats: 2, activity: ACTIVITIES.HIKE, id: 2, startDate: moment().toDate()},
-  {userId: 1, start: 'Augsburg', end: 'Spitzingsee', seats: 2, activity: ACTIVITIES.TRAILRUN, id: 3, startDate: moment().add(4, 'days').toDate()},
-  {userId: 1, start: 'Munich', end: 'Garmisch', seats: 2, activity: ACTIVITIES.TRAILRUN, id: 4, startDate: moment().add(4, 'days').toDate()}
+  {userId: 1, start: 'Munich', end: 'Garmisch', seats: 3, price: 20, activity: ACTIVITIES.HIKE, id: 1, startDate: moment().add(-1, 'days').startOf('hour').toDate()},
+  {userId: 2, start: 'Munich', end: 'Tegernsee', seats: 2, price: 28, activity: ACTIVITIES.HIKE, id: 2, startDate: moment().startOf('hour').toDate()},
+  {userId: 1, start: 'Augsburg', end: 'Spitzingsee', seats: 2, price: 28, activity: ACTIVITIES.TRAILRUN, id: 3, startDate: moment().add(4, 'days').startOf('hour').toDate()},
+  {userId: 1, start: 'Munich', end: 'Garmisch', seats: 2, price: 30, activity: ACTIVITIES.TRAILRUN, id: 4, startDate: moment().add({days: 4, hours: 2}).startOf('hour').toDate()}
 ]
 
 rideList.map(ride => {

@@ -34,10 +34,10 @@ class RideListWithData extends Component {
           end={this.state.filterData.end}
           activity={this.state.filterData.activity}
         />
-        {this.props.data.rides.length === 0 &&
+        {this.props.data.rides && this.props.data.rides.length === 0 &&
           <p>Sorry, your filter has no results.</p>
         }
-        {this.props.data.rides.length > 0 &&
+        {this.props.data.rides && this.props.data.rides.length > 0 &&
           <RideList rides={this.props.data.rides}/>
         }
       </div>
@@ -62,6 +62,7 @@ export const rideListQuery = gql`
       end
       activity
       seats
+      price
       startDate
       returnInfo
     }

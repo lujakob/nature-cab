@@ -7,7 +7,7 @@ class RideList extends Component {
     return (
       <div className="ride-list">
         {this.props.rides && this.props.rides.map((ride, index) => (
-          <RideListItem ride={ride}/>
+          <RideListItem ride={ride} key={index}/>
         ))
         }
       </div>

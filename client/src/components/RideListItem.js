@@ -20,6 +20,15 @@ class RideListItem extends Component {
           <div className="ride-list-item__activity">
             {this.props.ride.activity}
           </div>
+
+          <div className="ride-list-item__seats">
+            Freie Plätze: {this.props.ride.seats}
+          </div>
+
+          <div className="ride-list-item__price">
+            Preis: {this.props.ride.price} &euro;
+          </div>
+
         </Link>
       </div>
     )

@@ -10,6 +10,7 @@ const rideSchema = new Schema({
   start: {type: String, required: true},
   end: {type: String, required: true},
   seats: {type: Number},
+  price: Number,
   activity: {type: String},
   createdAt: {type: Date, default: Date.now()},
   startDate: {type: Date, required: true},
