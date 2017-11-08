@@ -90,6 +90,7 @@ class CreateRide extends Component {
                 <DatePicker
                   placeholderText={moment().add(4, 'days').format('LL')}
                   selected={this.state.ride.startDate}
+                  minDate={moment()}
                   onChange={this._handleDatePicker}
                   dateFormat="LL"
                 />
