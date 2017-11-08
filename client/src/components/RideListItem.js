@@ -10,12 +10,14 @@ class RideListItem extends Component {
     return (
       <div className="ride-list-item cf">
         <Link to={`/ride/${this.props.ride.id}`} className="cf">
-          <div className="ride-list-item__user">
+          <div className="ride-list-item__user cf">
             <div className="ride-list-item__user-image">
               <img src="no-headshot.jpg"/>
             </div>
-            <div className="ride-list-item__user-name">{this.props.ride.user.firstname} {this.props.ride.user.lastname}</div>
-            <div className="ride-list-item__user-age">{getAgeFromYearOfBirth(this.props.ride.user.yearOfBirth)}</div>
+            <div className="ride-list-item__user-info">
+              <div className="user-name">{this.props.ride.user.firstname} {this.props.ride.user.lastname}</div>
+              {getAgeFromYearOfBirth(this.props.ride.user.yearOfBirth)} Jahre
+            </div>
           </div>
           <div className="ride-list-item__infos cf">
             <div className="ride-list-item__left-col">

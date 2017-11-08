@@ -13,18 +13,29 @@
 
 .ride-list-item__user {
   float:left;
-  width:120px;
-  text-align:center;
+  width:150px;
 }
 .ride-list-item__infos {
   float:right;
-  width:calc(100% - 120px);
+  padding-left:15px;
+  width:calc(100% - 150px);
+}
+.ride-list-item__user-image {
+  float:left;
+  width:60px;
 }
 .ride-list-item__user-image img {
   border-radius:50%;
-  width:70%;
+}
+.ride-list-item__user-info {
+  float:right;
+  padding-left:15px;
+  width:calc(100% - 60px);
+}
 
-
+.ride-list-item__user-info .user-name {
+  font-weight:bold;
+  margin-bottom:4px;
 }
 
 .ride-list-item a {
