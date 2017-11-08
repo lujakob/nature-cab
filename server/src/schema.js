@@ -16,6 +16,7 @@ type Ride {
   price: Int!
   startDate: String!
   returnInfo: String
+  user: User
 }
 
 input RideInput {

@@ -54,6 +54,7 @@ export const resolvers = {
               return resolve(rides)
             }
           })
+          .populate('user')
           .sort({startDate: 'asc'})
       })
     },
