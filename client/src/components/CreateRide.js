@@ -144,7 +144,7 @@ class CreateRide extends Component {
               className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
               onClick={() => this._submit()}
             >
-              Submit
+              Senden
             </button>
           </div>
         </div>

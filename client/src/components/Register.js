@@ -22,7 +22,7 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <h2>Registrierung</h2>
+        <h3>Registrierung</h3>
         <fieldset>
           <h2>Gib deine persönlichen Daten an</h2>
           <div className="form-row">

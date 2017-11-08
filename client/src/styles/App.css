@@ -6,6 +6,10 @@ body {
   color:#333;
 }
 
+a {
+  color:#333;
+}
+
 .error-message {
   padding:5px 0;
 }

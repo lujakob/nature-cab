@@ -1,0 +1,25 @@
+.header {
+  line-height:30px;
+  height:60px;
+  padding-top:15px;
+  padding-bottom:15px;
+}
+
+.header .heading a {
+  color:#ffb700;
+  font-size:24px;
+}
+.header button {
+  margin-bottom: 0;
+  margin-right:10px;
+  height:33px;
+  line-height:17px;
+}
+
+.header button:focus {
+  outline:0;
+}
+
+.header .login-link {
+  font-weight:bold;
+}

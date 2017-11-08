@@ -38,6 +38,11 @@ fieldset .form-row {
   margin-bottom:20px;
 }
 
+fieldset .form-row.mb0 {
+  margin-bottom:0px;
+}
+
+
 fieldset .form-row:last-child {
   margin-bottom:0;
 }

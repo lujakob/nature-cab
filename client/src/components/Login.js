@@ -10,46 +10,48 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <input
-            type="text"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={(evt) => this.setState({email: evt.target.value, status: null})}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={(evt) => this.setState({password: evt.target.value, status: null})}
-          />
-        </div>
-        {this.state.status &&
-        <div className="error-message dark-red">
-          Please check email and password to try again.
-        </div>
-        }
-
-        <div>
-          <div
-            className='pointer mr2 button'
-            onClick={() => this._confirm()}
-          >
-            Login
+      <div className="login">
+        <fieldset>
+          <h3>Login</h3>
+          <div className="form-row">
+            <input
+              type="text"
+              placeholder="Email"
+              value={this.state.email}
+              onChange={(evt) => this.setState({email: evt.target.value, status: null})}
+            />
           </div>
-        </div>
-        <div>
-          <div
-            className='pointer mr2 button'
-            onClick={() => this.props.history.push('/register')}
-          >
-            Register
+          <div className="form-row">
+            <input
+              type="text"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={(evt) => this.setState({password: evt.target.value, status: null})}
+            />
           </div>
-        </div>
+          {this.state.status &&
+          <div className="error-message dark-red">
+            Please check email and password to try again.
+          </div>
+          }
 
+          <div className="form-row mb0">
+            <button
+              className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
+              onClick={() => this._confirm()}
+            >
+              Login
+            </button>
+          </div>
+          <div>
+            <div
+              className='pointer mr2 button'
+              onClick={() => this.props.history.push('/register')}
+            >
+              Anmelden
+            </div>
+          </div>
+        </fieldset>
       </div>
     )
   }

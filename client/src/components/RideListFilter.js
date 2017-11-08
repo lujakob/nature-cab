@@ -12,43 +12,48 @@ class RideListFilter extends Component {
   render() {
     return (
       <div className="ride-list-filter">
-        <div className="ride-list-filter-field">
-          <input
-            type="text"
-            placeholder="Start"
-            value={this.state.start}
-            name="start"
-            onChange={this._onChange}
-          />
-        </div>
-        <div className="ride-list-filter-field">
-          <input
-            type="text"
-            placeholder="End"
-            value={this.state.end}
-            name="end"
-            onChange={this._onChange}
-          />
-        </div>
-        <div className="ride-list-filter-field">
-          <select
-            onChange={this._onChange}
-            value={this.state.activity}
-            name="activity"
-          >
-            {Object.keys(ACTIVITIES).map((activity, index) => {
-              return <option
-                key={index}
-                value={activity}
-              >{activity}</option>
-            })}
-          </select>
-        </div>
-        <div className="ride-list-filter-field">
-          <div
-            className='pointer mr2 button'
-            onClick={this._filter}
-          > Filter</div>
+        <div className="heading">Dein Taxi ins Gr&uuml;ne...</div>
+        <div className="ride-list-filter__wrapper">
+          <div className="ride-list-filter-field">
+            <input
+              type="text"
+              placeholder="Von..."
+              value={this.state.start}
+              name="start"
+              onChange={this._onChange}
+            />
+          </div>
+          <div className="ride-list-filter-field">
+            <input
+              type="text"
+              placeholder="Nach..."
+              value={this.state.end}
+              name="end"
+              onChange={this._onChange}
+            />
+          </div>
+          <div className="ride-list-filter-field">
+            <select
+              onChange={this._onChange}
+              value={this.state.activity}
+              name="activity"
+            >
+              {ACTIVITIES.map((activity, index) => {
+                return <option
+                  key={index}
+                  value={index}
+                >{activity.title}</option>
+              })}
+            </select>
+          </div>
+          <div className="ride-list-filter-field">
+            <button
+              className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
+              onClick={() => this._filter()}
+            >
+              Fahrt finden
+            </button>
+          </div>
         </div>
       </div>
     )

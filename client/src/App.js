@@ -41,7 +41,7 @@ class App extends Component {
       <ApolloProvider client={client}>
         <div className='center w85'>
           <Header />
-          <div className='ph3 pv1 background-gray'>
+          <div className='ph3 background-gray'>
             <Switch>
               <Route exact path='/' render={() => <Redirect to='/ridelist'/> }/>
               <Route exact path='/login' component={Login}/>

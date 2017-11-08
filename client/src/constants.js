@@ -14,12 +14,12 @@ export const VALIDATION = {
   VALIDATION_EMAIL_UNIQUE: 'VALIDATION_EMAIL_UNIQUE'
 }
 
-export const ACTIVITIES = {
-  NONE: 'NONE',
-  HIKE: 'HIKE',
-  SKI: 'SKI',
-  TRAILRUN: 'TRAILRUN'
-}
+export const ACTIVITIES = [
+  {id: 0, title: 'Aktivität'},
+  {id: 1, title: 'Wandern'},
+  {id: 2, title: 'Skitour'},
+  {id: 3, title: 'Trailrun'}
+]
 
 export const HOURS = ['', '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
 

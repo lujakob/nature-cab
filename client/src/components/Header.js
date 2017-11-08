@@ -5,24 +5,18 @@ import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
 
 class Header extends Component {
 
+  userId = null
+
   render() {
-    const userId = localStorage.getItem(GC_USER_ID)
+    this.userId = localStorage.getItem(GC_USER_ID)
 
     return (
-      <div className='flex pa1 justify-between nowrap'>
+      <div className='header flex justify-between nowrap ph3'>
         <div className='flex flex-fixed black'>
-          <div className='fw7 mr1'>Nature Cab</div>
-          {userId &&
-          <div className="flex">
-            <Link to='/create' className='ml1 no-underline black'>new</Link>
+          <div className='heading fw7 mr1'>
+            <Link to='/ridelist' className='ml1 no-underline black'>NatureCab</Link>
           </div>
-          }
-          <div className='flex'>
-            <div className='ml1'>|</div>
-            <Link to='/ridelist' className='ml1 no-underline black'>ride list</Link>
-          </div>
-
-          {userId &&
+          {this.userId &&
           <div className='flex'>
             <div className='ml1'>|</div>
             <Link to='/myrides'  className='ml1 no-underline black'>my rides</Link>
@@ -30,22 +24,36 @@ class Header extends Component {
           }
         </div>
 
-        {userId ?
-          <div className='flex flex-fixed'>
+        <div className='flex flex-fixed'>
+          {this.props.location.pathname !== "/create" &&
+          <div className="flex flex-fixed">
+            <button
+              className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
+              onClick={() => this._createRide()}
+            >
+              Fahrt anbieten
+            </button>
+          </div>
+          }
+          {this.userId ?
+          <div className="flex flex-fixed">
             <div className='flex'>
               <Link to='/profile'  className='mr1 no-underline black'>my profile</Link>
               <div>|</div>
             </div>
-            <div className='ml1 pointer black' onClick={() => this._logout()}>logout</div>
+            <div className='ml1 pointer' onClick={() => this._logout()}>Logout</div>
           </div>
           :
-          <div className='flex flex-fixed'>
-            <Link to='/login' className='ml1 no-underline black'>login</Link>
-          </div>
-        }
-
+          <Link to='/login' className='ml1 no-underline login-link'>Login</Link>
+          }
+        </div>
       </div>
     )
+  }
+
+  _createRide = () => {
+    let uri = !!this.userId ? '/create' : '/login'
+    this.props.history.push(uri)
   }
 
   _logout = () => {
