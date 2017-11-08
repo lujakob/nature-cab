@@ -35,3 +35,7 @@ export const getAgeFromYearOfBirth = (yearOfBirth) => {
   let currentYear = (new Date()).getFullYear()
   return currentYear - yearOfBirth
 }
+
+export const truncateName = (name) => {
+  return name.substr(0, 1) + '.'
+}

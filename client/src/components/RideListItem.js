@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import moment from 'moment'
 import 'moment/locale/de'
-import {getAgeFromYearOfBirth} from '../utils'
+import {getAgeFromYearOfBirth, truncateName} from '../utils'
 
 class RideListItem extends Component {
 
@@ -15,7 +15,7 @@ class RideListItem extends Component {
               <img src="no-headshot.jpg"/>
             </div>
             <div className="ride-list-item__user-info">
-              <div className="user-name">{this.props.ride.user.firstname} {this.props.ride.user.lastname}</div>
+              <div className="user-name">{this.props.ride.user.firstname} {truncateName(this.props.ride.user.lastname)}</div>
               {getAgeFromYearOfBirth(this.props.ride.user.yearOfBirth)} Jahre
             </div>
           </div>
