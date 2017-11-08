@@ -30,3 +30,8 @@ export const getYearOfBirthOptions = (limit = 80) => {
   }
   return result
 }
+
+export const getAgeFromYearOfBirth = (yearOfBirth) => {
+  let currentYear = (new Date()).getFullYear()
+  return currentYear - yearOfBirth
+}

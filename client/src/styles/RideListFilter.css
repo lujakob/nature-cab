@@ -1,6 +1,7 @@
 .ride-list-filter {
   display:flex;
   padding:10px 0;
+  margin-bottom:20px;
 }
 
 .ride-list-filter-field input {

@@ -65,6 +65,11 @@ export const rideListQuery = gql`
       price
       startDate
       returnInfo
+      user {
+        firstname
+        lastname
+        yearOfBirth
+      }
     }
   }
 `
