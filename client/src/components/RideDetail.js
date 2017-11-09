@@ -4,6 +4,7 @@ import {graphql} from 'react-apollo'
 import moment from 'moment'
 import 'moment/locale/de'
 import RideUser from './RideUser'
+import {getActivityFromId} from '../utils/misc'
 
 class RideDetail extends Component {
 
@@ -37,6 +38,12 @@ class RideDetail extends Component {
                 {moment(new Date(ride.startDate)).format('ddd D.MMM')} - {moment(new Date(ride.startDate)).format('kk:mm')} Uhr
               </div>
             </div>
+            {getActivityFromId(ride.activity) &&
+            <div className="ride-detail-info__row cf">
+              <div className="ride-detail-info__label">Aktivität</div>
+              <div className="ride-detail-info__field">{getActivityFromId(ride.activity)}</div>
+            </div>
+            }
             <div className="ride-detail-info__row cf">
               <div className="ride-detail-info__label">Preis pro Mitfahrer</div>
               <div className="ride-detail-info__field">{ride.price} &euro;</div>
@@ -73,6 +80,7 @@ const RideDetailQuery = gql`
       startDate
       price
       seats
+      activity
       returnInfo
       user {
         firstname

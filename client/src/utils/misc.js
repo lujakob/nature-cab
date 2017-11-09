@@ -1,3 +1,5 @@
+import {ACTIVITIES} from '../constants'
+
 /**
  * check props for not empty
  * @param dataObj
@@ -38,4 +40,14 @@ export const getAgeFromYearOfBirth = (yearOfBirth) => {
 
 export const truncateName = (name) => {
   return name.substr(0, 1) + '.'
+}
+
+/**
+ * getActivityFromId - get activity title from id
+ * @param id
+ * @returns {string}
+ */
+export const getActivityFromId = (id) => {
+  let activity = ACTIVITIES[id]
+  return activity ? activity['title'] : ''
 }
