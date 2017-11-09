@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {GC_USER_ID} from '../constants'
 import gql from 'graphql-tag'
 import {graphql, compose} from 'react-apollo'
-import {formIsValid, getYearOfBirthOptions} from '../utils'
+import {formIsValid, getYearOfBirthOptions} from '../utils/misc'
 
 const userSkipMandatoryFields = ['phone']
 

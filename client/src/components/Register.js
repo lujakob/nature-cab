@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
 import {VALIDATION} from '../constants'
-import {formIsValid, getYearOfBirthOptions} from '../utils'
+import {formIsValid, getYearOfBirthOptions} from '../utils/misc'
 
 const userSkipMandatoryFields = ['status']
 

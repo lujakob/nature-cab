@@ -1,11 +1,27 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
+import gql from 'graphql-tag'
+import {graphql} from 'react-apollo'
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
+import {truncateName} from '../utils/misc'
+import {emitter} from '../utils/emitter'
 
 class Header extends Component {
 
   userId = null
+
+  emitterToken = null
+
+  componentWillMount() {
+    this.emitterToken = emitter.addListener('loginSuccess', (userId) => {
+      this.props.data.refetch({userId})
+    })
+  }
+
+  componentWillUnMount() {
+    this.emitterToken.remove()
+  }
 
   render() {
     this.userId = localStorage.getItem(GC_USER_ID)
@@ -37,10 +53,12 @@ class Header extends Component {
           }
           {this.userId ?
           <div className="flex flex-fixed">
+            {this.props.data.user &&
             <div className='flex'>
-              <Link to='/profile'  className='mr1 no-underline black'>my profile</Link>
+              <Link to='/profile'  className='mr1 no-underline black'>{this.props.data.user.firstname} {truncateName(this.props.data.user.lastname)}</Link>
               <div>|</div>
             </div>
+            }
             <div className='ml1 pointer' onClick={() => this._logout()}>Logout</div>
           </div>
           :
@@ -60,8 +78,20 @@ class Header extends Component {
     localStorage.removeItem(GC_USER_ID)
     localStorage.removeItem(GC_AUTH_TOKEN)
     this.props.history.push('/login')
+    this.props.data.user = null
   }
 
 }
 
-export default withRouter(Header)
+export const userQuery = gql`
+  query UserQuery($userId: ID!) {
+    user(userId: $userId) {
+      firstname
+      lastname
+    }
+  }
+`
+
+const userId = localStorage.getItem(GC_USER_ID)
+
+export default graphql(userQuery, {options: {variables: {userId}}})(withRouter(Header))

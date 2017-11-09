@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import moment from 'moment'
 import 'moment/locale/de'
-import {getAgeFromYearOfBirth, truncateName} from '../utils'
+import {getAgeFromYearOfBirth, truncateName} from '../utils/misc'
 
 class RideListItem extends Component {
 

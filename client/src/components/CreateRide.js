@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'moment/locale/de'
 import {GC_USER_ID, ACTIVITIES, HOURS, MINS} from '../constants'
-import {formIsValid} from '../utils'
+import {formIsValid} from '../utils/misc'
 
 const rideSkipMandatoryFields = ['returnInfo']
 

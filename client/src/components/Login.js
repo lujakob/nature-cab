@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {GC_USER_ID, GC_AUTH_TOKEN, STATUS_CODE} from '../constants'
+import {emitter} from '../utils/emitter'
 
 class Login extends Component {
   state = {
@@ -56,6 +57,10 @@ class Login extends Component {
     )
   }
 
+  /**
+   * _confirm - do login request,
+   * @private
+   */
   _confirm = async () => {
 
     // return if fields are empty
@@ -64,27 +69,38 @@ class Login extends Component {
       return
     }
 
-    let result = await this.fetchAsync()
+    let result = await this._authenticate()
 
+    // reset form fields
     this.setState({email: '', password: ''})
 
     if (result.message === 'ok') {
       this._saveUserData(result)
+      emitter.emit('loginSuccess', result.id)
       this.props.history.push(`/ridelist`)
+
     } else if (result.status && result.status === STATUS_CODE.UNAUTHORIZED) {
       this.setState({status: STATUS_CODE.UNAUTHORIZED})
+
     } else {
       throw new Error('Login failed')
+
     }
   }
 
+  /**
+   * _saveUserData - saves in local storage
+   * @param id
+   * @param token
+   * @private
+   */
   _saveUserData = ({id, token}) => {
     localStorage.setItem(GC_USER_ID, id)
     localStorage.setItem(GC_AUTH_TOKEN, token)
   }
 
   // request login
-  async fetchAsync () {
+  async _authenticate () {
     const response = await fetch('http://localhost:4000/login', {
       method: 'POST',
       mode: 'cors',
