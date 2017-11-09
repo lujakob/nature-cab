@@ -19,6 +19,12 @@
   padding-bottom:8px;
 }
 
+.ride-detail-info__row--return-info {
+  border-top:1px solid #ddd;
+  margin-top:10px;
+  padding-top:10px;
+}
+
 .ride-detail-info__label {
   float:left;
   width:150px;

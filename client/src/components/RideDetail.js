@@ -45,6 +45,10 @@ class RideDetail extends Component {
               <div className="ride-detail-info__label">Anzahl der Plätze</div>
               <div className="ride-detail-info__field">{ride.seats}</div>
             </div>
+            <div className="ride-detail-info__row ride-detail-info__row--return-info cf">
+              <div className="ride-detail-info__label">Infos</div>
+              <div className="ride-detail-info__field">{ride.returnInfo}</div>
+            </div>
 
           </div>
         </div>
@@ -69,6 +73,7 @@ const RideDetailQuery = gql`
       startDate
       price
       seats
+      returnInfo
       user {
         firstname
         lastname
