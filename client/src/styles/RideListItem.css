@@ -21,23 +21,6 @@
   padding-left:15px;
   width:calc(100% - 150px);
 }
-.ride-list-item__user-image {
-  float:left;
-  width:60px;
-}
-.ride-list-item__user-image img {
-  border-radius:50%;
-}
-.ride-list-item__user-info {
-  float:right;
-  padding-left:15px;
-  width:calc(100% - 60px);
-}
-
-.ride-list-item__user-info .user-name {
-  font-weight:bold;
-  margin-bottom:4px;
-}
 
 .ride-list-item a {
   text-decoration:none;

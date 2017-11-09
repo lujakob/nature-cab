@@ -68,6 +68,7 @@ export const resolvers = {
               return resolve(rides)
             }
           })
+          .populate('user')
           .sort({startDate: 'asc'})
       })
     },
@@ -81,6 +82,7 @@ export const resolvers = {
               return resolve(ride)
             }
           })
+          .populate('user')
       })
     },
     users: (root, args, context) => {

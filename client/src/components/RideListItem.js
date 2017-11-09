@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import moment from 'moment'
 import 'moment/locale/de'
 import {getAgeFromYearOfBirth, truncateName} from '../utils/misc'
+import RideUser from './RideUser'
 
 class RideListItem extends Component {
 
@@ -10,14 +11,8 @@ class RideListItem extends Component {
     return (
       <div className="ride-list-item cf">
         <Link to={`/ride/${this.props.ride.id}`} className="cf">
-          <div className="ride-list-item__user cf">
-            <div className="ride-list-item__user-image">
-              <img src="no-headshot.jpg"/>
-            </div>
-            <div className="ride-list-item__user-info">
-              <div className="user-name">{this.props.ride.user.firstname} {truncateName(this.props.ride.user.lastname)}</div>
-              {getAgeFromYearOfBirth(this.props.ride.user.yearOfBirth)} Jahre
-            </div>
+          <div className="ride-list-item__user">
+            <RideUser user={this.props.ride.user} />
           </div>
           <div className="ride-list-item__infos cf">
             <div className="ride-list-item__left-col">

@@ -1,0 +1,17 @@
+.ride-user__user-image {
+  float:left;
+  width:60px;
+}
+.ride-user__user-image img {
+  border-radius:50%;
+}
+.ride-user__user-info {
+  float:right;
+  padding-left:15px;
+  width:calc(100% - 60px);
+}
+
+.ride-user__user-info .user-name {
+  font-weight:bold;
+  margin-bottom:4px;
+}

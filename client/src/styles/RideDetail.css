@@ -1,0 +1,42 @@
+.ride-detail__left {
+  float:left;
+  width:calc(100% - 250px);
+}
+.ride-detail__right {
+  float:right;
+  width:240px;
+}
+.ride-detail-info {
+
+}
+.ride-detail-info {
+  padding:15px;
+  border:1px solid #ddd;
+  border-radius: 3px;
+}
+
+.ride-detail-info__row {
+  padding-bottom:8px;
+}
+
+.ride-detail-info__label {
+  float:left;
+  width:150px;
+}
+
+.ride-detail-info__field {
+  float:left;
+  width:calc(100% - 150px);
+}
+
+.ride-detail-user {
+  border:1px solid #ddd;
+  padding:15px;
+  border-radius: 3px;
+}
+
+.ride-detail-user h3 {
+  background-color:#f2f2f2;
+  margin:-15px -15px 15px;
+  padding:15px;
+}
