@@ -8,7 +8,7 @@ class RideUser extends Component {
       <div className="ride-user">
         <div className="cf">
           <div className="ride-user__user-image">
-            <img src="/no-headshot.jpg"/>
+            <img src="/no-headshot.jpg" alt="Benutzer Bild"/>
           </div>
           <div className="ride-user__user-info">
             <div className="ride-user__user-name">{this.props.user.firstname} {truncateName(this.props.user.lastname)}</div>

@@ -1,4 +1,6 @@
 import {ACTIVITIES} from '../constants'
+import moment from 'moment'
+import 'moment/locale/de'
 
 /**
  * check props for not empty
@@ -50,4 +52,20 @@ export const truncateName = (name) => {
 export const getActivityFromId = (id) => {
   let activity = ACTIVITIES[id]
   return activity ? activity['title'] : ''
+}
+
+/**
+ * getFormattedDate - return date and time, 'today' for current day, otherwise date
+ * @param date
+ * @returns {string}
+ */
+export const getFormattedDate = (date) => {
+  let day = isToday(date) ? 'Heute' : moment(new Date(date)).format('ddd D.MMM')
+  let time = moment(new Date(date)).format('kk:mm')
+
+  return `${day} - ${time} Uhr`
+}
+
+function isToday(date) {
+  return moment(new Date(date)).isSame(moment(), 'day')
 }

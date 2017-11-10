@@ -1,10 +1,8 @@
 import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
-import moment from 'moment'
-import 'moment/locale/de'
 import RideUser from './RideUser'
-import {getActivityFromId} from '../utils/misc'
+import {getActivityFromId, getFormattedDate} from '../utils/misc'
 
 class RideDetail extends Component {
 
@@ -35,7 +33,7 @@ class RideDetail extends Component {
             <div className="ride-detail-info__row cf">
               <div className="ride-detail-info__label">Datum</div>
               <div className="ride-detail-info__field">
-                {moment(new Date(ride.startDate)).format('ddd D.MMM')} - {moment(new Date(ride.startDate)).format('kk:mm')} Uhr
+                {getFormattedDate(ride.startDate)}
               </div>
             </div>
             {getActivityFromId(ride.activity) &&

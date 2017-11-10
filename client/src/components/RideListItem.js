@@ -1,9 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import moment from 'moment'
-import 'moment/locale/de'
 import RideUser from './RideUser'
-import {getActivityFromId} from '../utils/misc'
+import {getActivityFromId, getFormattedDate} from '../utils/misc'
 
 class RideListItem extends Component {
 
@@ -18,7 +16,7 @@ class RideListItem extends Component {
           <div className="ride-list-item__infos cf">
             <div className="ride-list-item__left-col">
               <div className="ride-list-item__start-date">
-                {moment(new Date(ride.startDate)).format('ddd D.MMM')} - {moment(new Date(ride.startDate)).format('kk:mm')} Uhr
+                {getFormattedDate(ride.startDate)}
               </div>
               <div className="ride-list-item__start-end">
                 {ride.start} - {ride.end}
