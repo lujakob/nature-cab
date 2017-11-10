@@ -6,6 +6,11 @@
   float:right;
   width:240px;
 }
+.ride-detail__back-btn {
+  cursor:pointer;
+  display:inline-block;
+}
+
 .ride-detail-info {
 
 }

@@ -20,4 +20,7 @@
   width: 160px;
   margin-right:10px;
 }
+.ride-list-filter button {
+  outline:0;
+}
 

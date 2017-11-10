@@ -20,6 +20,7 @@ class RideDetail extends Component {
     return (
       <div>
         <div className="ride-detail cf">
+          <div className="ride-detail__back-btn" onClick={this._goBack}>zurück zur Übersicht</div>
           <h3>{ride.start} - {ride.end}</h3>
           <div className="ride-detail__left">
             <div className="ride-detail-info">
@@ -69,6 +70,10 @@ class RideDetail extends Component {
         </div>
       </div>
     )
+  }
+
+  _goBack = () => {
+    this.props.history.goBack()
   }
 }
 

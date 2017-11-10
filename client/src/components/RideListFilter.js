@@ -41,7 +41,7 @@ class RideListFilter extends Component {
               {ACTIVITIES.map((activity, index) => {
                 return <option
                   key={index}
-                  value={index}
+                  value={activity.id}
                 >{activity.title}</option>
               })}
             </select>
