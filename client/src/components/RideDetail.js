@@ -63,7 +63,7 @@ class RideDetail extends Component {
           <div className="ride-detail-user">
             <h3>Fahrer</h3>
             <div className="ride-detail-user__user-info">
-              <RideUser user={ride.user} />
+              <RideUser user={ride.user} showCar="true"/>
             </div>
           </div>
         </div>
@@ -86,6 +86,8 @@ const RideDetailQuery = gql`
         firstname
         lastname
         yearOfBirth
+        car
+        carColor
       }
     }
   }

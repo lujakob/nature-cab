@@ -41,6 +41,7 @@ type User {
   password: String
   yearOfBirth: String!
   car: String
+  carColor: String
 }
 
 input UserInput {

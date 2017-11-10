@@ -35,7 +35,6 @@ class RideListItem extends Component {
                 <div className="price">{ride.price} &euro;</div>
                 <div className="price-title">pro Mitfahrer</div>
               </div>
-
               <div className="ride-list-item__seats">
                 {ride.seats} Plätze frei
               </div>

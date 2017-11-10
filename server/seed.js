@@ -48,9 +48,9 @@ db.dropCollection('RideList').then((err, result) => {
 
 // insert users into UserList
 const users = [
-  {email: 'test', password: 'test', firstname: 'test', lastname: 'test', yearOfBirth: 1988},
-  {email: 'tom@tom.de', password: 'test', firstname: 'Tom', lastname: 'Dooley', yearOfBirth: 1988},
-  {email: 'lukas@jackson.de', password: 'test', firstname: 'Lukas', lastname: 'Jackson', yearOfBirth: 1988}
+  {email: 'test', password: 'test', firstname: 'test', lastname: 'test', yearOfBirth: 1988, car: 'VW Golf', carColor: 'grün'},
+  {email: 'tom@tom.de', password: 'test', firstname: 'Tom', lastname: 'Dooley', yearOfBirth: 1988, car: 'Mercedes Benz', carColor: 'blau'},
+  {email: 'lukas@jackson.de', password: 'test', firstname: 'Lukas', lastname: 'Jackson', yearOfBirth: 1988, car: 'VW Caddy', carColor: 'anthrazit grau'}
 ]
 
 users.map(user => {

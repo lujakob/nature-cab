@@ -13,7 +13,8 @@ const userSchema = new Schema({
   biography: String,
   yearOfBirth: String,
   phone: String,
-  car: String
+  car: String,
+  carColor: String
 }, {collection: 'UserList'})
 
 autoIncrement.initialize(mongoose.connection);

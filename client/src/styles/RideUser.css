@@ -11,7 +11,18 @@
   width:calc(100% - 60px);
 }
 
-.ride-user__user-info .user-name {
+.ride-user__user-name {
   font-weight:bold;
   margin-bottom:4px;
+}
+
+.ride-user__car {
+  clear:both;
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid #ddd;
+}
+
+.ride-user__car h4 {
+  margin:0 0 5px;
 }
