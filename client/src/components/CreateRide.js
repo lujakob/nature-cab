@@ -74,8 +74,8 @@ class CreateRide extends Component {
                 onChange={this._setFieldValue}
                 name="activity"
               >
-                {Object.keys(ACTIVITIES).map((activity, index) => {
-                  return <option key={index} value={activity}>{activity}</option>
+                {ACTIVITIES.map((activity, index) => {
+                  return <option key={index} value={activity.id}>{activity.title}</option>
                 })}
               </select>
             </div>
@@ -129,7 +129,7 @@ class CreateRide extends Component {
                 name="returnInfo"
                 placeholder="Zum Beispiel: Rückfahrt um 16:00 Uhr am Parkplatz"
                 onChange={this._setFieldValue}
-              ></textarea>
+              />
             </div>
           </fieldset>
 

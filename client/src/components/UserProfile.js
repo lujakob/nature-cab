@@ -121,8 +121,13 @@ class UserProfile extends Component {
             </select>
           </div>
 
+        </fieldset>
+
+        <fieldset className="form-fieldset">
+          <h3>Auto</h3>
+
           <div className="form-row">
-            <label htmlFor="car">Auto</label>
+            <label htmlFor="car">Typ</label>
             <input
               id="car"
               type="text"
@@ -133,7 +138,7 @@ class UserProfile extends Component {
           </div>
 
           <div className="form-row">
-            <label htmlFor="carColor">Autofarbe</label>
+            <label htmlFor="carColor">Farbe</label>
             <input
               id="carColor"
               type="text"
