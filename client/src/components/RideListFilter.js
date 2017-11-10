@@ -66,7 +66,6 @@ class RideListFilter extends Component {
   _filter = () => {
     this.props.filterFunc(this.state)
   }
-
 }
 
 

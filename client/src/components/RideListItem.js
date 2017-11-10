@@ -9,7 +9,7 @@ class RideListItem extends Component {
     const ride = this.props.ride
     return (
       <div className="ride-list-item cf">
-        <Link to={`/ride/${ride.id}`} className="cf">
+        <Link to={`/rides/${ride.id}`} className="cf">
           <div className="ride-list-item__user">
             <RideUser user={ride.user} />
           </div>

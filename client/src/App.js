@@ -8,9 +8,8 @@ import { ApolloProvider } from 'react-apollo'
 import { setContext } from 'apollo-link-context'
 
 import Header from './components/Header'
-import RideListWithData from './components/RideListWithData'
+import Rides from './components/Rides'
 import MyRidesWithData from './components/MyRidesWithData'
-import RideDetail from './components/RideDetail'
 import CreateRide from './components/CreateRide'
 import Login from './components/Login'
 import Register from './components/Register'
@@ -45,9 +44,8 @@ class App extends Component {
             <Switch>
               <Route exact path='/' render={() => <Redirect to='/ridelist'/> }/>
               <Route exact path='/login' component={Login}/>
-              <Route exact path='/ridelist' component={RideListWithData}/>
+              <Route path='/rides' component={Rides}/>
               <Route exact path='/myrides' component={MyRidesWithData}/>
-              <Route exact path='/ride/:id' component={RideDetail}/>
               <Route exact path='/create' component={CreateRide}/>
               <Route exact path='/register' component={Register}/>
               <Route exact path='/profile' component={UserProfileWithData}/>
