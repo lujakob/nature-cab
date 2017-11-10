@@ -182,7 +182,8 @@ export const resolvers = {
           email: user.email,
           phone: user.phone,
           yearOfBirth: user.yearOfBirth,
-          car: user.car
+          car: user.car,
+          carColor: user.carColor
         }
         const options = {new: true}
 

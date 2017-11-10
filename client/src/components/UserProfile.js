@@ -4,7 +4,8 @@ import gql from 'graphql-tag'
 import {graphql, compose} from 'react-apollo'
 import {formIsValid, getYearOfBirthOptions} from '../utils/misc'
 
-const userSkipMandatoryFields = ['phone']
+// these fields will be skipped in 'required' validation
+const userSkipMandatoryFields = ['phone', 'car', 'carColor']
 
 const VIEWS = {SUCCESS: 'SUCCESS'}
 
@@ -18,7 +19,9 @@ class UserProfile extends Component {
       lastname: '',
       email: '',
       phone: '',
-      yearOfBirth: ''
+      yearOfBirth: '',
+      car: '',
+      carColor: ''
     },
     error: null,
     view: null
@@ -36,7 +39,9 @@ class UserProfile extends Component {
           lastname: nextProps.data.user.lastname,
           email: nextProps.data.user.email,
           phone: nextProps.data.user.phone,
-          yearOfBirth: nextProps.data.user.yearOfBirth
+          yearOfBirth: nextProps.data.user.yearOfBirth,
+          car: nextProps.data.user.car,
+          carColor: nextProps.data.user.carColor
         }})
       this.setState(newState)
     }
@@ -115,6 +120,29 @@ class UserProfile extends Component {
               })}
             </select>
           </div>
+
+          <div className="form-row">
+            <label htmlFor="car">Auto</label>
+            <input
+              id="car"
+              type="text"
+              value={this.state.user.car}
+              name="car"
+              onChange={this._setFieldValue}
+            />
+          </div>
+
+          <div className="form-row">
+            <label htmlFor="carColor">Autofarbe</label>
+            <input
+              id="carColor"
+              type="text"
+              value={this.state.user.carColor}
+              name="carColor"
+              onChange={this._setFieldValue}
+            />
+          </div>
+
         </fieldset>
 
         {this.state.error &&
@@ -207,6 +235,7 @@ export const userQuery = gql`
       yearOfBirth
       phone
       car
+      carColor
     }
   }
 `
@@ -220,6 +249,7 @@ export const updateUserMutation = gql`
       yearOfBirth
       phone
       car
+      carColor
     }
   }  
 `

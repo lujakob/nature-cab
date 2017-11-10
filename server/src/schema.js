@@ -51,6 +51,8 @@ input UserInput {
   email: String!
   password: String!
   yearOfBirth: String!
+  car: String
+  carColor: String
 }
 
 input UserUpdateInput {
@@ -61,6 +63,7 @@ input UserUpdateInput {
   phone: String
   yearOfBirth: String!
   car: String
+  carColor: String
 }
 
 type Query {
