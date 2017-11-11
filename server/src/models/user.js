@@ -6,15 +6,16 @@ const Schema = mongoose.Schema
 
 const userSchema = new Schema({
   userId: Number,
-  firstname: String,
-  lastname: String,
+  gender: {type: String, required: true},
+  firstname: {type: String, required: true},
+  lastname: {type: String, required: true},
   email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
-  biography: String,
-  yearOfBirth: String,
-  phone: String,
-  car: String,
-  carColor: String
+  biography: {type: String, default: ''},
+  yearOfBirth: {type: String, required: true},
+  phone: {type: String, default: ''},
+  car: {type: String, default: ''},
+  carColor: {type: String, default: ''}
 }, {collection: 'UserList'})
 
 autoIncrement.initialize(mongoose.connection);

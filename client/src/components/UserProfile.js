@@ -48,6 +48,10 @@ class UserProfile extends Component {
 
   }
 
+  componentWillUnmount() {
+    console.log("unmount")
+  }
+
   render() {
 
     if (this.props.data.loading) {

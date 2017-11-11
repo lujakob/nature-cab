@@ -33,7 +33,7 @@ input RideInput {
 type User {
   _id: ID!
   userId: Int!
-  gender: String
+  gender: String!
   firstname: String!
   lastname: String!
   email: String!
