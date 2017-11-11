@@ -27,19 +27,19 @@ const middlewareLink = setContext(() => ({
   }
 }));
 
-const link = middlewareLink.concat(httpLink);
+const link = middlewareLink.concat(httpLink)
 
 const client = new ApolloClient({
   link,
-  cache: new InMemoryCache(),
-});
+  cache: new InMemoryCache()
+})
 
 class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
         <div className='center w85'>
-          <Header />
+          <Header resetStore={client.resetStore}/>
           <div className='ph3 background-gray'>
             <Switch>
               <Route exact path='/' render={() => <Redirect to='/ridelist'/> }/>

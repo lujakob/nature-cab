@@ -9,20 +9,20 @@ const userSkipMandatoryFields = ['phone', 'car', 'carColor']
 
 const VIEWS = {SUCCESS: 'SUCCESS'}
 
-const userId = localStorage.getItem(GC_USER_ID)
+const defaultUser = {
+  firstname: '',
+  lastname: '',
+  email: '',
+  phone: '',
+  yearOfBirth: '',
+  car: '',
+  carColor: ''
+}
 
 class UserProfile extends Component {
 
   state = {
-    user: {
-      firstname: '',
-      lastname: '',
-      email: '',
-      phone: '',
-      yearOfBirth: '',
-      car: '',
-      carColor: ''
-    },
+    user: defaultUser,
     error: null,
     view: null
   }
@@ -32,6 +32,7 @@ class UserProfile extends Component {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps.data.user)
     if (nextProps.data.user) {
       const newState = Object.assign({}, this.state, {
         user: {
@@ -49,7 +50,9 @@ class UserProfile extends Component {
   }
 
   componentWillUnmount() {
-    console.log("unmount")
+    console.log('unmount')
+    this.setState({user: defaultUser}, () => console.log(this.state))
+
   }
 
   render() {
@@ -186,6 +189,7 @@ class UserProfile extends Component {
 
     if (formIsValid(userData, userSkipMandatoryFields)) {
 
+      const userId = localStorage.getItem(GC_USER_ID)
       // add userId for the server to identify user
       userData = Object.assign(userData, {userId})
 
@@ -265,7 +269,10 @@ export const updateUserMutation = gql`
 
 export const UserProfileWithData = compose(
   graphql(userQuery, {
-    options: {variables: {userId}}
+    options: (props) => {
+      const userId = localStorage.getItem(GC_USER_ID)
+      return {variables: {userId: userId || 0}}
+    }
   }),
   graphql(updateUserMutation, {
     name: 'updateUserMutation'

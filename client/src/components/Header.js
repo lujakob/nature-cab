@@ -78,6 +78,8 @@ class Header extends Component {
     localStorage.removeItem(GC_USER_ID)
     localStorage.removeItem(GC_AUTH_TOKEN)
     this.props.history.push('/login')
+    console.log("jo")
+    this.props.resetStore()
     this.props.data.user = null
   }
 
@@ -92,6 +94,7 @@ export const userQuery = gql`
   }
 `
 
-const userId = localStorage.getItem(GC_USER_ID)
-
-export default graphql(userQuery, {options: {variables: {userId}}})(withRouter(Header))
+export default graphql(userQuery, {options: (props) => {
+  const userId = localStorage.getItem(GC_USER_ID)
+  return {variables: {userId: userId || 0}}
+}})(withRouter(Header))
