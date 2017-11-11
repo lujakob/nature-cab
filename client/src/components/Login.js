@@ -77,7 +77,7 @@ class Login extends Component {
     if (result.message === 'ok') {
       this._saveUserData(result)
       emitter.emit('loginSuccess', result.id)
-      this.props.history.push(`/ridelist`)
+      this.props.history.push(`/rides`)
 
     } else if (result.status && result.status === STATUS_CODE.UNAUTHORIZED) {
       this.setState({status: STATUS_CODE.UNAUTHORIZED})
