@@ -54,7 +54,7 @@ server.post('/login', function(req, res) {
           if(authenticated) {
             let payload = {id: user.userId};
             let token = jwt.sign(payload, JWT_SECRET);
-            res.json({message: 'ok', token: token, id: user.userId});
+            res.json({message: 'ok', token: token, id: user._id});
           } else {
             res.status(401).json({message:'passwords did not match'});
           }

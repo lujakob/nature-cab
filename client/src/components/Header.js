@@ -78,7 +78,6 @@ class Header extends Component {
     localStorage.removeItem(GC_USER_ID)
     localStorage.removeItem(GC_AUTH_TOKEN)
     this.props.history.push('/login')
-    console.log("jo")
     this.props.resetStore()
     this.props.data.user = null
   }

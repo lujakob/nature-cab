@@ -22,11 +22,6 @@ db.once('open', () => {
   console.log( '+++Connected to mongoose')
 })
 
-// reset autoincrement counter on user list
-mongoose.model('User').resetCount((err) => {
-  console.log('+++Reset count on UserList successfully')
-})
-
 // drop UserList collection
 db.dropCollection('UserList').then((err, result) => {
   if (err) {
@@ -64,10 +59,10 @@ users.map(user => {
       if (err) {
         console.log('---User save failed ' + err)
       } else {
-        console.log('+++User ' + result.userId +  ' saved.')
+        console.log('+++User ' + result._id +  ' saved.')
       }
 
-    })
+    }).catch(e => console.log(e))
 
   })
 
@@ -88,10 +83,10 @@ Promise.all(userSavePromises).then(() => {
     } else {
 
       const rideList = [
-        {userId: 1, start: 'München', end: 'Garmisch', seats: 3, price: 20, activity: ACTIVITIES[1]['id'], id: 1, startDate: moment().add(-1, 'days').startOf('hour').toDate(), user: users[0]._id},
-        {userId: 2, start: 'München', end: 'Tegernsee', seats: 2, price: 28, activity: ACTIVITIES[1]['id'], id: 2, startDate: moment().startOf('hour').toDate(), user: users[1]._id, returnInfo: 'Ich würde gerne um 16 Uhr am Parkplatz zurück sein und dann gemütlich heimfahren.'},
-        {userId: 1, start: 'Augsburg', end: 'Spitzingsee', seats: 2, price: 28, activity: ACTIVITIES[2]['id'], id: 3, startDate: moment().add(4, 'days').startOf('hour').toDate(), user: users[0]._id, returnInfo: 'Wir können gerne zusammen laufen gehen. Ich denke Tempo mittel, 2h hoch und 1h runter.'},
-        {userId: 1, start: 'München', end: 'Garmisch', seats: 2, price: 30, activity: ACTIVITIES[1]['id'], id: 4, startDate: moment().add({days: 4, hours: 2}).startOf('hour').toDate(), user: users[0]._id}
+        {start: 'München', end: 'Garmisch', seats: 3, price: 20, activity: ACTIVITIES[1]['id'], id: 1, startDate: moment().add(-1, 'days').startOf('hour').toDate(), user: users[0]._id},
+        {start: 'München', end: 'Tegernsee', seats: 2, price: 28, activity: ACTIVITIES[1]['id'], id: 2, startDate: moment().startOf('hour').toDate(), user: users[1]._id, returnInfo: 'Ich würde gerne um 16 Uhr am Parkplatz zurück sein und dann gemütlich heimfahren.'},
+        {start: 'Augsburg', end: 'Spitzingsee', seats: 2, price: 28, activity: ACTIVITIES[2]['id'], id: 3, startDate: moment().add(4, 'days').startOf('hour').toDate(), user: users[0]._id, returnInfo: 'Wir können gerne zusammen laufen gehen. Ich denke Tempo mittel, 2h hoch und 1h runter.'},
+        {start: 'München', end: 'Garmisch', seats: 2, price: 30, activity: ACTIVITIES[1]['id'], id: 4, startDate: moment().add({days: 4, hours: 2}).startOf('hour').toDate(), user: users[0]._id}
       ]
 
       rideList.map(ride => {

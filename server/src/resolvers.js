@@ -3,6 +3,8 @@ import RIDE from './models/ride'
 import bcrypt from 'bcrypt'
 import {saltRounds} from '../constants'
 import {getYesterday} from './utils'
+import mongoose from 'mongoose'
+
 
 const removePassword = (data) => {
   if (Array.isArray(data)) {
@@ -75,7 +77,7 @@ export const resolvers = {
     ride: (root, {id}, context) => {
       return new Promise((resolve, reject) => {
         RIDE
-          .findOne({'id': id}, (err, ride) => {
+          .findOne({'_id': id}, (err, ride) => {
             if (err) {
               reject(err)
             } else {
@@ -100,7 +102,7 @@ export const resolvers = {
     user: (root, {userId}, context) => {
       return new Promise((resolve, reject) => {
         USER
-          .findOne({userId: userId}, (err, user) =>{
+          .findById(userId, (err, user) =>{
             if (err) {
               reject(err)
             } else {

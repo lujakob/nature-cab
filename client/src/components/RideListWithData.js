@@ -30,8 +30,7 @@ class RideListWithData extends Component {
 export const rideListQuery = gql`
   query RideListQuery($start: String, $end: String, $activity: String) {
     rides(start: $start, end: $end, activity: $activity) {
-      id
-      userId
+      _id
       start
       end
       activity

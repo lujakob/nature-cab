@@ -15,6 +15,7 @@ const resetRide = {
   end: '',
   activity: '',
   seats: 3,
+  price: '',
   startDate: '',
   startTimeHour: '',
   startTimeMin: '',
@@ -78,6 +79,16 @@ class CreateRide extends Component {
                   return <option key={index} value={activity.id}>{activity.title}</option>
                 })}
               </select>
+            </div>
+            <div className="form-row">
+              <label htmlFor="price">Preis pro Mitfahrer (in &euro;)</label>
+              <input
+                type="text"
+                placeholder="Zum Beispiel: 10"
+                value={this.state.ride.price}
+                name="price"
+                onChange={this._setFieldValue}
+              />
             </div>
           </fieldset>
 
@@ -256,6 +267,7 @@ class CreateRide extends Component {
       end: this.state.ride.end,
       activity: this.state.ride.activity,
       seats: this.state.ride.seats,
+      price: parseInt(this.state.ride.price, 10),
       startDate: startDate,
       returnInfo: this.state.ride.returnInfo
     })

@@ -17,6 +17,10 @@ class RideDetail extends Component {
 
     const ride = this.props.data.ride
 
+    if (!ride) {
+      return <p>Sorry this ride is not available.</p>
+    }
+
     return (
       <div>
         <div className="ride-detail cf">

@@ -7,7 +7,7 @@ import { resolvers } from './resolvers';
 
 const typeDefs = `
 type Ride {
-  id: ID!
+  _id: ID!
   userId: Int!
   start: String!
   end: String!
@@ -32,7 +32,6 @@ input RideInput {
 
 type User {
   _id: ID!
-  userId: Int!
   gender: String!
   firstname: String!
   lastname: String!
@@ -56,7 +55,6 @@ input UserInput {
 }
 
 input UserUpdateInput {
-  userId: Int!
   firstname: String!
   lastname: String!
   email: String!
