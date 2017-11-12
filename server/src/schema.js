@@ -8,7 +8,6 @@ import { resolvers } from './resolvers';
 const typeDefs = `
 type Ride {
   _id: ID!
-  userId: Int!
   start: String!
   end: String!
   activity: String!
@@ -16,11 +15,10 @@ type Ride {
   price: Int!
   startDate: String!
   returnInfo: String
-  user: User
+  user: User 
 }
 
 input RideInput {
-  userId: Int!
   start: String!
   end: String!
   activity: String!
@@ -28,6 +26,7 @@ input RideInput {
   price: Int!
   startDate: String!
   returnInfo: String
+  user: String!
 }
 
 type User {

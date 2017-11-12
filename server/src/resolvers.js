@@ -117,7 +117,7 @@ export const resolvers = {
       return new Promise((resolve, reject) => {
 
         const newRide = new RIDE({
-          userId: ride.userId,
+          user: ride.user,
           start: ride.start,
           end: ride.end,
           seats: ride.seats,
@@ -129,12 +129,12 @@ export const resolvers = {
 
         // save ride
         newRide
-          .save((err, ride) => {
+          .save((err) => {
             if (err) {
               reject(err)
             } else {
-              return resolve(newRide)
-
+              // populate the user for the result to be stored in apollo cache
+              newRide.populate('user', (err) => resolve(newRide))
             }
           }).catch(err => console.log(err))
       })

@@ -262,7 +262,7 @@ class CreateRide extends Component {
       .toDate()
 
     return Object.assign({}, {
-      userId: localStorage.getItem(GC_USER_ID),
+      user: localStorage.getItem(GC_USER_ID),
       start: this.state.ride.start,
       end: this.state.ride.end,
       activity: this.state.ride.activity,
@@ -278,14 +278,18 @@ class CreateRide extends Component {
 const AddRideMutation = gql`
   mutation addRide($ride: RideInput!) {
     addRide(ride: $ride) {
-      id
-      userId
+      _id
       start
       end
       activity
       seats
       startDate
       returnInfo
+      user {
+        firstname
+        lastname
+        car
+      }
     }
   }
 `
