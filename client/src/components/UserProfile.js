@@ -196,9 +196,10 @@ class UserProfile extends Component {
         },
         update: (store, { data: { updateUser } }) => {
 
-          const data = store.readQuery({query: userQuery, variables:{userId}})
+          const variables = {userId}
+          const data = store.readQuery({query: userQuery, variables})
           data.user = updateUser
-          store.writeQuery({query: userQuery, variables:{userId}, data})
+          store.writeQuery({query: userQuery, variables, data})
 
           // show success message
           this.setState({view: VIEWS.SUCCESS})

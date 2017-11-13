@@ -232,11 +232,12 @@ class CreateRide extends Component {
 
           // if rideListQuery was not queried yet, the store has no 'rides' prop and will err
           try {
-            const data = store.readQuery({ query: rideListQuery, variables: {start: '', end: '', activity: ''} });
+            const variables = {start: '', end: '', activity: ''}
+            const data = store.readQuery({query: rideListQuery, variables});
             data.rides.push(Object.assign({}, addRide));
-            store.writeQuery({ query: rideListQuery, data });
+            store.writeQuery({query: rideListQuery, variables, data});
           } catch(e) {
-            console.log('Update store not possible. Maybe it was not fetched yet.', e)
+            console.log('Update store not possible.', e)
           }
         }
       })
@@ -282,6 +283,7 @@ const AddRideMutation = gql`
       start
       end
       activity
+      price
       seats
       startDate
       returnInfo
@@ -289,6 +291,7 @@ const AddRideMutation = gql`
         firstname
         lastname
         car
+        yearOfBirth
       }
     }
   }

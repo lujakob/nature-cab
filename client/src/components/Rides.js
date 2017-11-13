@@ -10,7 +10,7 @@ class Rides extends Component {
   state = {
     start: '',
     end: '',
-    activity: null
+    activity: ''
   }
 
   render () {
