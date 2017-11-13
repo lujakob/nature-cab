@@ -70,7 +70,7 @@ class Header extends Component {
   _logout = () => {
     localStorage.removeItem(GC_USER_ID)
     localStorage.removeItem(GC_AUTH_TOKEN)
-    this.props.history.push('/login', )
+    this.props.history.push('/login')
     this.props.resetStore()
     this.props.data.user = null
   }

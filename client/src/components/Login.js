@@ -9,6 +9,17 @@ class Login extends Component {
   }
 
   render() {
+
+    const token = localStorage.getItem(GC_AUTH_TOKEN)
+
+    if (token) {
+      return (
+        <div className="login">
+          You are currently logged in.
+        </div>
+      )
+    }
+
     return (
       <div className="login">
         <fieldset>
