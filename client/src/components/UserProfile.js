@@ -32,7 +32,6 @@ class UserProfile extends Component {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.data.user)
     if (nextProps.data.user) {
       const newState = Object.assign({}, this.state, {
         user: {
@@ -50,9 +49,7 @@ class UserProfile extends Component {
   }
 
   componentWillUnmount() {
-    console.log('unmount')
-    this.setState({user: defaultUser}, () => console.log(this.state))
-
+    this.setState({user: defaultUser})
   }
 
   render() {
@@ -191,13 +188,18 @@ class UserProfile extends Component {
 
       const userId = localStorage.getItem(GC_USER_ID)
       // add userId for the server to identify user
-      userData = Object.assign(userData, {userId})
+      userData = Object.assign(userData, {_id: userId})
 
       await this.props.updateUserMutation({
         variables: {
           user: userData
         },
         update: (store, { data: { updateUser } }) => {
+
+          const data = store.readQuery({query: userQuery, variables:{userId}})
+          data.user = updateUser
+          store.writeQuery({query: userQuery, variables:{userId}, data})
+
           // show success message
           this.setState({view: VIEWS.SUCCESS})
         }
@@ -205,6 +207,7 @@ class UserProfile extends Component {
 
     } else {
       this.setState({error: true})
+
     }
   }
 

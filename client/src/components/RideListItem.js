@@ -42,6 +42,6 @@ class RideListItem extends Component {
       </div>
     )
   }
-};
+}
 
 export default RideListItem

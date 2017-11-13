@@ -54,6 +54,7 @@ input UserInput {
 }
 
 input UserUpdateInput {
+  _id: String!
   firstname: String!
   lastname: String!
   email: String!

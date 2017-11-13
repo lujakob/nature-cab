@@ -177,7 +177,7 @@ export const resolvers = {
     },
     updateUser: (root, {user}) => {
       return new Promise((resolve, reject) => {
-        const query = {userId: user.userId}
+        const query = {_id: user._id}
         const update = {
           firstname: user.firstname,
           lastname: user.lastname,
