@@ -42,19 +42,30 @@ class App extends Component {
           <Header resetStore={client.resetStore}/>
           <div className='ph3 background-gray'>
             <Switch>
-              <Route exact path='/' render={() => <Redirect to='/ridelist'/> }/>
+              <Route exact path='/' render={() => <Redirect to='/rides'/> }/>
               <Route exact path='/login' component={Login}/>
               <Route path='/rides' component={Rides}/>
-              <Route exact path='/myrides' component={MyRidesWithData}/>
-              <Route exact path='/create' component={CreateRide}/>
+              <ProtectedRoute exact path='/myrides' component={MyRidesWithData}/>
+              <ProtectedRoute exact path='/create' component={CreateRide}/>
               <Route exact path='/register' component={Register}/>
-              <Route exact path='/profile' component={UserProfileWithData}/>
+              <ProtectedRoute exact path='/profile' component={UserProfileWithData}/>
             </Switch>
           </div>
         </div>
       </ApolloProvider>
-    );
+    )
   }
 }
+
+const ProtectedRoute = ({component: Component, ...rest}) => (
+  <Route {...rest} render={props => {
+    const token = localStorage.getItem(GC_AUTH_TOKEN)
+    if (token) {
+      return <Component {...props}/>
+    } else {
+      return <Redirect to={{pathname:'/login'}}/>
+    }
+  }}/>
+)
 
 export default App
