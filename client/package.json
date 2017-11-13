@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "apollo-client": "2.0.1",
+    "apollo-link-error": "^1.0.0",
     "apollo-link-http": "1.1.0",
     "false": "0.0.4",
     "fbemitter": "^2.1.1",

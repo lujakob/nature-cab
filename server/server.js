@@ -66,7 +66,6 @@ server.post('/login', function(req, res) {
 
 // check valid token and add user if available
 const authenticate = (req, res, next) => {
-  console.log('token', req.token)
   if (req.token) {
     jwt.verify(req.token, JWT_SECRET, (err, decoded) => {
       if (err) {

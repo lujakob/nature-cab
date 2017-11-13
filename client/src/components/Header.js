@@ -5,25 +5,18 @@ import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
 import {truncateName} from '../utils/misc'
-import {emitter} from '../utils/emitter'
 
 class Header extends Component {
 
   userId = null
 
-  emitterToken = null
-
-  componentWillMount() {
-    this.emitterToken = emitter.addListener('loginSuccess', (userId) => {
-      this.props.data.refetch({userId})
-    })
-  }
-
-  componentWillUnMount() {
-    this.emitterToken.remove()
-  }
-
   render() {
+    const {data: {user, loading}} = this.props
+
+    if (loading) {
+      return '';
+    }
+
     this.userId = localStorage.getItem(GC_USER_ID)
 
     return (
@@ -53,9 +46,9 @@ class Header extends Component {
           }
           {this.userId ?
           <div className="flex flex-fixed">
-            {this.props.data.user &&
+            {user &&
             <div className='flex'>
-              <Link to='/profile'  className='mr1 no-underline black'>{this.props.data.user.firstname} {truncateName(this.props.data.user.lastname)}</Link>
+              <Link to='/profile'  className='mr1 no-underline black'>{user.firstname} {truncateName(user.lastname)}</Link>
               <div>|</div>
             </div>
             }
@@ -77,7 +70,7 @@ class Header extends Component {
   _logout = () => {
     localStorage.removeItem(GC_USER_ID)
     localStorage.removeItem(GC_AUTH_TOKEN)
-    this.props.history.push('/login')
+    this.props.history.push('/login', )
     this.props.resetStore()
     this.props.data.user = null
   }

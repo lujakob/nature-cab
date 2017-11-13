@@ -25,7 +25,7 @@ const middlewareLink = setContext(() => ({
   headers: {
     authorization: token ? `Bearer ${token}` : null
   }
-}));
+}))
 
 const link = middlewareLink.concat(httpLink)
 
