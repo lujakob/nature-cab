@@ -5,7 +5,7 @@ import {graphql, compose} from 'react-apollo'
 import {formIsValid, getYearOfBirthOptions} from '../utils/misc'
 
 // these fields will be skipped in 'required' validation
-const userSkipMandatoryFields = ['phone', 'car', 'carColor']
+const userSkipMandatoryFields = ['phone', 'car', 'carColor', 'description']
 
 const VIEWS = {SUCCESS: 'SUCCESS'}
 
@@ -16,7 +16,8 @@ const defaultUser = {
   phone: '',
   yearOfBirth: '',
   car: '',
-  carColor: ''
+  carColor: '',
+  description: ''
 }
 
 class UserProfile extends Component {
@@ -41,11 +42,11 @@ class UserProfile extends Component {
           phone: nextProps.data.user.phone,
           yearOfBirth: nextProps.data.user.yearOfBirth,
           car: nextProps.data.user.car,
-          carColor: nextProps.data.user.carColor
+          carColor: nextProps.data.user.carColor,
+          description: nextProps.data.user.description
         }})
       this.setState(newState)
     }
-
   }
 
   componentWillUnmount() {
@@ -54,11 +55,13 @@ class UserProfile extends Component {
 
   render() {
 
-    if (this.props.data.loading) {
+    const {data: {loading, error}} = this.props
+
+    if (loading) {
       return <p>Loading ...</p>;
     }
-    if (this.props.data.error) {
-      return <p>{this.props.data.error.message}</p>;
+    if (error) {
+      return <p>{error.message}</p>;
     }
 
     return (
@@ -125,6 +128,16 @@ class UserProfile extends Component {
             </select>
           </div>
 
+          <div className="form-row">
+            <label htmlFor="description">Infos</label>
+            <textarea
+              id="description"
+              type="text"
+              name="description"
+              value={this.state.user.description}
+              onChange={this._setFieldValue}
+            />
+          </div>
         </fieldset>
 
         <fieldset className="form-fieldset">
@@ -253,6 +266,7 @@ export const userQuery = gql`
       phone
       car
       carColor
+      description
     }
   }
 `
@@ -267,6 +281,7 @@ export const updateUserMutation = gql`
       phone
       car
       carColor
+      description
     }
   }  
 `
