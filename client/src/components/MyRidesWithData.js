@@ -21,17 +21,28 @@ const MyRidesWithData = ({ data: {loading, error, myRides }}) => {
 export const myRidesQuery = gql`
   query MyRidesQuery($userId: ID!) {
     myRides(userId: $userId) {
-      id
+      _id
       start
       end
       activity
+      price
       seats
       startDate
       returnInfo
+      user {
+        firstname
+        lastname
+        yearOfBirth
+        description
+      }
     }
   }
 `;
 
-const userId = localStorage.getItem(GC_USER_ID)
 
-export default graphql(myRidesQuery, {options: {variables: {userId: parseInt(userId, 10)}}})(MyRidesWithData)
+export default graphql(myRidesQuery, {
+  options: (props) => {
+    const userId = localStorage.getItem(GC_USER_ID)
+    return {variables: {userId}}
+  }
+})(MyRidesWithData)

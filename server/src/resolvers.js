@@ -63,7 +63,7 @@ export const resolvers = {
     myRides: (root, args, context) => {
       return new Promise((resolve, reject) => {
         RIDE
-          .find({'userId': args.userId}, (err, rides) => {
+          .find({'user': args.userId}, (err, rides) => {
             if (err) {
               reject(err)
             } else {
