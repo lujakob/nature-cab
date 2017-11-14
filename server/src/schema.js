@@ -40,6 +40,7 @@ type User {
   yearOfBirth: String!
   car: String
   carColor: String
+  description: String
 }
 
 input UserInput {
@@ -62,6 +63,7 @@ input UserUpdateInput {
   yearOfBirth: String!
   car: String
   carColor: String
+  description: String
 }
 
 type Query {

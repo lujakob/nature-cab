@@ -6,7 +6,7 @@ class RideUser extends Component {
   render () {
     return (
       <div className="ride-user">
-        <div className="cf">
+        <div className="ride-user__top cf">
           <div className="ride-user__user-image">
             <img src="/no-headshot.jpg" alt="Benutzer Bild"/>
           </div>
@@ -21,6 +21,13 @@ class RideUser extends Component {
           {this.props.user.car}{this.props.user.carColor ? ', ' + this.props.user.carColor : ''}
         </div>
         }
+        {this.props.showDescription && this.props.user.description &&
+        <div className="ride-user__description">
+          <h4>Infos zum Fahrer</h4>
+          {this.props.user.description}
+        </div>
+        }
+
       </div>
     )
   }

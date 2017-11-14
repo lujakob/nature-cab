@@ -45,7 +45,7 @@ db.dropCollection('RideList').then((err, result) => {
 const users = [
   {email: 'test', password: 'test', gender: 'male', firstname: 'test', lastname: 'test', yearOfBirth: 1988, car: 'VW Golf', carColor: 'grün'},
   {email: 'tom@tom.de', password: 'test', gender: 'male', firstname: 'Tom', lastname: 'Dooley', yearOfBirth: 1988, car: 'Mercedes Benz', carColor: 'blau'},
-  {email: 'lukas@jackson.de', password: 'test', gender: 'male', firstname: 'Lukas', lastname: 'Jackson', yearOfBirth: 1988, car: 'VW Caddy', carColor: 'anthrazit grau'}
+  {email: 'lukas@jackson.de', password: 'test', gender: 'male', firstname: 'Lukas', lastname: 'Jackson', yearOfBirth: 1988, car: 'VW Caddy', carColor: 'anthrazit grau', description: 'Absolut cooler Dude der immer gern unterwegs ist und am liebsten nette Leute zum quatschen dabei hat.'}
 ]
 
 users.map(user => {

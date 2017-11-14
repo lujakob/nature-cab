@@ -86,7 +86,9 @@ export const userQuery = gql`
   }
 `
 
-export default graphql(userQuery, {options: (props) => {
-  const userId = localStorage.getItem(GC_USER_ID)
-  return {variables: {userId: userId || 0}}
-}})(withRouter(Header))
+export default graphql(userQuery, {
+  options: (props) => {
+    const userId = localStorage.getItem(GC_USER_ID)
+    return {variables: {userId: userId || 0}}
+  }
+})(withRouter(Header))
