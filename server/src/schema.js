@@ -71,7 +71,7 @@ type Query {
   ride(id: ID!): Ride
   myRides(userId: ID!): [Ride]
   users: [User]
-  user(userId: ID!): User
+  user(userId: ID): User
 }
 
 

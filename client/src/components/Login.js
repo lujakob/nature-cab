@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {GC_USER_ID, GC_AUTH_TOKEN, STATUS_CODE} from '../constants'
+import {emitter} from '../utils/emitter'
 
 class Login extends Component {
   state = {
@@ -86,7 +87,7 @@ class Login extends Component {
 
     if (result.message === 'ok') {
       this._saveUserData(result)
-      // emitter.emit('loginSuccess', result.id)
+      emitter.emit('loginSuccess', result.id)
       this.props.history.push({pathname: '/rides', from: 'login'})
 
     } else if (result.status && result.status === STATUS_CODE.UNAUTHORIZED) {

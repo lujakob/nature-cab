@@ -5,10 +5,24 @@ import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
 import {truncateName} from '../utils/misc'
+import {emitter} from '../utils/emitter'
+
 
 class Header extends Component {
 
   userId = null
+
+  emitterToken = null
+
+  componentWillMount() {
+    this.emitterToken = emitter.addListener('loginSuccess', userId => {
+      this.props.data.refetch({userId})
+    })
+  }
+
+  componentWillUnmount() {
+    this.emitterToken.remove()
+  }
 
   render() {
     const {data: {user, loading}} = this.props
@@ -78,7 +92,7 @@ class Header extends Component {
 }
 
 export const userQuery = gql`
-  query UserQuery($userId: ID!) {
+  query UserQuery($userId: ID) {
     user(userId: $userId) {
       firstname
       lastname
@@ -89,6 +103,6 @@ export const userQuery = gql`
 export default graphql(userQuery, {
   options: (props) => {
     const userId = localStorage.getItem(GC_USER_ID)
-    return {variables: {userId: userId || 0}}
+    return {variables: {userId}}
   }
 })(withRouter(Header))
