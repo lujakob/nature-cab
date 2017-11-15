@@ -1,9 +1,14 @@
 import React, {Component} from 'react'
 import {getAgeFromYearOfBirth, truncateName} from '../utils/misc'
+import {TRANSPORTATION_TYPES} from '../constants'
+
 
 class RideUser extends Component {
 
   render () {
+
+    const {user, showVehicle, showDescription} = this.props
+
     return (
       <div className="ride-user">
         <div className="ride-user__top cf">
@@ -11,25 +16,34 @@ class RideUser extends Component {
             <img src="/no-headshot.jpg" alt="Benutzer Bild"/>
           </div>
           <div className="ride-user__user-info">
-            <div className="ride-user__user-name">{this.props.user.firstname} {truncateName(this.props.user.lastname)}</div>
-            <div className="ride-user__year-of-birth">{getAgeFromYearOfBirth(this.props.user.yearOfBirth)} Jahre</div>
+            <div className="ride-user__user-name">{user.firstname} {truncateName(user.lastname)}</div>
+            <div className="ride-user__year-of-birth">{getAgeFromYearOfBirth(user.yearOfBirth)} Jahre</div>
           </div>
         </div>
-        {this.props.showCar &&
+        {showVehicle &&
         <div className="ride-user__car">
-          <h4>Auto</h4>
-          {this.props.user.car}{this.props.user.carColor ? ', ' + this.props.user.carColor : ''}
+          <h4>Transportmittel</h4>
+          {this._getVehicle(user)}
         </div>
         }
-        {this.props.showDescription && this.props.user.description &&
+        {showDescription && user.description &&
         <div className="ride-user__description">
           <h4>Infos zum Fahrer</h4>
-          {this.props.user.description}
+          {user.description}
         </div>
         }
 
       </div>
     )
+  }
+
+  _getVehicle(user) {
+    if (user.vehicle === 'TRAIN') {
+      let el = TRANSPORTATION_TYPES.find((el) => el['value'] === user.vehicle)
+      return !!el['title'] ? el['title'] : ''
+    } else {
+      return user.car + (user.carColor ? ', ' + user.carColor : '')
+    }
   }
 };
 

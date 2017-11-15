@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {GC_USER_ID} from '../constants'
+import {GC_USER_ID, TRANSPORTATION_TYPES} from '../constants'
 import gql from 'graphql-tag'
 import {graphql, compose} from 'react-apollo'
 import {formIsValid, getYearOfBirthOptions} from '../utils/misc'
@@ -15,6 +15,7 @@ const defaultUser = {
   email: '',
   phone: '',
   yearOfBirth: '',
+  vehicle: '',
   car: '',
   carColor: '',
   description: ''
@@ -33,6 +34,7 @@ class UserProfile extends Component {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps) {
+    console.log("jo")
     if (nextProps.data.user) {
       const newState = Object.assign({}, this.state, {
         user: {
@@ -41,6 +43,7 @@ class UserProfile extends Component {
           email: nextProps.data.user.email,
           phone: nextProps.data.user.phone,
           yearOfBirth: nextProps.data.user.yearOfBirth,
+          vehicle: nextProps.data.user.vehicle,
           car: nextProps.data.user.car,
           carColor: nextProps.data.user.carColor,
           description: nextProps.data.user.description
@@ -117,9 +120,9 @@ class UserProfile extends Component {
             <label htmlFor="yearOfBirth">Geburtsjahr</label>
             <select
               id="yearOfBirth"
-              onChange={(evt) => this.setState({yearOfBirth: evt.target.value, status: null})}
+              onChange={this._setFieldValue}
               value={this.state.user.yearOfBirth}
-              name="activity"
+              name="yearOfBirth"
             >
               <option value="">Geburtsjahr</option>
               {getYearOfBirthOptions().map((year, index) => {
@@ -141,10 +144,24 @@ class UserProfile extends Component {
         </fieldset>
 
         <fieldset className="form-fieldset">
-          <h3>Auto</h3>
+          <h3>Verkehrsmittel</h3>
 
           <div className="form-row">
-            <label htmlFor="car">Typ</label>
+            <select
+              id="vehicle"
+              onChange={this._setFieldValue}
+              value={this.state.user.vehicle}
+              name="vehicle"
+            >
+              {TRANSPORTATION_TYPES.map((type, index) => {
+                return <option key={index} value={type.value}>{type.title}</option>
+              })}
+            </select>
+          </div>
+
+          {this.state.user.vehicle === TRANSPORTATION_TYPES[0]['value'] &&
+          <div className="form-row">
+            <label htmlFor="car">Auto</label>
             <input
               id="car"
               type="text"
@@ -153,7 +170,9 @@ class UserProfile extends Component {
               onChange={this._setFieldValue}
             />
           </div>
+          }
 
+          {this.state.user.vehicle === TRANSPORTATION_TYPES[0]['value'] &&
           <div className="form-row">
             <label htmlFor="carColor">Farbe</label>
             <input
@@ -164,6 +183,7 @@ class UserProfile extends Component {
               onChange={this._setFieldValue}
             />
           </div>
+          }
 
         </fieldset>
 
@@ -216,6 +236,7 @@ class UserProfile extends Component {
 
           // show success message
           this.setState({view: VIEWS.SUCCESS})
+          setTimeout(() => this.setState({view: null}), 3000)
         }
       })
 
@@ -264,6 +285,7 @@ export const userQuery = gql`
       email
       yearOfBirth
       phone
+      vehicle
       car
       carColor
       description
@@ -279,6 +301,7 @@ export const updateUserMutation = gql`
       email
       yearOfBirth
       phone
+      vehicle
       car
       carColor
       description

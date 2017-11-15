@@ -12,6 +12,7 @@ const userSchema = new Schema({
   description: {type: String, default: ''},
   yearOfBirth: {type: String, required: true},
   phone: {type: String, default: ''},
+  vehicle: {type: String, default: ''},
   car: {type: String, default: ''},
   carColor: {type: String, default: ''}
 }, {collection: 'UserList'})

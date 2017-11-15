@@ -3,8 +3,6 @@ import RIDE from './models/ride'
 import bcrypt from 'bcrypt'
 import {saltRounds} from '../constants'
 import {getYesterday} from './utils'
-import mongoose from 'mongoose'
-
 
 const removePassword = (data) => {
   if (Array.isArray(data)) {
@@ -184,6 +182,7 @@ export const resolvers = {
           email: user.email,
           phone: user.phone,
           yearOfBirth: user.yearOfBirth,
+          vehicle: user.vehicle,
           car: user.car,
           carColor: user.carColor,
           description: user.description
