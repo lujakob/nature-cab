@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import {GC_USER_ID, TRANSPORTATION_TYPES} from '../constants'
+import {GC_USER_ID, TRANSPORTATION_TYPES} from '../../constants'
 import gql from 'graphql-tag'
 import {graphql, compose} from 'react-apollo'
-import {formIsValid, getYearOfBirthOptions} from '../utils/misc'
+import {formIsValid, getYearOfBirthOptions} from '../../utils/misc'
 
 // these fields will be skipped in 'required' validation
 const userSkipMandatoryFields = ['phone', 'car', 'carColor', 'description']
@@ -34,7 +34,6 @@ class UserProfile extends Component {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps) {
-    console.log("jo")
     if (nextProps.data.user) {
       const newState = Object.assign({}, this.state, {
         user: {

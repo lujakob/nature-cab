@@ -1,10 +1,10 @@
 import React from 'react'
 import {graphql} from 'react-apollo'
 import gql from 'graphql-tag';
-import RideList from './RideList'
-import {GC_USER_ID} from '../constants'
+import RideList from '../RideList'
+import {GC_USER_ID} from '../../constants'
 
-const MyRidesWithData = ({ data: {loading, error, myRides }}) => {
+const UserRidesWithData = ({ data: {loading, error, myRides }}) => {
 
   if (loading) {
     return <p>Loading ...</p>;
@@ -45,4 +45,4 @@ export default graphql(myRidesQuery, {
     const userId = localStorage.getItem(GC_USER_ID)
     return {variables: {userId}}
   }
-})(MyRidesWithData)
+})(UserRidesWithData)

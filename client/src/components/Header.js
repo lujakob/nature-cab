@@ -62,7 +62,7 @@ class Header extends Component {
           <div className="flex flex-fixed">
             {user &&
             <div className='flex'>
-              <Link to='/profile'  className='mr1 no-underline black'>{user.firstname} {truncateName(user.lastname)}</Link>
+              <Link to='/user'  className='mr1 no-underline black'>{user.firstname} {truncateName(user.lastname)}</Link>
               <div>|</div>
             </div>
             }

@@ -9,11 +9,11 @@ import { setContext } from 'apollo-link-context'
 
 import Header from './components/Header'
 import Rides from './components/Rides'
-import MyRidesWithData from './components/MyRidesWithData'
 import CreateRide from './components/CreateRide'
 import Login from './components/Login'
 import Register from './components/Register'
-import {UserProfileWithData} from './components/UserProfile'
+import UserPage from './components/User/UserPage'
+import {NoMatch404} from './components/NoMatch404'
 
 import {GC_AUTH_TOKEN} from './constants'
 import './styles/App.css'
@@ -45,10 +45,11 @@ class App extends Component {
               <Route exact path='/' render={() => <Redirect to='/rides'/> }/>
               <Route exact path='/login' component={Login}/>
               <Route path='/rides' component={Rides}/>
-              <ProtectedRoute exact path='/myrides' component={MyRidesWithData}/>
               <ProtectedRoute exact path='/create' component={CreateRide}/>
               <Route exact path='/register' component={Register}/>
-              <ProtectedRoute exact path='/profile' component={UserProfileWithData}/>
+              <ProtectedRoute path='/user' component={UserPage}/>
+              <Route exact path="/404" component={NoMatch404}/>
+              <Redirect to="/404"/>
             </Switch>
           </div>
         </div>
