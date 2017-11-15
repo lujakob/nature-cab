@@ -70,13 +70,24 @@ class CreateRide extends Component {
               />
             </div>
             <div className="form-row">
-              <label htmlFor="ride-activity">Welche Aktivität haben Sie vor?</label>
+              <label htmlFor="ride-activity">Welche Aktivität hast Du vor?</label>
               <select
                 onChange={this._setFieldValue}
                 name="activity"
               >
                 {ACTIVITIES.map((activity, index) => {
                   return <option key={index} value={activity.id}>{activity.title}</option>
+                })}
+              </select>
+            </div>
+            <div className="form-row">
+              <label htmlFor="seats">Wie viele Plätze sind frei?</label>
+              <select
+                onChange={this._setFieldValue}
+                name="seats"
+              >
+                {[1,2,3,4].map((number, index) => {
+                  return <option key={index} value={number}>{number}</option>
                 })}
               </select>
             </div>
