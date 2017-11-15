@@ -39,12 +39,6 @@ class Header extends Component {
           <div className='heading fw7 mr1'>
             <Link to='/rides' className='ml1 no-underline black'>NatureCab</Link>
           </div>
-          {this.userId &&
-          <div className='flex'>
-            <div className='ml1'>|</div>
-            <Link to='/myrides'  className='ml1 no-underline black'>my rides</Link>
-          </div>
-          }
         </div>
 
         <div className='flex flex-fixed'>
