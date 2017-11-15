@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'moment/locale/de'
 import {GC_USER_ID, ACTIVITIES, HOURS, MINS} from '../constants'
-import {formIsValid} from '../utils/misc'
+import {formIsValid, isNormalInteger} from '../utils/misc'
 
 const rideSkipMandatoryFields = ['returnInfo']
 
@@ -92,14 +92,26 @@ class CreateRide extends Component {
               </select>
             </div>
             <div className="form-row">
-              <label htmlFor="price">Preis pro Mitfahrer (in &euro;)</label>
-              <input
-                type="text"
-                placeholder="Zum Beispiel: 10"
-                value={this.state.ride.price}
-                name="price"
-                onChange={this._setFieldValue}
-              />
+              <label htmlFor="price">Preis pro Mitfahrer</label>
+              <div className="content-placeholder-wrapper">
+                <input
+                  type="text"
+                  placeholder="Zum Beispiel: 10€"
+                  value={this.state.ride.price}
+                  name="price"
+                  onChange={this._setPriceValue}
+                />
+                <div className="content-placeholder-container">
+                  <div className="content-placeholder-spacer">
+                    {this.state.ride.price}
+                  </div>
+                  <div className="content-placeholder-value">
+                    {this.state.ride.price.length > 0 &&
+                    <span>&euro;</span>
+                    }
+                  </div>
+                </div>
+              </div>
             </div>
           </fieldset>
 
@@ -199,6 +211,16 @@ class CreateRide extends Component {
     let newState = Object.assign({}, this.state, {error: null})
     newState['ride'][name] = value
     this.setState(newState)
+  }
+
+  _setPriceValue = (evt) => {
+    let {value} = evt.target
+
+    if(isNormalInteger(value) || value === '') {
+      let newState = Object.assign({}, this.state, {error: null})
+      newState['ride']['price'] = value
+      this.setState(newState)
+    }
   }
 
   _syncStartTimeFields = (value) => {

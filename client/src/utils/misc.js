@@ -69,3 +69,8 @@ export const getFormattedDate = (date) => {
 function isToday(date) {
   return moment(new Date(date)).isSame(moment(), 'day')
 }
+
+export function isNormalInteger(str) {
+  let n = Math.floor(Number(str))
+  return String(n) === str && n >= 0
+}
