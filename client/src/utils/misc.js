@@ -13,6 +13,7 @@ export const formIsValid = (dataObj, skipFields) => {
     let isMandatory = !skipFields.includes(prop)
 
     if (isMandatory && !dataObj[prop]) {
+      console.log("Validation error", prop)
       return false
     }
   }

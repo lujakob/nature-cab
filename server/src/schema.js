@@ -8,8 +8,12 @@ import { resolvers } from './resolvers';
 const typeDefs = `
 type Ride {
   _id: ID!
-  start: String!
-  end: String!
+  startLocation: String!
+  startCity: String!
+  startLatLng: [Float]
+  endLocation: String!
+  endCity: String!
+  endLatLng: [Float]
   activity: String!
   seats: Int!
   price: Int!
@@ -19,8 +23,12 @@ type Ride {
 }
 
 input RideInput {
-  start: String!
-  end: String!
+  startLocation: String!
+  startCity: String!
+  startLatLng: [Float]
+  endLocation: String!
+  endCity: String!
+  endLatLng: [Float]
   activity: String!
   seats: Int!
   price: Int!

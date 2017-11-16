@@ -30,12 +30,12 @@ export const resolvers = {
 
       // add 'start' filter
       if (args.start && args.start.length > 0) {
-        Object.assign(filter, {start: args.start})
+        Object.assign(filter, {startCity: args.start})
       }
 
       // add 'end' filter
       if (args.end && args.end.length > 0) {
-        Object.assign(filter, {end: args.end})
+        Object.assign(filter, {endCity: args.end})
       }
 
       // add 'activity' filter
@@ -116,8 +116,12 @@ export const resolvers = {
 
         const newRide = new RIDE({
           user: ride.user,
-          start: ride.start,
-          end: ride.end,
+          startLocation: ride.startLocation,
+          startCity: ride.startCity,
+          startLatLng: ride.startLatLng,
+          endLocation: ride.endLocation,
+          endCity: ride.endCity,
+          endLatLng: ride.endLatLng,
           seats: ride.seats,
           price: ride.price,
           activity: ride.activity,

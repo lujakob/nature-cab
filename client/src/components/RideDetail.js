@@ -25,16 +25,16 @@ class RideDetail extends Component {
       <div>
         <div className="ride-detail cf">
           <div className="ride-detail__back-btn" onClick={this._goBack}>zurück zur Übersicht</div>
-          <h3>{ride.start} - {ride.end}</h3>
+          <h3>{ride.startCity} - {ride.endCity}</h3>
           <div className="ride-detail__left">
             <div className="ride-detail-info">
               <div className="ride-detail-info__row cf">
                 <div className="ride-detail-info__label">Abfahrtsort</div>
-                <div className="ride-detail-info__field">{ride.start}</div>
+                <div className="ride-detail-info__field">{ride.startLocation}</div>
               </div>
               <div className="ride-detail-info__row cf">
                 <div className="ride-detail-info__label">Ankunftsort</div>
-                <div className="ride-detail-info__field">{ride.end}</div>
+                <div className="ride-detail-info__field">{ride.endLocation}</div>
               </div>
               <div className="ride-detail-info__row cf">
                 <div className="ride-detail-info__label">Datum</div>
@@ -84,8 +84,10 @@ class RideDetail extends Component {
 const RideDetailQuery = gql`
   query RideDetail($id:ID!) {
     ride(id: $id) {
-      start
-      end
+      startCity,
+      startLocation,
+      endCity,
+      endLocation,
       startDate
       price
       seats

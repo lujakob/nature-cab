@@ -7,12 +7,13 @@ import moment from 'moment'
 import 'moment/locale/de'
 import {GC_USER_ID, ACTIVITIES, HOURS, MINS} from '../constants'
 import {formIsValid, isNormalInteger} from '../utils/misc'
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
-const rideSkipMandatoryFields = ['returnInfo']
+const rideSkipMandatoryFields = ['returnInfo' , 'startLatLng', 'startCity', 'endLatLng', 'endCity', 'activity']
 
 const resetRide = {
-  start: '',
-  end: '',
+  startLocation: '',
+  endLocation: '',
   activity: '',
   seats: 3,
   price: '',
@@ -50,24 +51,24 @@ class CreateRide extends Component {
             <h3>Abfahrt und Ankunft</h3>
 
             <div className="form-row">
-              <label htmlFor="ride-start">Wo geht's los?</label>
-              <input
-                type="text"
-                placeholder="Zum Beispiel: Marienplatz, München"
-                value={this.state.ride.start}
-                name="start"
-                onChange={this._setFieldValue}
-              />
+              <label htmlFor="startLocation">Wo geht's los?</label>
+              <PlacesAutocomplete inputProps={{
+                placeholder: "Zum Beispiel: Marienplatz, München",
+                value: this.state.ride.startLocation,
+                name: "startLocation",
+                onChange: value => this._setStateForField('startLocation', value)
+              }} />
+
             </div>
             <div className="form-row">
-              <label htmlFor="ride-end">Wohin geht die Fahrt?</label>
-              <input
-                type="text"
-                placeholder="Zum Beispiel: Seesauna, Tegernsee"
-                value={this.state.ride.end}
-                name="end"
-                onChange={this._setFieldValue}
-              />
+              <label htmlFor="endLocation">Wohin geht die Fahrt?</label>
+              <PlacesAutocomplete inputProps={{
+                placeholder: "Zum Beispiel: Seesauna, Tegernsee",
+                value: this.state.ride.endLocation,
+                name: "endLocation",
+                onChange: value => this._setStateForField('endLocation', value)
+              }} />
+
             </div>
             <div className="form-row">
               <label htmlFor="ride-activity">Welche Aktivität hast Du vor?</label>
@@ -207,7 +208,10 @@ class CreateRide extends Component {
    */
   _setFieldValue = (evt) => {
     let {name, value} = evt.target
+    this._setStateForField(name, value)
+  }
 
+  _setStateForField(name, value) {
     let newState = Object.assign({}, this.state, {error: null})
     newState['ride'][name] = value
     this.setState(newState)
@@ -250,7 +254,7 @@ class CreateRide extends Component {
    */
   _submit = async () => {
 
-    let rideData = this._buildRide()
+    let rideData = await this._buildRide()
 
     if (formIsValid(rideData, rideSkipMandatoryFields)) {
 
@@ -289,32 +293,57 @@ class CreateRide extends Component {
    * @returns {*}
    * @private
    */
-  _buildRide() {
-    let startDate = this.state.ride.startDate
-      .add(parseInt(this.state.ride.startTimeHour, 10), 'hours')
-      .add(parseInt(this.state.ride.startTimeMin, 10), 'minutes')
-      .toDate()
+  async _buildRide() {
+    const {ride} = this.state
+    let startGeocodeByAddress = await geocodeByAddress(ride.startLocation)
+    let startLatLng = await getLatLng(startGeocodeByAddress[0])
+
+    console.log("startLatLng", startLatLng)
+
+    let endGeocodeByAddress = await geocodeByAddress(ride.endLocation)
+    let endLatLng = await getLatLng(endGeocodeByAddress[0])
 
     return Object.assign({}, {
       user: localStorage.getItem(GC_USER_ID),
-      start: this.state.ride.start,
-      end: this.state.ride.end,
-      activity: this.state.ride.activity,
-      seats: this.state.ride.seats,
-      price: parseInt(this.state.ride.price, 10),
-      startDate: startDate,
-      returnInfo: this.state.ride.returnInfo
+      startLocation: ride.startLocation,
+      startLatLng: [startLatLng.lat, startLatLng.lng],
+      startCity: this._getCity(startGeocodeByAddress[0]['address_components']),
+      endLocation: ride.endLocation,
+      endLatLng: [endLatLng.lat, endLatLng.lng],
+      endCity: this._getCity(endGeocodeByAddress[0]['address_components']),
+
+      activity: ride.activity,
+      seats: ride.seats,
+      price: parseInt(ride.price, 10),
+      startDate: this._getStartDate(ride.startDate),
+      returnInfo: ride.returnInfo
     })
   }
 
+  _getCity(addressComponents) {
+    // find city name element and return 'long_name' property
+    let cityComponent = addressComponents.find(el => el.types.includes('locality'))
+    return !!cityComponent ? cityComponent['long_name'] : ''
+  }
+
+  _getStartDate(startDate) {
+    return startDate
+      .add(parseInt(startDate.startTimeHour, 10), 'hours')
+      .add(parseInt(startDate.startTimeMin, 10), 'minutes')
+      .toDate()
+  }
 }
 
 const AddRideMutation = gql`
   mutation addRide($ride: RideInput!) {
     addRide(ride: $ride) {
       _id
-      start
-      end
+      startLocation
+      startCity
+      startLatLng
+      endLocation
+      endCity
+      endLatLng
       activity
       price
       seats

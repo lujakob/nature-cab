@@ -12,10 +12,12 @@
     "graphql-tag": "2.5.0",
     "graphql-tools": "2.7.2",
     "moment": "2.19.1",
+    "mongoose-geojson-schema": "^2.1.2",
     "react": "16.0.0",
     "react-apollo": "2.0.0",
     "react-datepicker": "^0.57.0",
     "react-dom": "^16.0.0",
+    "react-places-autocomplete": "^5.4.3",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14"
   },

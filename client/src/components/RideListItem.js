@@ -19,7 +19,7 @@ class RideListItem extends Component {
                 {getFormattedDate(ride.startDate)}
               </div>
               <div className="ride-list-item__start-end">
-                {ride.start} - {ride.end}
+                {ride.startCity} - {ride.endCity}
               </div>
               {getActivityFromId(ride.activity) &&
               <div className="ride-list-item__activity">

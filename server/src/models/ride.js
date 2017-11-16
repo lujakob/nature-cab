@@ -3,9 +3,28 @@ import uniqueValidator from 'mongoose-unique-validator'
 
 const Schema = mongoose.Schema
 
+const latLngType = {
+  type: Object,
+  properties: {
+    type: {
+      type: String,
+      enum: 'Point',
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number],
+      default: [0, 0]
+    }
+  }
+}
+
 const rideSchema = new Schema({
-  start: {type: String, required: true},
-  end: {type: String, required: true},
+  startLocation: {type: String, required: true},
+  startLatLng: latLngType,
+  startCity: {type: String, required: true},
+  endLocation: {type: String, required: true},
+  endLatLng: latLngType,
+  endCity: {type: String, required: true},
   seats: {type: Number},
   price: {type: Number, required: true},
   activity: {type: String},

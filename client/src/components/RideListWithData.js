@@ -31,8 +31,10 @@ export const rideListQuery = gql`
   query RideListQuery($start: String, $end: String, $activity: String) {
     rides(start: $start, end: $end, activity: $activity) {
       _id
-      start
-      end
+      startLocation
+      startCity,
+      endLocation,
+      endCity,
       activity
       seats
       price
