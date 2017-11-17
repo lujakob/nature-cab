@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {getAgeFromYearOfBirth, truncateName} from '../utils/misc'
-import {TRANSPORTATION_TYPES} from '../constants'
+import {getAgeFromYearOfBirth, truncateName} from '../../utils/misc'
+import {TRANSPORTATION_TYPES} from '../../constants'
 
 
 class RideUser extends Component {
@@ -42,7 +42,7 @@ class RideUser extends Component {
       let el = TRANSPORTATION_TYPES.find((el) => el['value'] === user.vehicle)
       return !!el['title'] ? el['title'] : ''
     } else {
-      return user.car + (user.carColor ? ', ' + user.carColor : '')
+      return user.carType + (user.carColor ? ', ' + user.carColor : '')
     }
   }
 };

@@ -47,7 +47,7 @@ type User {
   password: String
   yearOfBirth: String!
   vehicle: String
-  car: String
+  carType: String
   carColor: String
   description: String
 }
@@ -59,7 +59,7 @@ input UserInput {
   email: String!
   password: String!
   yearOfBirth: String!
-  car: String
+  carType: String
   carColor: String
 }
 
@@ -71,7 +71,7 @@ input UserUpdateInput {
   phone: String
   yearOfBirth: String!
   vehicle: String
-  car: String
+  carType: String
   carColor: String
   description: String
 }

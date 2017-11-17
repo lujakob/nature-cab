@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import RideUser from './RideUser'
-import {getActivityFromId, getFormattedDate} from '../utils/misc'
+import {getActivityFromId, getFormattedDate} from '../../utils/misc'
 
 class RideListItem extends Component {
 

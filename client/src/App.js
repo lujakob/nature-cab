@@ -8,7 +8,7 @@ import { ApolloProvider } from 'react-apollo'
 import { setContext } from 'apollo-link-context'
 
 import Header from './components/Header'
-import Rides from './components/Rides'
+import Rides from './components/Ride/Rides'
 import CreateRide from './components/CreateRide'
 import Login from './components/Login'
 import Register from './components/Register'

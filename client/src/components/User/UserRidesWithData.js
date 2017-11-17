@@ -1,7 +1,7 @@
 import React from 'react'
 import {graphql} from 'react-apollo'
 import gql from 'graphql-tag';
-import RideList from '../RideList'
+import RideList from '../Ride/RideList'
 import {GC_USER_ID} from '../../constants'
 
 const UserRidesWithData = ({ data: {loading, error, myRides }}) => {

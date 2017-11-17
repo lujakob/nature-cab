@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ACTIVITIES} from '../constants'
+import {ACTIVITIES} from '../../constants'
 
 class RideListFilter extends Component {
 

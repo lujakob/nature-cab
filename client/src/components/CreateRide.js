@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql}from 'react-apollo'
-import {rideListQuery} from './RideListWithData'
+import {rideListQuery} from './Ride/RideListWithData'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'moment/locale/de'
@@ -352,7 +352,7 @@ const AddRideMutation = gql`
       user {
         firstname
         lastname
-        car
+        carType
         yearOfBirth
       }
     }

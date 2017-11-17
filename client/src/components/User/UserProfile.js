@@ -5,7 +5,7 @@ import {graphql, compose} from 'react-apollo'
 import {formIsValid, getYearOfBirthOptions} from '../../utils/misc'
 
 // these fields will be skipped in 'required' validation
-const userSkipMandatoryFields = ['phone', 'car', 'carColor', 'description']
+const userSkipMandatoryFields = ['phone', 'carType', 'carColor', 'description']
 
 const VIEWS = {SUCCESS: 'SUCCESS'}
 
@@ -16,7 +16,7 @@ const defaultUser = {
   phone: '',
   yearOfBirth: '',
   vehicle: '',
-  car: '',
+  carType: '',
   carColor: '',
   description: ''
 }
@@ -43,7 +43,7 @@ class UserProfile extends Component {
           phone: nextProps.data.user.phone,
           yearOfBirth: nextProps.data.user.yearOfBirth,
           vehicle: nextProps.data.user.vehicle,
-          car: nextProps.data.user.car,
+          carType: nextProps.data.user.carType,
           carColor: nextProps.data.user.carColor,
           description: nextProps.data.user.description
         }})
@@ -160,12 +160,12 @@ class UserProfile extends Component {
 
           {this.state.user.vehicle === TRANSPORTATION_TYPES[0]['value'] &&
           <div className="form-row">
-            <label htmlFor="car">Auto</label>
+            <label htmlFor="carType">Model</label>
             <input
-              id="car"
+              id="carType"
               type="text"
-              value={this.state.user.car}
-              name="car"
+              value={this.state.user.carType}
+              name="carType"
               onChange={this._setFieldValue}
             />
           </div>
@@ -285,7 +285,7 @@ export const userQuery = gql`
       yearOfBirth
       phone
       vehicle
-      car
+      carType
       carColor
       description
     }
@@ -301,7 +301,7 @@ export const updateUserMutation = gql`
       yearOfBirth
       phone
       vehicle
-      car
+      carType
       carColor
       description
     }

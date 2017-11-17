@@ -187,7 +187,7 @@ export const resolvers = {
           phone: user.phone,
           yearOfBirth: user.yearOfBirth,
           vehicle: user.vehicle,
-          car: user.car,
+          carType: user.carType,
           carColor: user.carColor,
           description: user.description
         }

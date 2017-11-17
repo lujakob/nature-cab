@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
 import RideUser from './RideUser'
-import {getActivityFromId, getFormattedDate} from '../utils/misc'
+import {getActivityFromId, getFormattedDate} from '../../utils/misc'
 
 class RideDetail extends Component {
 
@@ -98,7 +98,7 @@ const RideDetailQuery = gql`
         lastname
         yearOfBirth
         vehicle
-        car
+        carType
         carColor
         description
       }
