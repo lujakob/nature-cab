@@ -35,9 +35,12 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 })
 
-const logoutLink = onError(({ graphQLErrors, networkError }) => {
+const logoutLink = onError(({ graphQLErrors, networkError, response }) => {
   if (graphQLErrors && graphQLErrors[0]['message'] === 'UNAUTHORIZED') {
     logout()
+    // ignore errors to prevent: Uncaught (in promise) Error: GraphQL error: UNAUTHORIZED
+    // https://github.com/apollographql/apollo-link/tree/master/packages/apollo-link-error
+    response.errors = null;
   }
 })
 

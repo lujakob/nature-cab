@@ -107,7 +107,7 @@ export const resolvers = {
           })
       })
     },
-    user: (root, {userId}, context) => {
+    user: authenticated((root, {userId}, context) => {
       return new Promise((resolve, reject) => {
         USER
           .findById(userId, (err, user) =>{
@@ -118,7 +118,7 @@ export const resolvers = {
             }
           })
       })
-    }
+    })
   },
   Mutation: {
     addRide: (root, {ride}) => {
