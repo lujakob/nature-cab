@@ -27,3 +27,23 @@ export const authenticated = (fn) =>
 export const isEmailValidationError = (err) => {
   return err.errors && err.errors.email && err.errors.email.properties && err.errors.email.properties.type && err.errors.email.properties.type === 'unique'
 }
+
+/**
+ * removePassword
+ * @param data
+ * @returns {*}
+ */
+export const removePassword = (data) => {
+  if (Array.isArray(data)) {
+    return data.map(item => {
+      delete item.password
+      return item
+    })
+  } else {
+    if (!!data) {
+      delete data.password
+    }
+
+    return data
+  }
+}

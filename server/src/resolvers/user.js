@@ -1,21 +1,7 @@
 import USER from '../models/user'
 import bcrypt from 'bcrypt'
 import {saltRounds} from '../../constants'
-
-const removePassword = (data) => {
-  if (Array.isArray(data)) {
-    return data.map(item => {
-      item.password = null
-      return item
-    })
-  } else {
-    if (!!data) {
-      data.password = null
-    }
-
-    return data
-  }
-}
+import {removePassword} from '../utils'
 
 export const userResolver = (root, {userId}, context) => {
   return new Promise((resolve, reject) => {

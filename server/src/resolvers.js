@@ -1,4 +1,4 @@
-import {authenticated, isEmailValidationError} from './utils'
+import {authenticated} from './utils'
 import {userResolver, usersResolver, createUserResolver, updateUserResolver} from './resolvers/user'
 import {ridesResolver, myRidesResolver, rideResolver, addRideResolver} from './resolvers/ride'
 
