@@ -16,6 +16,7 @@ class Header extends Component {
 
   componentWillMount() {
     this.emitterToken = emitter.addListener('loginSuccess', userId => {
+      this.props.resetStore()
       this.props.data.refetch({userId})
     })
   }

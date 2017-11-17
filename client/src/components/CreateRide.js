@@ -15,7 +15,7 @@ const resetRide = {
   startLocation: '',
   endLocation: '',
   activity: '',
-  seats: 3,
+  seats: 1,
   price: '',
   startDate: '',
   startTimeHour: '',

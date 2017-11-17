@@ -5,7 +5,8 @@ import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
-import { setContext } from 'apollo-link-context'
+import { onError } from 'apollo-link-error'
+import { ApolloLink, from } from 'apollo-link';
 
 import Header from './components/Header'
 import Rides from './components/Ride/Rides'
@@ -15,22 +16,33 @@ import Register from './components/Register'
 import UserPage from './components/User/UserPage'
 import {NoMatch404} from './components/NoMatch404'
 
-import {GC_AUTH_TOKEN} from './constants'
+import {GC_AUTH_TOKEN, GC_USER_ID} from './constants'
 import './styles/App.css'
 
 const httpLink = createHttpLink({uri: 'http://localhost:4000/graphql'})
-const token = localStorage.getItem(GC_AUTH_TOKEN)
 
-const middlewareLink = setContext(() => ({
-  headers: {
-    authorization: token ? `Bearer ${token}` : null
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  operation.setContext(() => {
+    const token = localStorage.getItem(GC_AUTH_TOKEN)
+    return {
+      headers: {
+        authorization: token ? `Bearer ${token}` : null
+      }
+    }
+  })
+
+  return forward(operation);
+})
+
+const logoutLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors && graphQLErrors[0]['message'] === 'UNAUTHORIZED') {
+    logout()
   }
-}))
-
-const link = middlewareLink.concat(httpLink)
+})
 
 const client = new ApolloClient({
-  link,
+  link: from([authMiddleware, logoutLink, httpLink]),
   cache: new InMemoryCache()
 })
 
@@ -61,12 +73,15 @@ class App extends Component {
 const ProtectedRoute = ({component: Component, ...rest}) => (
   <Route {...rest} render={props => {
     const token = localStorage.getItem(GC_AUTH_TOKEN)
-    if (token) {
-      return <Component {...props}/>
-    } else {
-      return <Redirect to={{pathname:'/login'}}/>
-    }
+    return token
+      ? <Component {...props}/>
+      : <Redirect to={{pathname:'/login'}}/>
   }}/>
 )
+
+const logout = () => {
+  localStorage.removeItem(GC_USER_ID)
+  localStorage.removeItem(GC_AUTH_TOKEN)
+}
 
 export default App

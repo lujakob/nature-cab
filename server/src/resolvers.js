@@ -23,6 +23,16 @@ const isEmailValidationError = (err) => {
   return err.errors && err.errors.email && err.errors.email.properties && err.errors.email.properties.type && err.errors.email.properties.type === 'unique'
 }
 
+const authenticated =
+  (fn) =>
+    (parent, args, context, info) => {
+      if (context.user) {
+        return fn(parent, args, context, info);
+      }
+
+      throw new Error('UNAUTHORIZED');
+    }
+
 export const resolvers = {
   Query: {
     rides: (root, args, context) => {
@@ -203,5 +213,5 @@ export const resolvers = {
       })
 
     }
-  },
+  }
 }

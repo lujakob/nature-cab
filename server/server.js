@@ -42,6 +42,7 @@ server.post('/login', function(req, res) {
 
   // find user in DB and check password
   USER.findOne({email: email}, (err, user) => {
+
     if (err) {
       console.log('Login failed, user not found', err)
     } else {
@@ -51,8 +52,9 @@ server.post('/login', function(req, res) {
       } else {
 
         bcrypt.compare(req.body.password, user.password).then(authenticated => {
+
           if(authenticated) {
-            let payload = {id: user.userId};
+            let payload = {_id: user._id};
             let token = jwt.sign(payload, JWT_SECRET);
             res.json({message: 'ok', token: token, id: user._id});
           } else {
@@ -68,23 +70,38 @@ server.post('/login', function(req, res) {
 const authenticate = (req, res, next) => {
   if (req.token) {
     jwt.verify(req.token, JWT_SECRET, (err, decoded) => {
+
       if (err) {
         console.log(err)
-      } else if (decoded && decoded.id) {
-        req.user = users.find(user => user.id === decoded.id)
+        next()
+      } else if (decoded && decoded._id) {
+        // find user in DB and check password
+        USER.findById(decoded._id, '_id', (err, user) => {
+          if (err) {
+            console.log('User not found', err)
+          } else if (!user) {
+            console.log('User not found')
+            // remove token if user not found (which means token is invalid)
+            req.token = null
+            req.user = null
+          } else {
+            req.user = user._id
+          }
+          next()
+        })
       }
     })
+  } else {
+    next()
   }
-
-  next()
 }
 
 // graphql resource - add request token and user to context
-server.post('/graphql', authenticate, graphqlExpress(request => ({
+server.post('/graphql', authenticate, graphqlExpress(({token, user}) => ({
   schema,
   context: {
-    token: request.token,
-    user: request.user
+    token,
+    user
   }
 })))
 
