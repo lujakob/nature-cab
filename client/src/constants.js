@@ -29,3 +29,5 @@ export const TRANSPORTATION_TYPES = [
   {value: 'CAR', title: 'Auto'},
   {value: 'TRAIN', title: 'Zug'}
 ]
+
+export const MAP_CENTER_DEFAULT = {latitude: 48.1412956, longitude: 11.559116399999994}

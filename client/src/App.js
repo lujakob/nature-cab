@@ -10,7 +10,7 @@ import { ApolloLink, from } from 'apollo-link';
 
 import Header from './components/Header'
 import Rides from './components/Ride/Rides'
-import CreateRide from './components/CreateRide'
+import CreateRide from './components/Ride/CreateRide'
 import Login from './components/Login'
 import Register from './components/Register'
 import UserPage from './components/User/UserPage'

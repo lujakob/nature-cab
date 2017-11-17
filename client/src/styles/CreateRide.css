@@ -1,0 +1,13 @@
+.create-ride-container {}
+.create-ride-left-col {
+  float:left;
+  width:60%;
+}
+.create-ride-right-col {
+  float:left;
+  width:calc(40% - 10px);
+  margin-left:10px;
+  padding:20px;
+  border:1px solid #ddd;
+  border-radius:2px;
+}
