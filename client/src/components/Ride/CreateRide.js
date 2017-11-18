@@ -14,9 +14,11 @@ const rideSkipMandatoryFields = ['returnInfo' , 'startLatLng', 'startCity', 'end
 
 const resetRide = {
   startLocation: '',
-  startLatLng: null,
+  startLatLng: {lat: null, lng: null},
+  startCity: '',
   endLocation: '',
-  endLatLng: null,
+  endLatLng: {lat: null, lng: null},
+  endCity: '',
   activity: '',
   seats: 1,
   price: '',
@@ -38,24 +40,13 @@ class CreateRide extends Component {
     moment.locale('de')
 
     this.state = {
-      ride: resetRide,
+      ride: Object.assign({}, resetRide),
       error: null,
-      view: VIEWS.FORM,
-      zoom: 7
+      view: VIEWS.FORM
     }
   }
 
-  componentWillMount() {
-    let newState = Object.assign({}, this.state)
-    newState.ride.startLatLng =  {lat: 48.1412956, lng: 11.559116399999994}
-    newState.ride.endLatLng = {lat: 47.71315240000001, lng: 11.758015999999998}
-    this.setState(newState)
-  }
-
   render() {
-    let zoom = 7
-
-
     if (this.state.view === VIEWS.FORM) {
       return (
         <div className="create-ride-container cf">
@@ -65,22 +56,28 @@ class CreateRide extends Component {
 
               <div className="form-row">
                 <label htmlFor="startLocation">Wo geht's los?</label>
-                <PlacesAutocomplete inputProps={{
-                  placeholder: "Zum Beispiel: Marienplatz, München",
-                  value: this.state.ride.startLocation,
-                  name: "startLocation",
-                  onChange: value => this._setStateForField('startLocation', value)
-                }} />
+                <PlacesAutocomplete
+                  inputProps={{
+                    placeholder: "Zum Beispiel: Marienplatz, München",
+                    value: this.state.ride.startLocation,
+                    name: "startLocation",
+                    onChange: value => this._setStateForField('startLocation', value)
+                  }}
+                  onSelect={(address, placeId) => this._placesOnSelect(address, placeId, ['startLatLng', 'startCity'])}
+              />
 
               </div>
               <div className="form-row">
                 <label htmlFor="endLocation">Wohin geht die Fahrt?</label>
-                <PlacesAutocomplete inputProps={{
-                  placeholder: "Zum Beispiel: Seesauna, Tegernsee",
-                  value: this.state.ride.endLocation,
-                  name: "endLocation",
-                  onChange: value => this._setStateForField('endLocation', value)
-                }} />
+                <PlacesAutocomplete
+                  inputProps={{
+                    placeholder: "Zum Beispiel: Seesauna, Tegernsee",
+                    value: this.state.ride.endLocation,
+                    name: "endLocation",
+                    onChange: value => this._setStateForField('endLocation', value)
+                  }}
+                  onSelect={(address, placeId) => this._placesOnSelect(address, placeId, ['endLatLng', 'endCity'])}
+                />
 
               </div>
               <div className="form-row">
@@ -197,7 +194,7 @@ class CreateRide extends Component {
             </div>
           </div>
           <div className="create-ride-right-col">
-            <RidePreviewMap startLatLng={this.state.ride.startLatLng} endLatLng={this.state.ride.endLatLng} zoom={this.state.zoom}/>
+            <RidePreviewMap startLatLng={this.state.ride.startLatLng} endLatLng={this.state.ride.endLatLng} />
           </div>
         </div>
       )
@@ -209,6 +206,26 @@ class CreateRide extends Component {
 
   }
 
+  /**
+   * _placesOnSelect
+   * @param address
+   * @param placeId
+   * @param fieldName - array of fields to set: [0] => latLng, [1], city
+   * @private
+   */
+  _placesOnSelect = async (address, placeId, fieldName) => {
+    let startGeocodeByAddress = await geocodeByAddress(address)
+    let latLng = await getLatLng(startGeocodeByAddress[0])
+    let city = this._getCity(startGeocodeByAddress[0]['address_components'])
+    this._setStateForField(fieldName[0], latLng)
+    this._setStateForField(fieldName[1], city)
+  }
+
+  /**
+   * _handleDatePicker
+   * @param date
+   * @private
+   */
   _handleDatePicker = (date) => {
     this.setState({
       ride: {
@@ -228,12 +245,23 @@ class CreateRide extends Component {
     this._setStateForField(name, value)
   }
 
+  /**
+   * _setStateForField
+   * @param name
+   * @param value
+   * @private
+   */
   _setStateForField(name, value) {
     let newState = Object.assign({}, this.state, {error: null})
     newState['ride'][name] = value
     this.setState(newState)
   }
 
+  /**
+   * _setPriceValue
+   * @param evt
+   * @private
+   */
   _setPriceValue = (evt) => {
     let {value} = evt.target
 
@@ -244,6 +272,11 @@ class CreateRide extends Component {
     }
   }
 
+  /**
+   * _syncStartTimeFields
+   * @param value
+   * @private
+   */
   _syncStartTimeFields = (value) => {
     let newState = null
     if (this.state.ride.startTimeMin === '' && value !== '') {
@@ -287,12 +320,14 @@ class CreateRide extends Component {
           // if rideListQuery was not queried yet, the store has no 'rides' prop and will err
           try {
             const variables = {start: '', end: '', activity: ''}
-            const data = store.readQuery({query: rideListQuery, variables});
-            data.rides.push(Object.assign({}, addRide));
-            store.writeQuery({query: rideListQuery, variables, data});
+            const data = store.readQuery({query: rideListQuery, variables})
+            data.rides.push(Object.assign({}, addRide))
+            store.writeQuery({query: rideListQuery, variables, data})
           } catch(e) {
             console.log('Update store not possible.', e)
           }
+
+          this._resetFormState()
         }
       })
 
@@ -312,22 +347,15 @@ class CreateRide extends Component {
    */
   async _buildRide() {
     const {ride} = this.state
-    let startGeocodeByAddress = await geocodeByAddress(ride.startLocation)
-    let startLatLng = await getLatLng(startGeocodeByAddress[0])
-
-    console.log("startLatLng", startLatLng)
-
-    let endGeocodeByAddress = await geocodeByAddress(ride.endLocation)
-    let endLatLng = await getLatLng(endGeocodeByAddress[0])
 
     return Object.assign({}, {
       user: localStorage.getItem(GC_USER_ID),
       startLocation: ride.startLocation,
-      startLatLng: [startLatLng.lat, startLatLng.lng],
-      startCity: this._getCity(startGeocodeByAddress[0]['address_components']),
+      startLatLng: [ride.startLatLng.lat, ride.startLatLng.lng],
+      startCity: ride.startCity,
       endLocation: ride.endLocation,
-      endLatLng: [endLatLng.lat, endLatLng.lng],
-      endCity: this._getCity(endGeocodeByAddress[0]['address_components']),
+      endLatLng: [ride.endLatLng.lat, ride.endLatLng.lng],
+      endCity: ride.endCity,
 
       activity: ride.activity,
       seats: ride.seats,
@@ -348,6 +376,10 @@ class CreateRide extends Component {
       .add(parseInt(startDate.startTimeHour, 10), 'hours')
       .add(parseInt(startDate.startTimeMin, 10), 'minutes')
       .toDate()
+  }
+
+  _resetFormState() {
+    this.setState({ride: resetRide})
   }
 }
 
