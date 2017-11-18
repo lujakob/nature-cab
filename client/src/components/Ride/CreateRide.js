@@ -5,7 +5,7 @@ import {rideListQuery} from './RideListWithData'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'moment/locale/de'
-import {GC_USER_ID, ACTIVITIES, HOURS, MINS, MAP_CENTER_DEFAULT} from '../../constants'
+import {GC_USER_ID, ACTIVITIES, HOURS, MINS} from '../../constants'
 import {formIsValid, isNormalInteger} from '../../utils/misc'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import RidePreviewMap from './RidePreviewMap'
@@ -14,7 +14,9 @@ const rideSkipMandatoryFields = ['returnInfo' , 'startLatLng', 'startCity', 'end
 
 const resetRide = {
   startLocation: '',
+  startLatLng: null,
   endLocation: '',
+  endLatLng: null,
   activity: '',
   seats: 1,
   price: '',
@@ -38,15 +40,21 @@ class CreateRide extends Component {
     this.state = {
       ride: resetRide,
       error: null,
-      view: VIEWS.FORM
+      view: VIEWS.FORM,
+      zoom: 7
     }
   }
 
+  componentWillMount() {
+    let newState = Object.assign({}, this.state)
+    newState.ride.startLatLng =  {lat: 48.1412956, lng: 11.559116399999994}
+    newState.ride.endLatLng = {lat: 47.71315240000001, lng: 11.758015999999998}
+    this.setState(newState)
+  }
 
   render() {
+    let zoom = 7
 
-    const {latitude: lat, longitude: lng} = MAP_CENTER_DEFAULT
-    const startLatLng = {lat, lng}
 
     if (this.state.view === VIEWS.FORM) {
       return (
@@ -189,7 +197,7 @@ class CreateRide extends Component {
             </div>
           </div>
           <div className="create-ride-right-col">
-            <RidePreviewMap startLatLng={startLatLng}/>
+            <RidePreviewMap startLatLng={this.state.ride.startLatLng} endLatLng={this.state.ride.endLatLng} zoom={this.state.zoom}/>
           </div>
         </div>
       )
