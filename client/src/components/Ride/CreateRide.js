@@ -5,7 +5,7 @@ import {rideListQuery} from './RideListWithData'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'moment/locale/de'
-import {GC_USER_ID, ACTIVITIES, HOURS, MINS} from '../../constants'
+import {GC_USER_ID, ACTIVITIES, HOURS, MINS, VEHICLES} from '../../constants'
 import {formIsValid, isNormalInteger} from '../../utils/misc'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import RidePreviewMap from './RidePreviewMap'
@@ -21,6 +21,7 @@ const resetRide = {
   endCity: '',
   activity: '',
   seats: 1,
+  vehicle: VEHICLES[0]['value'],
   price: '',
   startDate: '',
   startTimeHour: '',
@@ -91,6 +92,22 @@ class CreateRide extends Component {
                   })}
                 </select>
               </div>
+
+              <div className="form-row">
+                <label htmlFor="vehicle">Fahrzeug?</label>
+
+                <select
+                  id="vehicle"
+                  onChange={this._setFieldValue}
+                  value={this.state.vehicle}
+                  name="vehicle"
+                >
+                  {VEHICLES.map((type, index) => {
+                    return <option key={index} value={type.value}>{type.title}</option>
+                  })}
+                </select>
+              </div>
+
               <div className="form-row">
                 <label htmlFor="seats">Wie viele Plätze sind frei?</label>
                 <select
@@ -359,6 +376,7 @@ class CreateRide extends Component {
 
       activity: ride.activity,
       seats: ride.seats,
+      vehicle: ride.vehicle,
       price: parseInt(ride.price, 10),
       startDate: this._getStartDate(ride.startDate),
       returnInfo: ride.returnInfo
@@ -396,6 +414,7 @@ const AddRideMutation = gql`
       activity
       price
       seats
+      vehicle
       startDate
       returnInfo
       user {

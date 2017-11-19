@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {GC_USER_ID, VEHICLES} from '../../constants'
+import {GC_USER_ID} from '../../constants'
 import gql from 'graphql-tag'
 import {graphql, compose} from 'react-apollo'
 import {formIsValid, getYearOfBirthOptions} from '../../utils/misc'
@@ -146,20 +146,6 @@ class UserProfile extends Component {
           <h3>Verkehrsmittel</h3>
 
           <div className="form-row">
-            <select
-              id="vehicle"
-              onChange={this._setFieldValue}
-              value={this.state.user.vehicle}
-              name="vehicle"
-            >
-              {VEHICLES.map((type, index) => {
-                return <option key={index} value={type.value}>{type.title}</option>
-              })}
-            </select>
-          </div>
-
-          {this.state.user.vehicle === VEHICLES[0]['value'] &&
-          <div className="form-row">
             <label htmlFor="carType">Model</label>
             <input
               id="carType"
@@ -169,9 +155,7 @@ class UserProfile extends Component {
               onChange={this._setFieldValue}
             />
           </div>
-          }
 
-          {this.state.user.vehicle === VEHICLES[0]['value'] &&
           <div className="form-row">
             <label htmlFor="carColor">Farbe</label>
             <input
@@ -182,8 +166,6 @@ class UserProfile extends Component {
               onChange={this._setFieldValue}
             />
           </div>
-          }
-
         </fieldset>
 
         {this.state.error &&
@@ -284,7 +266,6 @@ export const userQuery = gql`
       email
       yearOfBirth
       phone
-      vehicle
       carType
       carColor
       description
@@ -300,7 +281,6 @@ export const updateUserMutation = gql`
       email
       yearOfBirth
       phone
-      vehicle
       carType
       carColor
       description
