@@ -17,6 +17,7 @@ type Ride {
   activity: String!
   seats: Int!
   price: Int!
+  vehicle: String!
   startDate: String!
   returnInfo: String
   user: User 
@@ -32,6 +33,7 @@ input RideInput {
   activity: String!
   seats: Int!
   price: Int!
+  vehicle: String!
   startDate: String!
   returnInfo: String
   user: String!
@@ -46,7 +48,6 @@ type User {
   phone: String
   password: String
   yearOfBirth: String!
-  vehicle: String
   carType: String
   carColor: String
   description: String
@@ -59,8 +60,6 @@ input UserInput {
   email: String!
   password: String!
   yearOfBirth: String!
-  carType: String
-  carColor: String
 }
 
 input UserUpdateInput {
@@ -70,7 +69,6 @@ input UserUpdateInput {
   email: String!
   phone: String
   yearOfBirth: String!
-  vehicle: String
   carType: String
   carColor: String
   description: String

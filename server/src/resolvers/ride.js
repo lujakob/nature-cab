@@ -77,6 +77,7 @@ export const addRideResolver = (root, {ride}) => {
       endLatLng: ride.endLatLng,
       seats: ride.seats,
       price: ride.price,
+      vehicle: ride.vehicle,
       activity: ride.activity,
       startDate: ride.startDate,
       returnInfo: ride.returnInfo

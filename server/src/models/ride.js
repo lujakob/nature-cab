@@ -27,6 +27,7 @@ const rideSchema = new Schema({
   endCity: {type: String, required: true},
   seats: {type: Number},
   price: {type: Number, required: true},
+  vehicle: {type: String, default: 'CAR'},
   activity: {type: String},
   createdAt: {type: Date, default: Date.now()},
   startDate: {type: Date, required: true},

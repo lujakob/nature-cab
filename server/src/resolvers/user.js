@@ -74,7 +74,6 @@ export const updateUserResolver = (root, {user}) => {
       email: user.email,
       phone: user.phone,
       yearOfBirth: user.yearOfBirth,
-      vehicle: user.vehicle,
       carType: user.carType,
       carColor: user.carColor,
       description: user.description

@@ -25,7 +25,7 @@ export const HOURS = ['', '00', '01', '02', '03', '04', '05', '06', '07', '08', 
 
 export const MINS = ['', '00', '15', '30', '45']
 
-export const TRANSPORTATION_TYPES = [
+export const VEHICLES = [
   {value: 'CAR', title: 'Auto'},
   {value: 'TRAIN', title: 'Zug'}
 ]

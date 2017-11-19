@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {GC_USER_ID, TRANSPORTATION_TYPES} from '../../constants'
+import {GC_USER_ID, VEHICLES} from '../../constants'
 import gql from 'graphql-tag'
 import {graphql, compose} from 'react-apollo'
 import {formIsValid, getYearOfBirthOptions} from '../../utils/misc'
@@ -152,13 +152,13 @@ class UserProfile extends Component {
               value={this.state.user.vehicle}
               name="vehicle"
             >
-              {TRANSPORTATION_TYPES.map((type, index) => {
+              {VEHICLES.map((type, index) => {
                 return <option key={index} value={type.value}>{type.title}</option>
               })}
             </select>
           </div>
 
-          {this.state.user.vehicle === TRANSPORTATION_TYPES[0]['value'] &&
+          {this.state.user.vehicle === VEHICLES[0]['value'] &&
           <div className="form-row">
             <label htmlFor="carType">Model</label>
             <input
@@ -171,7 +171,7 @@ class UserProfile extends Component {
           </div>
           }
 
-          {this.state.user.vehicle === TRANSPORTATION_TYPES[0]['value'] &&
+          {this.state.user.vehicle === VEHICLES[0]['value'] &&
           <div className="form-row">
             <label htmlFor="carColor">Farbe</label>
             <input

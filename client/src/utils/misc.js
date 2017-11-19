@@ -71,7 +71,16 @@ function isToday(date) {
   return moment(new Date(date)).isSame(moment(), 'day')
 }
 
-export function isNormalInteger(str) {
+export const isNormalInteger = (str) => {
   let n = Math.floor(Number(str))
   return String(n) === str && n >= 0
+}
+
+export const getVehicleTitleByKey = (value, vehicles) => {
+  let el = vehicles.find(el => el.value === value)
+  return el ? el['title'] : ''
+}
+
+export const vehicleIsCar = (value, vehicles) => {
+  return value === vehicles[0]['value']
 }

@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
 import RideUser from './RideUser'
-import {getActivityFromId, getFormattedDate} from '../../utils/misc'
+import {getActivityFromId, getFormattedDate, getVehicleTitleByKey, vehicleIsCar} from '../../utils/misc'
+import {VEHICLES} from '../../constants'
 
 class RideDetail extends Component {
 
@@ -56,6 +57,13 @@ class RideDetail extends Component {
                 <div className="ride-detail-info__label">Anzahl der Plätze</div>
                 <div className="ride-detail-info__field">{ride.seats}</div>
               </div>
+              <div className="ride-detail-info__row cf">
+                <div className="ride-detail-info__label">Fahrzeug</div>
+                <div className="ride-detail-info__field">
+                  {this._getVehicle(ride)}
+                </div>
+              </div>
+
               <div className="ride-detail-info__row ride-detail-info__row--return-info cf">
                 <div className="ride-detail-info__label">Infos</div>
                 <div className="ride-detail-info__field">{ride.returnInfo}</div>
@@ -67,13 +75,21 @@ class RideDetail extends Component {
             <div className="ride-detail-user">
               <h3>Fahrer</h3>
               <div className="ride-detail-user__user-info">
-                <RideUser user={ride.user} showVehicle="true" showDescription="true"/>
+                <RideUser user={ride.user} showVehicle={vehicleIsCar(ride.vehicle, VEHICLES)} showDescription="true"/>
               </div>
             </div>
           </div>
         </div>
       </div>
     )
+  }
+
+  _getVehicle(ride) {
+    if (vehicleIsCar(ride.vehicle, VEHICLES)) {
+      return ride.user.carType + ', ' + ride.user.carColor
+    } else {
+      return getVehicleTitleByKey(ride.vehicle, VEHICLES)
+    }
   }
 
   _goBack = () => {
@@ -91,13 +107,13 @@ const RideDetailQuery = gql`
       startDate
       price
       seats
+      vehicle
       activity
       returnInfo
       user {
         firstname
         lastname
         yearOfBirth
-        vehicle
         carType
         carColor
         description
