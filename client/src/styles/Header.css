@@ -8,10 +8,11 @@
 .header .heading a {
   color:#ffb700;
   font-size:24px;
+  margin:0;
 }
 .header button {
   margin-bottom: 0;
-  margin-right:10px;
+  margin-right:20px;
   height:33px;
   line-height:17px;
 }

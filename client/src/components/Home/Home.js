@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
-import RideListWithData from './RideListWithData'
-import RideDetail from './RideDetail'
-import RideListFilter from './RideListFilter'
+import RideListWithData from '../Ride/RideListWithData'
+import RideDetail from '../Ride/RideDetail'
+import RideListFilter from '../Ride/RideListFilter'
 import {Route} from 'react-router-dom'
 import { withRouter } from 'react-router'
 
-class Rides extends Component {
+class Home extends Component {
 
   state = {
     start: '',
@@ -15,7 +15,10 @@ class Rides extends Component {
 
   render () {
     return (
-      <div className="ride-list-page">
+      <div className="home-page">
+        <div className="home-visual">
+          <img src="./home.jpg"/>
+        </div>
         <RideListFilter filterFunc={({start, end, activity}) => {
           this.setState({start, end, activity})
           // go to list view
@@ -30,4 +33,4 @@ class Rides extends Component {
   }
 }
 
-export default withRouter(Rides)
+export default withRouter(Home)

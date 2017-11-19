@@ -23,6 +23,7 @@ class RideListFilter extends Component {
               onChange={this._onChange}
             />
           </div>
+          {false &&
           <div className="ride-list-filter-field">
             <input
               type="text"
@@ -32,6 +33,8 @@ class RideListFilter extends Component {
               onChange={this._onChange}
             />
           </div>
+          }
+
           <div className="ride-list-filter-field">
             <select
               onChange={this._onChange}

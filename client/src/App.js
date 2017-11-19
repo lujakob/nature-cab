@@ -15,6 +15,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import UserPage from './components/User/UserPage'
 import {NoMatch404} from './components/NoMatch404'
+import Home from './components/Home/Home'
 
 import {GC_AUTH_TOKEN, GC_USER_ID} from './constants'
 import './styles/App.css'
@@ -57,7 +58,7 @@ class App extends Component {
           <Header resetStore={client.resetStore}/>
           <div className='ph3 background-gray'>
             <Switch>
-              <Route exact path='/' render={() => <Redirect to='/rides'/> }/>
+              <Route exact path='/' component={Home}/>
               <Route exact path='/login' component={Login}/>
               <Route path='/rides' component={Rides}/>
               <ProtectedRoute exact path='/create' component={CreateRide}/>
