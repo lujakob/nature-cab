@@ -64,10 +64,12 @@ class RideDetail extends Component {
                 </div>
               </div>
 
+              {ride.returnInfo &&
               <div className="ride-detail-info__row ride-detail-info__row--return-info cf">
                 <div className="ride-detail-info__label">Infos</div>
                 <div className="ride-detail-info__field">{ride.returnInfo}</div>
               </div>
+              }
 
             </div>
           </div>

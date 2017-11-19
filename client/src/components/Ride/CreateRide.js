@@ -48,7 +48,9 @@ class CreateRide extends Component {
   }
 
   render() {
-    if (this.state.view === VIEWS.FORM) {
+    const {ride, view} = this.state
+
+    if (view === VIEWS.FORM) {
       return (
         <div className="create-ride-container cf">
           <div className="create-ride-left-col">
@@ -60,7 +62,7 @@ class CreateRide extends Component {
                 <PlacesAutocomplete
                   inputProps={{
                     placeholder: "Zum Beispiel: Marienplatz, München",
-                    value: this.state.ride.startLocation,
+                    value: ride.startLocation,
                     name: "startLocation",
                     onChange: value => this._setStateForField('startLocation', value)
                   }}
@@ -73,7 +75,7 @@ class CreateRide extends Component {
                 <PlacesAutocomplete
                   inputProps={{
                     placeholder: "Zum Beispiel: Seesauna, Tegernsee",
-                    value: this.state.ride.endLocation,
+                    value: ride.endLocation,
                     name: "endLocation",
                     onChange: value => this._setStateForField('endLocation', value)
                   }}
@@ -94,7 +96,7 @@ class CreateRide extends Component {
               </div>
 
               <div className="form-row">
-                <label htmlFor="vehicle">Fahrzeug?</label>
+                <label htmlFor="vehicle">Mit welchem Fahrzeug?</label>
 
                 <select
                   id="vehicle"
@@ -125,16 +127,16 @@ class CreateRide extends Component {
                   <input
                     type="text"
                     placeholder="Zum Beispiel: 10€"
-                    value={this.state.ride.price}
+                    value={ride.price}
                     name="price"
                     onChange={this._setPriceValue}
                   />
                   <div className="content-placeholder-container">
                     <div className="content-placeholder-spacer">
-                      {this.state.ride.price}
+                      {ride.price}
                     </div>
                     <div className="content-placeholder-value">
-                      {this.state.ride.price.length > 0 &&
+                      {ride.price.length > 0 &&
                       <span>&euro;</span>
                       }
                     </div>
@@ -151,7 +153,7 @@ class CreateRide extends Component {
                 <div className="datepicker-wrapper">
                   <DatePicker
                     placeholderText={moment().add(4, 'days').format('LL')}
-                    selected={this.state.ride.startDate}
+                    selected={ride.startDate}
                     minDate={moment()}
                     onChange={this._handleDatePicker}
                     dateFormat="LL"
@@ -162,7 +164,7 @@ class CreateRide extends Component {
                       this._setFieldValue(evt)
                       this._syncStartTimeFields(evt.target.value)
                     }}
-                    value={this.state.ride.startTimeHour}
+                    value={ride.startTimeHour}
                     name="startTimeHour"
                   >
                     {HOURS.map((hour, index) => {
@@ -173,7 +175,7 @@ class CreateRide extends Component {
                   <select
                     className="select-start-time-min"
                     onChange={this._setFieldValue}
-                    value={this.state.ride.startTimeMin}
+                    value={ride.startTimeMin}
                     name="startTimeMin"
                   >
                     {MINS.map((min, index) => {
@@ -186,7 +188,7 @@ class CreateRide extends Component {
                 </div>
               </div>
               <div className="form-row">
-                <label htmlFor="ride-return-info">Infos zur Rückfahrt</label>
+                <label htmlFor="ride-return-info">Infos zur Fahrt</label>
                 <textarea
                   name="returnInfo"
                   placeholder="Zum Beispiel: Rückfahrt um 16:00 Uhr am Parkplatz"
@@ -211,7 +213,7 @@ class CreateRide extends Component {
             </div>
           </div>
           <div className="create-ride-right-col">
-            <RidePreviewMap startLatLng={this.state.ride.startLatLng} endLatLng={this.state.ride.endLatLng} />
+            <RidePreviewMap startLatLng={ride.startLatLng} endLatLng={ride.endLatLng} />
           </div>
         </div>
       )

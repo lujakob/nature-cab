@@ -101,3 +101,6 @@ textarea {
   width:32px !important;
 }
 
+.select-time-spacer--time {
+  margin-left:5px;
+}
