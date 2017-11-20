@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {ACTIVITIES} from '../../constants'
+import {withRouter} from 'react-router-dom'
 
 class RideListFilter extends Component {
 
@@ -9,10 +10,15 @@ class RideListFilter extends Component {
     activity: this.props.activity ? this.props.activity : '',
   }
 
+  componentWillMount() {
+    const {start, end, activity} = this.props.match.params
+    this.setState({start, end, activity})
+  }
+
   render() {
     return (
       <div className="ride-list-filter">
-        <div className="heading">Dein Taxi ins Gr&uuml;ne...</div>
+        <div className="heading">Dein Taxi ins Gr&uuml;ne - oder in den Schnee.</div>
         <div className="ride-list-filter__wrapper">
           <div className="ride-list-filter-field">
             <input
@@ -72,4 +78,4 @@ class RideListFilter extends Component {
 }
 
 
-export default RideListFilter
+export default withRouter(RideListFilter)

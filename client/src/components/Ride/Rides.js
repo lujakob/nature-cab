@@ -14,20 +14,27 @@ class Rides extends Component {
   }
 
   render () {
+    const isListView = this.props.location.pathname === '/rides'
     return (
-      <div className="ride-list-page">
-        <RideListFilter filterFunc={({start, end, activity}) => {
-          this.setState({start, end, activity})
-          // go to list view
-          this.props.history.push('/rides')
+      <div className={'ride-list-page' + (isListView ? ' has-visual' : '')}>
+        <div className="visual">
+          <img src="./home1.jpg"/>
+        </div>
+        <Route exact path={`${this.props.match.url}`} render={() => {
+          this.props.history.push('/')
+          return ''
         }}/>
-        <Route exact path={this.props.match.url} render={() => {
-          return <RideListWithData start={this.state.start} end={this.state.end} activity={this.state.activity}/>
-        }}/>
+        {/*<Route exact path={`${this.props.match.url}`} render={() => (*/}
+          {/*<div>*/}
+            {/*<RideListFilter filterFunc={({start, end, activity}) => this.setState({start, end, activity})}/>*/}
+            {/*<RideListWithData start={this.state.start} end={this.state.end} activity={this.state.activity}/>*/}
+          {/*</div>*/}
+        {/*)}/>*/}
         <Route path={`${this.props.match.url}/:id`} component={RideDetail}/>
       </div>
     )
   }
+
 }
 
 export default withRouter(Rides)

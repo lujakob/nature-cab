@@ -4,8 +4,13 @@
 }
 
 .ride-list-filter .heading {
-  font-size:16px;
-  margin-bottom:4px;
+  font-size:20px;
+  margin-bottom:13px;
+  color:white;
+  text-align:center;
+  /*font-family: 'Kalam', cursive;*/
+  font-family: 'Ruda', cursive;
+
 }
 .ride-list-filter__wrapper {
   display:flex;
@@ -13,14 +18,35 @@
 .ride-list-filter-field input {
   width: 160px;
   margin-right:10px;
-  border-radius: 4px;
+}
+.ride-list-filter-field input,
+.ride-list-filter-field select,
+.ride-list-filter-field button {
+  -webkit-appearance: none;
+  border-radius: 1px;
 }
 
 .ride-list-filter-field select {
   width: 160px;
   margin-right:10px;
+  line-height:14px;
 }
 .ride-list-filter button {
   outline:0;
+  background-color:#dd440b;
+  border:none;
+  height:34px;
 }
 
+
+.has-visual .ride-list-filter {
+  margin:-110px -1rem 25px;
+}
+
+.has-visual .ride-list-filter__wrapper {
+  justify-content: center;
+}
+
+.has-visual .ride-list-filter .ride-list-filter-field {
+
+}

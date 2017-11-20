@@ -14,9 +14,9 @@ class RideListWithData extends Component {
     }
 
     return (
-      <div>
+      <div className="ride-list">
         {this.props.data.rides && this.props.data.rides.length === 0 &&
-          <p>Sorry, your filter has no results.</p>
+          <p className="error-message">Sorry, für diesen Filter haben wir keine Einträge gefunden.</p>
         }
         {this.props.data.rides && this.props.data.rides.length > 0 &&
           <RideList rides={this.props.data.rides}/>
@@ -32,7 +32,7 @@ export const rideListQuery = gql`
     rides(start: $start, end: $end, activity: $activity) {
       _id
       startLocation
-      startCity
+      startCity,
       endLocation
       endCity
       activity

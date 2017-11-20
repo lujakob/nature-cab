@@ -3,18 +3,25 @@
   height:60px;
   padding-top:15px;
   padding-bottom:15px;
+
 }
 
 .header .heading a {
-  color:#ffb700;
+  color:#18B5DC;
   font-size:24px;
   margin:0;
+  font-family: 'Ruda', cursive;
+  font-weight:700;
+
 }
 .header button {
   margin-bottom: 0;
   margin-right:20px;
-  height:33px;
   line-height:17px;
+  background-color:#dd440b;
+  border:none;
+  height:34px;
+  border-radius:1px;
 }
 
 .header button:focus {
@@ -23,4 +30,21 @@
 
 .header .login-link {
   font-weight:bold;
+}
+
+.visual {
+  width:calc(100% + 40px);
+  height:auto;
+  margin:-60px -20px 10px;
+  z-index:-1;
+  position: relative;
+  display:none;
+}
+.visual img {
+  display:block;
+  width:100%;
+  height:auto;
+}
+.has-visual .visual {
+  display:block;
 }
