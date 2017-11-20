@@ -36,7 +36,7 @@ class Header extends Component {
       <div className='header flex justify-between nowrap ph3'>
         <div className='flex flex-fixed black'>
           <div className='heading fw7 mr1'>
-            <Link to='/' className='ml1 no-underline black'>NatureCab</Link>
+            <Link to='/' className='no-underline logo'>NatureCab</Link>
           </div>
         </div>
 

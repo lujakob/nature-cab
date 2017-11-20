@@ -3,17 +3,8 @@
   height:60px;
   padding-top:15px;
   padding-bottom:15px;
-
 }
 
-.header .heading a {
-  color:#18B5DC;
-  font-size:24px;
-  margin:0;
-  font-family: 'Ruda', cursive;
-  font-weight:700;
-
-}
 .header button {
   margin-bottom: 0;
   margin-right:20px;
@@ -40,11 +31,13 @@
   position: relative;
   display:none;
 }
+
 .visual img {
   display:block;
   width:100%;
   height:auto;
 }
+
 .has-visual .visual {
   display:block;
 }

@@ -6,6 +6,20 @@ body {
   color:#333;
 }
 
+.is-login-page {
+  background:url("../img/login-bg.jpg") center center fixed no-repeat;
+  background-size:cover;
+}
+
+
+.logo{
+  color:#18B5DC;
+  font-size:24px;
+  margin:0;
+  font-family: 'Ruda', cursive;
+  font-weight:700;
+}
+
 a {
   color:#333;
 }

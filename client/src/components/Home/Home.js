@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import RideListWithData from '../Ride/RideListWithData'
 import RideListFilter from '../Ride/RideListFilter'
 import { withRouter } from 'react-router'
+import homeImg from '../../img/home1.jpg'
 
 class Home extends Component {
 
@@ -15,7 +16,7 @@ class Home extends Component {
     return (
       <div className="home-page has-visual">
         <div className="visual">
-          <img src="./home1.jpg"/>
+          <img src={homeImg}/>
         </div>
 
         <RideListFilter filterFunc={({start, end, activity}) => {

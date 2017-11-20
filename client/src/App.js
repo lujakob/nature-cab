@@ -54,24 +54,37 @@ class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <div className='center w85'>
-          <Header resetStore={client.resetStore}/>
-          <div className='ph3 background-gray'>
-            <Switch>
-              <Route exact path='/' component={Home}/>
-              <Route exact path='/login' component={Login}/>
-              <Route path='/rides' component={Rides}/>
-              <ProtectedRoute exact path='/create' component={CreateRide}/>
-              <Route exact path='/register' component={Register}/>
-              <ProtectedRoute path='/user' component={UserPage}/>
-              <Route exact path="/404" component={NoMatch404}/>
-              <Redirect to="/404"/>
-            </Switch>
-          </div>
+        <div>
+          <Switch>
+            <Route exact path='/login' component={Login}/>
+            <Layout>
+              <Switch>
+                <Route exact path='/' component={Home}/>
+                <Route path='/rides' component={Rides}/>
+                <ProtectedRoute exact path='/create' component={CreateRide}/>
+                <Route exact path='/register' component={Register}/>
+                <ProtectedRoute path='/user' component={UserPage}/>
+                <Route exact path="/404" component={NoMatch404}/>
+                <Redirect to="/404"/>
+              </Switch>
+            </Layout>
+          </Switch>
         </div>
+
       </ApolloProvider>
     )
   }
+}
+
+const Layout = ({children}) => {
+  return (
+    <div className='center w85'>
+      <Header resetStore={client.resetStore}/>
+      <div className='ph3 background-gray'>
+        {children}
+      </div>
+    </div>
+  )
 }
 
 const ProtectedRoute = ({component: Component, ...rest}) => (

@@ -1,12 +1,20 @@
 import React, {Component} from 'react'
 import {GC_USER_ID, GC_AUTH_TOKEN, STATUS_CODE} from '../constants'
 import {emitter} from '../utils/emitter'
+import {Link} from 'react-router-dom'
 
 class Login extends Component {
   state = {
     email: '',
     password: '',
     status: null
+  }
+
+  componentWillMount() {
+    document.body.classList.add('is-login-page')
+  }
+  componentWillUnmount() {
+    document.body.classList.remove('is-login-page')
   }
 
   render() {
@@ -22,9 +30,10 @@ class Login extends Component {
     }
 
     return (
-      <div className="login">
+      <div className="login-page">
         <fieldset>
-          <h3>Login</h3>
+          <Link to='/' className='no-underline logo'>NatureCab</Link>
+
           <div className="form-row">
             <input
               type="text"
