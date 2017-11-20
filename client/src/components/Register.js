@@ -3,6 +3,8 @@ import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
 import {VALIDATION} from '../constants'
 import {formIsValid, getYearOfBirthOptions} from '../utils/misc'
+import {LayoutLeftCol} from './Layout/LayoutLeftCol'
+import {Logo} from './Logo'
 
 const userSkipMandatoryFields = ['status']
 
@@ -16,15 +18,20 @@ let stateDefaults = {
   status: null
 }
 
-class Register extends Component {
+class Register extends LayoutLeftCol {
   state = Object.assign({}, stateDefaults)
 
   render() {
     return (
-      <div>
-        <h3>Registrierung</h3>
+      <div className="register-page page-wrapper">
+
         <fieldset>
-          <h2>Gib deine persönlichen Daten an</h2>
+          <Logo/>
+
+          <h2>
+            Noch kein Mitglied?<br/>
+            Jetzt kostenlos anmelden.
+          </h2>
           <div className="form-row">
             <input
               id="registration-gender-0"
@@ -90,8 +97,16 @@ class Register extends Component {
               })}
             </select>
           </div>
-        </fieldset>
 
+          <div className="form-row form-row--button-right">
+            <button
+              className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
+              onClick={() => this._submit()}
+            >
+              Registrieren
+            </button>
+          </div>
+        </fieldset>
 
         {this.state.status === VALIDATION.VALIDATION_REQUIRED &&
         <div className="error-message dark-red">
@@ -104,15 +119,6 @@ class Register extends Component {
           Diese Email ist schon registriert.
         </div>
         }
-
-        <div className="form-row form-row--button-right">
-          <button
-            className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
-            onClick={() => this._submit()}
-          >
-            Registrieren
-          </button>
-        </div>
       </div>
     )
   }

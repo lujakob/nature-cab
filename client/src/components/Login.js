@@ -1,20 +1,14 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {GC_USER_ID, GC_AUTH_TOKEN, STATUS_CODE} from '../constants'
 import {emitter} from '../utils/emitter'
-import {Link} from 'react-router-dom'
+import {LayoutLeftCol} from './Layout/LayoutLeftCol'
+import {Logo} from './Logo'
 
-class Login extends Component {
+class Login extends LayoutLeftCol {
   state = {
     email: '',
     password: '',
     status: null
-  }
-
-  componentWillMount() {
-    document.body.classList.add('is-login-page')
-  }
-  componentWillUnmount() {
-    document.body.classList.remove('is-login-page')
   }
 
   render() {
@@ -30,9 +24,9 @@ class Login extends Component {
     }
 
     return (
-      <div className="login-page">
+      <div className="login-page page-wrapper">
         <fieldset>
-          <Link to='/' className='no-underline logo'>NatureCab</Link>
+          <Logo/>
 
           <div className="form-row">
             <input
@@ -63,13 +57,11 @@ class Login extends Component {
             >
               Login
             </button>
-          </div>
-          <div>
             <div
-              className='pointer mr2 button'
+              className='register-button pointer'
               onClick={() => this.props.history.push('/register')}
             >
-              Anmelden
+              Registrieren
             </div>
           </div>
         </fieldset>
@@ -97,7 +89,7 @@ class Login extends Component {
     if (result.message === 'ok') {
       this._saveUserData(result)
       emitter.emit('loginSuccess', result.id)
-      this.props.history.push({pathname: '/rides', from: 'login'})
+      this.props.history.push({pathname: '/', from: 'login'})
 
     } else if (result.status && result.status === STATUS_CODE.UNAUTHORIZED) {
       this.setState({status: STATUS_CODE.UNAUTHORIZED})

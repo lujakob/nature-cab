@@ -54,23 +54,20 @@ class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <div>
-          <Switch>
-            <Route exact path='/login' component={Login}/>
-            <Layout>
-              <Switch>
-                <Route exact path='/' component={Home}/>
-                <Route path='/rides' component={Rides}/>
-                <ProtectedRoute exact path='/create' component={CreateRide}/>
-                <Route exact path='/register' component={Register}/>
-                <ProtectedRoute path='/user' component={UserPage}/>
-                <Route exact path="/404" component={NoMatch404}/>
-                <Redirect to="/404"/>
-              </Switch>
-            </Layout>
-          </Switch>
-        </div>
-
+        <Switch>
+          <Route exact path='/login' component={Login}/>
+          <Route exact path='/register' component={Register}/>
+          <Layout>
+            <Switch>
+              <Route exact path='/' component={Home}/>
+              <Route path='/rides' component={Rides}/>
+              <ProtectedRoute exact path='/create' component={CreateRide}/>
+              <ProtectedRoute path='/user' component={UserPage}/>
+              <Route exact path="/404" component={NoMatch404}/>
+              <Redirect to="/404"/>
+            </Switch>
+          </Layout>
+        </Switch>
       </ApolloProvider>
     )
   }

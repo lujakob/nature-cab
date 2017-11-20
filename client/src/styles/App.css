@@ -11,6 +11,32 @@ body {
   background-size:cover;
 }
 
+.is-login-page .page-wrapper {
+  position:fixed;
+  height:100%;
+  width:400px;
+  background-color:white;
+}
+.is-login-page .page-wrapper fieldset {
+  height:100%;
+  margin:140px 40px 0;
+  border:none;
+}
+
+.is-login-page .page-wrapper .logo {
+  display:inline-block;
+  margin-bottom:20px;
+}
+
+.is-login-page .page-wrapper button {
+  background-color:#18B5DC;
+  border:none;
+}
+
+.is-login-page .page-wrapper .register-button {
+  float:right;
+  line-height:33px;
+}
 
 .logo{
   color:#18B5DC;
