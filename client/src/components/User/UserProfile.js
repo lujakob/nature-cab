@@ -15,7 +15,6 @@ const defaultUser = {
   email: '',
   phone: '',
   yearOfBirth: '',
-  vehicle: '',
   carType: '',
   carColor: '',
   description: ''
@@ -42,7 +41,6 @@ class UserProfile extends Component {
           email: nextProps.data.user.email,
           phone: nextProps.data.user.phone,
           yearOfBirth: nextProps.data.user.yearOfBirth,
-          vehicle: nextProps.data.user.vehicle,
           carType: nextProps.data.user.carType,
           carColor: nextProps.data.user.carColor,
           description: nextProps.data.user.description
