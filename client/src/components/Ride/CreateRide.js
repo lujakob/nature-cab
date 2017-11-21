@@ -66,9 +66,9 @@ class CreateRide extends Component {
           seats: ride.seats,
           vehicle: ride.vehicle,
           price: ride.price,
-          startDate: moment(ride.startDate),
-          startTimeHour: moment(ride.startDate).format('kk'),
-          startTimeMin: moment(ride.startDate).format('mm'),
+          startDate: moment(new Date(ride.startDate)),
+          startTimeHour: moment(new Date(ride.startDate)).format('kk'),
+          startTimeMin: moment(new Date(ride.startDate)).format('mm'),
           returnInfo: ride.returnInfo
         }})
       this.setState(newState)
@@ -143,6 +143,7 @@ class CreateRide extends Component {
                 <label htmlFor="seats">Wie viele Plätze sind frei?</label>
                 <select
                   onChange={this._setFieldValue}
+                  value={ride.seats}
                   name="seats"
                 >
                   {[1,2,3,4].map((number, index) => {
@@ -352,9 +353,14 @@ class CreateRide extends Component {
    */
   _submit = async () => {
 
+    const _id = this.props.match.params.id
     let rideData = await this._buildRide()
 
     if (formIsValid(rideData, rideSkipMandatoryFields)) {
+
+      if (_id) {
+        rideData = Object.assign(rideData, {_id})
+      }
 
       await this.props.addRideMutation({
         variables: {
@@ -375,11 +381,20 @@ class CreateRide extends Component {
             console.log('Update store not possible.', e)
           }
 
-          this._resetFormState()
+          try {
+            const variables = {id: _id}
+            const data = store.readQuery({query: RideDetailQuery, variables})
+            data.ride = Object.assign({}, addRide)
+            store.writeQuery({query: RideDetailQuery, variables, data})
+          } catch(e) {
+            console.log('Update store not possible.', e)
+          }
+
+          !_id && this._resetFormState()
         }
       })
 
-      this.setState({'ride': resetRide})
+      !_id && this.setState({'ride': resetRide})
 
     } else {
       this.setState({error: true})

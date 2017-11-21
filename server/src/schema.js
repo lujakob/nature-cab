@@ -24,6 +24,7 @@ type Ride {
 }
 
 input RideInput {
+  _id: ID
   startLocation: String!
   startCity: String!
   startLatLng: [Float]

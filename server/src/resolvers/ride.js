@@ -65,33 +65,53 @@ export const rideResolver = (root, {id}, context) => {
 }
 
 export const addRideResolver = (root, {ride}) => {
-  return new Promise((resolve, reject) => {
+  const data = {
+    startLocation: ride.startLocation,
+    startCity: ride.startCity,
+    startLatLng: ride.startLatLng,
+    endLocation: ride.endLocation,
+    endCity: ride.endCity,
+    endLatLng: ride.endLatLng,
+    seats: ride.seats,
+    price: ride.price,
+    vehicle: ride.vehicle,
+    activity: ride.activity,
+    startDate: ride.startDate,
+    returnInfo: ride.returnInfo
+  }
 
-    const newRide = new RIDE({
-      user: ride.user,
-      startLocation: ride.startLocation,
-      startCity: ride.startCity,
-      startLatLng: ride.startLatLng,
-      endLocation: ride.endLocation,
-      endCity: ride.endCity,
-      endLatLng: ride.endLatLng,
-      seats: ride.seats,
-      price: ride.price,
-      vehicle: ride.vehicle,
-      activity: ride.activity,
-      startDate: ride.startDate,
-      returnInfo: ride.returnInfo
-    })
+  if (ride._id) {
+    return new Promise((resolve, reject) => {
+      const query = {_id: ride._id}
+      const update = data
+      const options = {new: true}
 
-    // save ride
-    newRide
-      .save((err) => {
+      RIDE.findOneAndUpdate(query, update, options, (err, updatedRide) => {
         if (err) {
           reject(err)
         } else {
           // populate the user for the result to be stored in apollo cache
-          newRide.populate('user', (err) => resolve(newRide))
+          return updatedRide.populate('user', (err) => resolve(updatedRide))
         }
-      }).catch(err => console.log(err))
-  })
+      })
+    })
+  } else {
+    return new Promise((resolve, reject) => {
+
+      // add user for ride creation
+      data['user'] = ride.user
+      const newRide = new RIDE(data)
+
+      // save ride
+      newRide
+        .save((err) => {
+          if (err) {
+            reject(err)
+          } else {
+            // populate the user for the result to be stored in apollo cache
+            return newRide.populate('user', (err) => resolve(newRide))
+          }
+        }).catch(err => console.log(err))
+    })
+  }
 }
