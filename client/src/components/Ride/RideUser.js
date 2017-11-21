@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
 import {getAgeFromYearOfBirth, truncateName} from '../../utils/misc'
-import {VEHICLES} from '../../constants'
-
 
 class RideUser extends Component {
 
