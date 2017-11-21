@@ -74,7 +74,7 @@ class RidePreviewMap extends Component {
     });
 
     if (this.props.startLatLng) {
-      const marker = new this.google.maps.Marker({
+      new this.google.maps.Marker({
         position: this.props.startLatLng,
         map: this.map
       })

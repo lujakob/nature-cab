@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import RideListWithData from './RideListWithData'
+// import RideListWithData from './RideListWithData'
 import RideDetail from './RideDetail'
-import RideListFilter from './RideListFilter'
+// import RideListFilter from './RideListFilter'
 import {Route} from 'react-router-dom'
 import { withRouter } from 'react-router'
 import homeImg from '../../img/home1.jpg'
@@ -19,7 +19,7 @@ class Rides extends Component {
     return (
       <div className={'ride-list-page' + (isListView ? ' has-visual' : '')}>
         <div className="visual">
-          <img src={homeImg}/>
+          <img src={homeImg} alt=""/>
         </div>
         <Route exact path={`${this.props.match.url}`} render={() => {
           this.props.history.push('/')
