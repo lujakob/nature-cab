@@ -6,20 +6,26 @@ import RideList from './RideList'
 class RideListWithData extends Component {
 
   render() {
-    if (this.props.data.loading) {
+
+    const {loading, error, rides} = this.props.data
+
+    if (loading) {
       return <p>Loading ...</p>;
     }
-    if (this.props.data.error) {
-      return <p>{this.props.data.error.message}</p>;
+    if (error) {
+      return <p>{error.message}</p>;
     }
 
     return (
       <div className="ride-list">
-        {this.props.data.rides && this.props.data.rides.length === 0 &&
+        {rides && rides.total === 0 &&
           <p className="error-message">Sorry, für diesen Filter haben wir keine Einträge gefunden.</p>
         }
-        {this.props.data.rides && this.props.data.rides.length > 0 &&
-          <RideList rides={this.props.data.rides} detailLinkPrefix="/rides/"/>
+        {rides && rides.total > 0 &&
+          <div>
+            <p class="total-count">{rides.total} Ergebnisse gefunden</p>
+            <RideList rides={rides.rides} detailLinkPrefix="/rides/"/>
+          </div>
         }
       </div>
     )
@@ -30,20 +36,23 @@ class RideListWithData extends Component {
 export const rideListQuery = gql`
   query RideListQuery($start: String, $end: String, $activity: String) {
     rides(start: $start, end: $end, activity: $activity) {
-      _id
-      startLocation
-      startCity,
-      endLocation
-      endCity
-      activity
-      seats
-      price
-      startDate
-      returnInfo
-      user {
-        firstname
-        lastname
-        yearOfBirth
+      total
+      rides {
+        _id
+        startLocation
+        startCity,
+        endLocation
+        endCity
+        activity
+        seats
+        price
+        startDate
+        returnInfo
+        user {
+          firstname
+          lastname
+          yearOfBirth
+        }
       }
     }
   }

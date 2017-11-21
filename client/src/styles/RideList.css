@@ -3,3 +3,7 @@
   font-weight:bold;
   text-align:center;
 }
+.ride-list .total-count {
+  display:none;
+  margin:-10px 0 20px;
+}

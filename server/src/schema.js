@@ -40,6 +40,11 @@ input RideInput {
   user: String!
 }
 
+type RidesResult {
+  total: Int
+  rides: [Ride]
+}
+
 type User {
   _id: ID!
   gender: String!
@@ -76,7 +81,7 @@ input UserUpdateInput {
 }
 
 type Query {
-  rides(start: String, end: String, activity: String): [Ride]
+  rides(start: String, end: String, activity: String): RidesResult
   ride(id: ID!): Ride
   myRides(userId: ID!): [Ride]
   users: [User]

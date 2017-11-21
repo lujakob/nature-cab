@@ -53,6 +53,7 @@ class CreateRide extends Component {
    */
   componentWillReceiveProps(nextProps) {
     const {ride} = nextProps.data
+
     if (ride) {
       const newState = Object.assign({}, this.state, {
         ride: {
@@ -78,9 +79,14 @@ class CreateRide extends Component {
   render() {
     const {ride, view} = this.state
 
+    const {match} = this.props
+
     if (view === VIEWS.FORM) {
       return (
         <div className="create-ride-container cf">
+          {match.params.id &&
+          <p>Fahrt bearbeiten: {ride.startCity} - {ride.endCity}</p>
+          }
           <div className="create-ride-left-col">
             <fieldset className="ride-form-fieldset">
               <h3>Abfahrt und Ankunft</h3>
@@ -423,7 +429,7 @@ class CreateRide extends Component {
       seats: ride.seats,
       vehicle: ride.vehicle,
       price: parseInt(ride.price, 10),
-      startDate: this._getStartDate(ride.startDate),
+      startDate: this._getStartDate(ride),
       returnInfo: ride.returnInfo
     })
   }
@@ -436,14 +442,15 @@ class CreateRide extends Component {
 
   /**
    *
-   * @param startDate - moment js object
+   * @param ride - ride data
    * @returns {Date|*} - native date object
    * @private
    */
-  _getStartDate(startDate) {
-    return startDate
-      .add(parseInt(startDate.startTimeHour, 10), 'hours')
-      .add(parseInt(startDate.startTimeMin, 10), 'minutes')
+  _getStartDate(ride) {
+    return ride.startDate
+      .startOf('day')
+      .add(parseInt(ride.startTimeHour, 10), 'hours')
+      .add(parseInt(ride.startTimeMin, 10), 'minutes')
       .toDate()
   }
 

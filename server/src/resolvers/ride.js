@@ -21,7 +21,7 @@ export const ridesResolver = (root, args, context) => {
 
   Object.assign(filter, {startDate: {$gt: getYesterday()}})
 
-  return new Promise((resolve, reject) => {
+  const RidesPromise = new Promise((resolve, reject) => {
     RIDE
       .find(filter, (err, rides) => {
         if (err) {
@@ -33,6 +33,24 @@ export const ridesResolver = (root, args, context) => {
       .populate('user')
       .sort({startDate: 'asc'})
   })
+
+  const TotalPromise = new Promise((resolve, reject) => {
+    RIDE
+      .count(filter, (err, count) => {
+        if (err) {
+          reject(err)
+        } else {
+          return resolve(count)
+        }
+      })
+  })
+
+  return Promise.all([RidesPromise, TotalPromise]).then((data) => {
+    return {
+      rides: data[0],
+      total: data[1]
+    }
+  }).catch(e => console.log(e))
 }
 
 export const myRidesResolver = (root, args, context) => {

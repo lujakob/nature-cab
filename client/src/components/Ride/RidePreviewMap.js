@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react'
 import {MAP_CENTER_DEFAULT} from '../../constants'
 
 const mapDomElId = 'map'
+const DEFAULT_ZOOM = 7
 
 class RidePreviewMap extends PureComponent {
 
@@ -16,7 +17,6 @@ class RidePreviewMap extends PureComponent {
   }
 
   componentDidUpdate() {
-    console.log("did update", this.props);
     this.calcRoute()
   }
 
@@ -34,7 +34,7 @@ class RidePreviewMap extends PureComponent {
   initialize() {
     const {latitude: lat, longitude: lng} = MAP_CENTER_DEFAULT
     const center = {lat, lng}
-    const zoom = this.props.zoom || 7
+    const zoom = this.props.zoom || DEFAULT_ZOOM
 
     this.directionsDisplay = new this.google.maps.DirectionsRenderer()
 
