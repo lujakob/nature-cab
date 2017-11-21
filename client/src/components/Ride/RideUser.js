@@ -20,14 +20,30 @@ class RideUser extends Component {
             <div className="ride-user__year-of-birth">{getAgeFromYearOfBirth(user.yearOfBirth)} Jahre</div>
           </div>
         </div>
+
         {showVehicle &&
-        <div className="ride-user__car">
-          <h4>Transportmittel</h4>
-          {this._getVehicle(user)}
+        <div className="ride-user__add-info ride-user__add-info--first">
+          <h4>Auto</h4>
+          {user.carType + (user.carColor ? ', ' + user.carColor : '')}
         </div>
         }
+
+        {showDescription && user.email &&
+        <div className="ride-user__add-info">
+          <h4>Email</h4>
+          {user.email}
+        </div>
+        }
+
+        {showDescription && user.phone &&
+        <div className="ride-user__add-info">
+          <h4>Telefon</h4>
+          {user.phone}
+        </div>
+        }
+
         {showDescription && user.description &&
-        <div className="ride-user__description">
+        <div className="ride-user__add-info ride-user__add-info--last">
           <h4>Infos zum Fahrer</h4>
           {user.description}
         </div>
@@ -37,14 +53,6 @@ class RideUser extends Component {
     )
   }
 
-  _getVehicle(user) {
-    if (user.vehicle === 'TRAIN') {
-      let el = VEHICLES.find((el) => el['value'] === user.vehicle)
-      return !!el['title'] ? el['title'] : ''
-    } else {
-      return user.carType + (user.carColor ? ', ' + user.carColor : '')
-    }
-  }
-};
+}
 
 export default RideUser

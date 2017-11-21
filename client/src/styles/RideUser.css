@@ -16,17 +16,15 @@
   margin-bottom:4px;
 }
 
-.ride-user__top {
+.ride-user__top {}
+
+.ride-user__add-info {
+  padding-top:10px;
 }
 
-.ride-user__car {
+.ride-user__add-info--first {
   border-top: 1px solid #ddd;
   margin-top:10px;
-}
-
-.ride-user__car, .ride-user__description {
-  padding-top:10px;
-
 }
 
 .ride-user h4 {
