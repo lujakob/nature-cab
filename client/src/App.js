@@ -10,7 +10,7 @@ import { ApolloLink, from } from 'apollo-link';
 
 import Header from './components/Header'
 import Rides from './components/Ride/Rides'
-import CreateRide from './components/Ride/CreateRide'
+import {CreateRideWithData} from './components/Ride/CreateRide'
 import Login from './components/Login'
 import Register from './components/Register'
 import UserPage from './components/User/UserPage'
@@ -61,7 +61,7 @@ class App extends Component {
             <Switch>
               <Route exact path='/' component={Home}/>
               <Route path='/rides' component={Rides}/>
-              <ProtectedRoute exact path='/create' component={CreateRide}/>
+              <ProtectedRoute exact path='/create' component={CreateRideWithData}/>
               <ProtectedRoute path='/user' component={UserPage}/>
               <Route exact path="/404" component={NoMatch404}/>
               <Redirect to="/404"/>

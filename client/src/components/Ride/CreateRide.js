@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import gql from 'graphql-tag'
-import {graphql}from 'react-apollo'
+import {graphql, compose}from 'react-apollo'
 import {rideListQuery} from './RideListWithData'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
@@ -47,6 +47,34 @@ class CreateRide extends Component {
     }
   }
 
+  /**
+   * componentWillReceiveProps - preset ride data from query result for form fields
+   * @param nextProps
+   */
+  componentWillReceiveProps(nextProps) {
+    const {ride} = nextProps.data
+    if (ride) {
+      const newState = Object.assign({}, this.state, {
+        ride: {
+          startLocation: ride.startLocation,
+          startLatLng: ride.startLatLng,
+          startCity: ride.startCity,
+          endLocation: ride.endLocation,
+          endLatLng: [ride.endLatLng.lat, ride.endLatLng.lng],
+          endCity: ride.endCity,
+          activity: ride.activity,
+          seats: ride.seats,
+          vehicle: ride.vehicle,
+          price: ride.price,
+          startDate: moment(ride.startDate),
+          startTimeHour: moment(ride.startDate).format('kk'),
+          startTimeMin: moment(ride.startDate).format('mm'),
+          returnInfo: ride.returnInfo
+        }})
+      this.setState(newState)
+    }
+  }
+
   render() {
     const {ride, view} = this.state
 
@@ -88,6 +116,7 @@ class CreateRide extends Component {
                 <select
                   onChange={this._setFieldValue}
                   name="activity"
+                  value={ride.activity}
                 >
                   {ACTIVITIES.map((activity, index) => {
                     return <option key={index} value={activity.id}>{activity.title}</option>
@@ -101,7 +130,7 @@ class CreateRide extends Component {
                 <select
                   id="vehicle"
                   onChange={this._setFieldValue}
-                  value={this.state.vehicle}
+                  value={ride.vehicle}
                   name="vehicle"
                 >
                   {VEHICLES.map((type, index) => {
@@ -403,6 +432,25 @@ class CreateRide extends Component {
   }
 }
 
+const RideDetailQuery = gql`
+  query RideDetail($id:ID!) {
+    ride(id: $id) {
+      startCity
+      startLocation
+      startLatLng
+      endCity
+      endLocation
+      endLatLng
+      startDate
+      price
+      seats
+      vehicle
+      activity
+      returnInfo
+    }
+  }
+`
+
 const AddRideMutation = gql`
   mutation addRide($ride: RideInput!) {
     addRide(ride: $ride) {
@@ -429,4 +477,13 @@ const AddRideMutation = gql`
   }
 `
 
-export default graphql(AddRideMutation, {name: 'addRideMutation'})(CreateRide)
+export const CreateRideWithData = compose(
+  graphql(RideDetailQuery, {
+    options: ({match}) => {
+      const id = match.params.id
+      return {variables: {id}}
+    },
+    skip: ({match}) => !match.params.id
+  }),
+  graphql(AddRideMutation, {name: 'addRideMutation'})
+)(CreateRide)

@@ -19,7 +19,7 @@ class RideListWithData extends Component {
           <p className="error-message">Sorry, für diesen Filter haben wir keine Einträge gefunden.</p>
         }
         {this.props.data.rides && this.props.data.rides.length > 0 &&
-          <RideList rides={this.props.data.rides}/>
+          <RideList rides={this.props.data.rides} detailLinkPrefix="/rides/"/>
         }
       </div>
     )

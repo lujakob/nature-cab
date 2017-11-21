@@ -102,10 +102,10 @@ class RideDetail extends Component {
 const RideDetailQuery = gql`
   query RideDetail($id:ID!) {
     ride(id: $id) {
-      startCity,
-      startLocation,
-      endCity,
-      endLocation,
+      startCity
+      startLocation
+      endCity
+      endLocation
       startDate
       price
       seats

@@ -6,10 +6,11 @@ import {getActivityFromId, getFormattedDate} from '../../utils/misc'
 class RideListItem extends Component {
 
   render () {
-    const ride = this.props.ride
+    const {ride, detailLinkPrefix} = this.props
+
     return (
       <div className="ride-list-item cf">
-        <Link to={`/rides/${ride._id}`} className="cf">
+        <Link to={`${detailLinkPrefix}${ride._id}`} className="cf">
           <div className="ride-list-item__user">
             <RideUser user={ride.user} />
           </div>
