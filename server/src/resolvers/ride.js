@@ -57,6 +57,7 @@ export const rideResolver = (root, {id}, context) => {
         if (err) {
           reject(err)
         } else {
+          console.log(ride)
           return resolve(ride)
         }
       })
@@ -65,7 +66,9 @@ export const rideResolver = (root, {id}, context) => {
 }
 
 export const addRideResolver = (root, {ride}) => {
+  // add the user only if ride is created
   const data = {
+    user: ride.user,
     startLocation: ride.startLocation,
     startCity: ride.startCity,
     startLatLng: ride.startLatLng,
@@ -80,26 +83,27 @@ export const addRideResolver = (root, {ride}) => {
     returnInfo: ride.returnInfo
   }
 
-  if (ride._id) {
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
+
+  // findOneAndUpdate and upsert opt doesn't really work if querying for the _id -> field _id will not be filled out
+
+    if (ride._id) {
+
       const query = {_id: ride._id}
       const update = data
       const options = {new: true}
 
-      RIDE.findOneAndUpdate(query, update, options, (err, updatedRide) => {
-        if (err) {
-          reject(err)
-        } else {
-          // populate the user for the result to be stored in apollo cache
-          return updatedRide.populate('user', (err) => resolve(updatedRide))
-        }
-      })
-    })
-  } else {
-    return new Promise((resolve, reject) => {
-
-      // add user for ride creation
-      data['user'] = ride.user
+      RIDE
+        .findOneAndUpdate(query, update, options)
+        .populate('user')
+        .exec((err, updatedRide) => {
+          if (err) {
+            reject(err)
+          } else {
+            return resolve(updatedRide)
+          }
+        })
+    } else {
       const newRide = new RIDE(data)
 
       // save ride
@@ -112,6 +116,6 @@ export const addRideResolver = (root, {ride}) => {
             return newRide.populate('user', (err) => resolve(newRide))
           }
         }).catch(err => console.log(err))
-    })
-  }
+    }
+  })
 }

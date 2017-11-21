@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {MAP_CENTER_DEFAULT} from '../../constants'
 
 const mapDomElId = 'map'
 
-class RidePreviewMap extends Component {
+class RidePreviewMap extends PureComponent {
 
   google = window.google
   map = null
@@ -16,6 +16,7 @@ class RidePreviewMap extends Component {
   }
 
   componentDidUpdate() {
+    console.log("did update", this.props);
     this.calcRoute()
   }
 
@@ -48,12 +49,12 @@ class RidePreviewMap extends Component {
   calcRoute() {
     const {startLatLng, endLatLng} = this.props
 
-    if (!startLatLng || !startLatLng.lat || !startLatLng.lng || !endLatLng || !endLatLng.lat || !endLatLng.lng)
+    if (!startLatLng || startLatLng.length !== 2 || !endLatLng || endLatLng.length !== 2)
       return
 
     const request = {
-      origin: this.props.startLatLng,
-      destination: this.props.endLatLng,
+      origin: {lat: startLatLng[0], lng: startLatLng[1]},
+      destination: {lat: endLatLng[0], lng: endLatLng[1]},
       travelMode: 'DRIVING'
     }
 

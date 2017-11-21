@@ -60,7 +60,7 @@ class CreateRide extends Component {
           startLatLng: ride.startLatLng,
           startCity: ride.startCity,
           endLocation: ride.endLocation,
-          endLatLng: [ride.endLatLng.lat, ride.endLatLng.lng],
+          endLatLng: ride.endLatLng,
           endCity: ride.endCity,
           activity: ride.activity,
           seats: ride.seats,
@@ -264,9 +264,9 @@ class CreateRide extends Component {
    */
   _placesOnSelect = async (address, placeId, fieldName) => {
     let startGeocodeByAddress = await geocodeByAddress(address)
-    let latLng = await getLatLng(startGeocodeByAddress[0])
+    let {lat, lng} = await getLatLng(startGeocodeByAddress[0])
     let city = this._getCity(startGeocodeByAddress[0]['address_components'])
-    this._setStateForField(fieldName[0], latLng)
+    this._setStateForField(fieldName[0], [lat, lng])
     this._setStateForField(fieldName[1], city)
   }
 
@@ -354,13 +354,12 @@ class CreateRide extends Component {
   _submit = async () => {
 
     const _id = this.props.match.params.id
-    let rideData = await this._buildRide()
+
+    let rideData = this._buildRide()
 
     if (formIsValid(rideData, rideSkipMandatoryFields)) {
 
-      if (_id) {
-        rideData = Object.assign(rideData, {_id})
-      }
+      rideData = Object.assign(rideData, {_id})
 
       await this.props.addRideMutation({
         variables: {
@@ -408,16 +407,16 @@ class CreateRide extends Component {
    * @returns {*}
    * @private
    */
-  async _buildRide() {
+  _buildRide() {
     const {ride} = this.state
 
     return Object.assign({}, {
       user: localStorage.getItem(GC_USER_ID),
       startLocation: ride.startLocation,
-      startLatLng: [ride.startLatLng.lat, ride.startLatLng.lng],
+      startLatLng: ride.startLatLng,
       startCity: ride.startCity,
       endLocation: ride.endLocation,
-      endLatLng: [ride.endLatLng.lat, ride.endLatLng.lng],
+      endLatLng: ride.endLatLng,
       endCity: ride.endCity,
 
       activity: ride.activity,
@@ -435,6 +434,12 @@ class CreateRide extends Component {
     return !!cityComponent ? cityComponent['long_name'] : ''
   }
 
+  /**
+   *
+   * @param startDate - moment js object
+   * @returns {Date|*} - native date object
+   * @private
+   */
   _getStartDate(startDate) {
     return startDate
       .add(parseInt(startDate.startTimeHour, 10), 'hours')
@@ -498,6 +503,7 @@ export const CreateRideWithData = compose(
       const id = match.params.id
       return {variables: {id}}
     },
+    // skip getting ride detail data if in create form
     skip: ({match}) => !match.params.id
   }),
   graphql(AddRideMutation, {name: 'addRideMutation'})
