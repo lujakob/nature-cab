@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 .header {
   line-height:30px;
   height:60px;
@@ -9,7 +11,7 @@
   margin-bottom: 0;
   margin-right:20px;
   line-height:17px;
-  background-color:#dd440b;
+  background-color:$orange;
   border:none;
   height:34px;
   border-radius:1px;

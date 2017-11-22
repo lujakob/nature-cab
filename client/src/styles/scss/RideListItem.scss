@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 .ride-list-item {
   padding-bottom:10px;
   margin-bottom:10px;
@@ -15,11 +17,18 @@
   float:left;
   width:150px;
   padding-right:10px;
+  display:none;
+  @media  screen and (min-width:768px) {
+    display:block;
+  }
 }
 .ride-list-item__infos {
-  float:right;
-  padding-left:15px;
-  width:calc(100% - 150px);
+
+  @media  screen and (min-width:768px) {
+    float:right;
+    padding-left:15px;
+    width:calc(100% - 150px);
+  }
 }
 
 .ride-list-item a {

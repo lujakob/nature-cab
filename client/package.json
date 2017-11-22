@@ -13,6 +13,7 @@
     "graphql-tools": "2.7.2",
     "moment": "2.19.1",
     "mongoose-geojson-schema": "^2.1.2",
+    "node-sass-chokidar": "0.0.3",
     "react": "16.0.0",
     "react-apollo": "2.0.0",
     "react-datepicker": "^0.57.0",
@@ -24,6 +25,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build-css": "node-sass-chokidar --include-path ./src/styles/ src/styles/scss -o src/styles/css",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/scss -o src/styles/css --watch --recursive",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

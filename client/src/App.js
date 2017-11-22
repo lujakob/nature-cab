@@ -18,7 +18,7 @@ import {NoMatch404} from './components/NoMatch404'
 import Home from './components/Home/Home'
 
 import {GC_AUTH_TOKEN, GC_USER_ID} from './constants'
-import './styles/App.css'
+import './styles/css/App.css'
 
 const httpLink = createHttpLink({uri: 'http://localhost:4000/graphql'})
 

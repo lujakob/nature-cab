@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 .ride-list-filter {
   padding:10px 1rem;
   margin:0 -1rem 10px;
@@ -33,7 +35,7 @@
 }
 .ride-list-filter button {
   outline:0;
-  background-color:#dd440b;
+  background-color:$orange;
   border:none;
   height:34px;
 }

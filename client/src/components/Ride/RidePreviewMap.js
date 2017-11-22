@@ -47,7 +47,7 @@ class RidePreviewMap extends PureComponent {
       streetViewControl: false,
       mapTypeControl: false
     }
-    
+
     this.map = new this.google.maps.Map(document.getElementById(mapDomElId), mapOptions)
   }
 
