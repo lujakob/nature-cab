@@ -184,9 +184,9 @@ class CreateRide extends Component {
             <fieldset className="ride-form-fieldset">
               <h3>Datum und Uhrzeit</h3>
 
-              <div className={'form-row ' + this._getErrorClass('startDate')}>
+              <div className="form-row">
                 <label htmlFor="ride-start">Abfahrt</label>
-                <div className="datepicker-wrapper">
+                <div className={'datepicker-wrapper ' + this._getErrorClass('startDate')}>
                   <DatePicker
                     placeholderText={moment().add(4, 'days').format('LL')}
                     selected={ride.startDate}
@@ -195,7 +195,7 @@ class CreateRide extends Component {
                     dateFormat="LL"
                   />
                   <select
-                    className="select-start-time-hour"
+                    className={'select-start-time-hour ' + this._getErrorClass('startTimeHour')}
                     onChange={(evt) => {
                       this._setFieldValue(evt)
                       this._syncStartTimeFields(evt.target.value)
@@ -209,7 +209,7 @@ class CreateRide extends Component {
                   </select>
                   <div className="time-spacer">:</div>
                   <select
-                    className="select-start-time-min"
+                    className={'select-start-time-min ' + this._getErrorClass('startTimeMin')}
                     onChange={this._setFieldValue}
                     value={ride.startTimeMin}
                     name="startTimeMin"

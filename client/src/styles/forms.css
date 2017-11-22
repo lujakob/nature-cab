@@ -34,7 +34,9 @@ fieldset .form-row {
   margin-bottom:20px;
 }
 fieldset .form-row.is-error input,
-fieldset .form-row.is-error select {
+fieldset .datepicker-wrapper.is-error input,
+fieldset .form-row.is-error select,
+fieldset select.is-error {
   border-color:red;
 }
 
