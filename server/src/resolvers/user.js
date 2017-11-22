@@ -1,7 +1,7 @@
 import USER from '../models/user'
 import bcrypt from 'bcrypt'
 import {saltRounds} from '../../constants'
-import {removePassword} from '../utils'
+import {removePassword, isEmailValidationError} from '../utils'
 
 export const userResolver = (root, {userId}, context) => {
   return new Promise((resolve, reject) => {
@@ -49,13 +49,12 @@ export const createUserResolver = (root, {user}) => {
       newUser
         .save((err, user) => {
           if (err) {
-
             if (isEmailValidationError(err)) {
-              reject('VALIDATION_EMAIL_UNIQUE')
+              return reject('VALIDATION_EMAIL_UNIQUE')
             } else {
-              reject(err)
+              return reject(err)
             }
-            reject(err)
+            return reject(err)
           } else {
             return resolve(newUser)
           }

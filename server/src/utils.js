@@ -25,7 +25,8 @@ export const authenticated = (fn) =>
  * @returns {*|Runtime.PropertyPreview[]|Object|String|boolean}
  */
 export const isEmailValidationError = (err) => {
-  return err.errors && err.errors.email && err.errors.email.properties && err.errors.email.properties.type && err.errors.email.properties.type === 'unique'
+  const {errors} = err
+  return errors && errors.email && errors.email.properties && errors.email.properties.type && errors.email.properties.type === 'unique'
 }
 
 /**
