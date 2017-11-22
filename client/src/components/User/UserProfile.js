@@ -69,7 +69,7 @@ class UserProfile extends Component {
         <fieldset className="form-fieldset">
           <h3>Deine persönlichen Daten</h3>
 
-          <div className="form-row">
+          <div className={'form-row ' + this._getErrorClass('firstname')}>
             <label htmlFor="firstname">Vorname</label>
             <input
               id="firstname"
@@ -80,7 +80,7 @@ class UserProfile extends Component {
             />
           </div>
 
-          <div className="form-row">
+          <div className={'form-row ' + this._getErrorClass('lastname')}>
             <label htmlFor="lastname">Nachname</label>
             <input
               id="lastname"
@@ -91,7 +91,7 @@ class UserProfile extends Component {
             />
           </div>
 
-          <div className="form-row">
+          <div className={'form-row ' + this._getErrorClass('email')}>
             <label htmlFor="email">Email</label>
             <input
               id="email"
@@ -113,7 +113,7 @@ class UserProfile extends Component {
             />
           </div>
 
-          <div className="form-row">
+          <div className={'form-row ' + this._getErrorClass('yearOfBirth')}>
             <label htmlFor="yearOfBirth">Geburtsjahr</label>
             <select
               id="yearOfBirth"
@@ -168,20 +168,20 @@ class UserProfile extends Component {
 
         {this.state.error &&
         <div className="error-message dark-red">
-          Please fill in all fields.
+          Bitte füllen Sie alle Felder aus.
         </div>
         }
 
         {this.state.view === VIEWS.SUCCESS &&
-        <div>Your profile was updated successfully.</div>
+        <div>Ihr Profil wurde erfolgreich gespeichert.</div>
         }
 
         <div className="form-row form-row--button-right">
           <button
-            className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
+            className='link ph3 pv2 white bg-blue'
             onClick={() => this._submit()}
           >
-            Submit
+            Speichern
           </button>
         </div>
       </div>
@@ -223,6 +223,10 @@ class UserProfile extends Component {
       this.setState({error: true})
 
     }
+  }
+
+  _getErrorClass(field) {
+    return this.state.error && !this.state.user[field] ? 'is-error' : ''
   }
 
   /**
