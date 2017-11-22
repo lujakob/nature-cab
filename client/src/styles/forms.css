@@ -33,6 +33,10 @@ fieldset label {
 fieldset .form-row {
   margin-bottom:20px;
 }
+fieldset .form-row.is-error input,
+fieldset .form-row.is-error select {
+  border-color:red;
+}
 
 fieldset .form-row.mb0 {
   margin-bottom:0px;

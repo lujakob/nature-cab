@@ -91,7 +91,7 @@ class CreateRide extends Component {
             <fieldset className="ride-form-fieldset">
               <h3>Abfahrt und Ankunft</h3>
 
-              <div className="form-row">
+              <div className={'form-row ' + this._getErrorClass('startLocation')}>
                 <label htmlFor="startLocation">Wo geht's los?</label>
                 <PlacesAutocomplete
                   inputProps={{
@@ -104,7 +104,7 @@ class CreateRide extends Component {
               />
 
               </div>
-              <div className="form-row">
+              <div className={'form-row ' + this._getErrorClass('endLocation')}>
                 <label htmlFor="endLocation">Wohin geht die Fahrt?</label>
                 <PlacesAutocomplete
                   inputProps={{
@@ -157,7 +157,7 @@ class CreateRide extends Component {
                   })}
                 </select>
               </div>
-              <div className="form-row">
+              <div className={'form-row ' + this._getErrorClass('price')}>
                 <label htmlFor="price">Preis pro Mitfahrer</label>
                 <div className="content-placeholder-wrapper">
                   <input
@@ -184,7 +184,7 @@ class CreateRide extends Component {
             <fieldset className="ride-form-fieldset">
               <h3>Datum und Uhrzeit</h3>
 
-              <div className="form-row">
+              <div className={'form-row ' + this._getErrorClass('startDate')}>
                 <label htmlFor="ride-start">Abfahrt</label>
                 <div className="datepicker-wrapper">
                   <DatePicker
@@ -235,13 +235,13 @@ class CreateRide extends Component {
 
             {this.state.error &&
             <div className="error-message dark-red">
-              Please fill in all fields.
+              Bitte füllen Sie alle Felder aus.
             </div>
             }
 
             <div className="form-row form-row--button-right">
               <button
-                className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
+                className='link ph3 pv2 white bg-blue'
                 onClick={() => this._submit()}
               >
                 Senden
@@ -255,10 +255,14 @@ class CreateRide extends Component {
       )
     } else if (this.state.view === VIEWS.SUCCESS) {
       return (
-        <div>Your ride was saved successfully.</div>
+        <div>Ihre Fahrt wurde abgespeichert. <br/>Sie kann im Benutzerprofil nachträglich bearbeitet werden.</div>
       )
     }
 
+  }
+
+  _getErrorClass(field) {
+    return this.state.error && !this.state.ride[field] ? 'is-error' : ''
   }
 
   /**
@@ -441,17 +445,19 @@ class CreateRide extends Component {
   }
 
   /**
-   *
+   * _getStartDate - returns date as moment object with hours and mins added or ''
    * @param ride - ride data
    * @returns {Date|*} - native date object
    * @private
    */
   _getStartDate(ride) {
-    return ride.startDate
-      .startOf('day')
-      .add(parseInt(ride.startTimeHour, 10), 'hours')
-      .add(parseInt(ride.startTimeMin, 10), 'minutes')
-      .toDate()
+    return ride.startDate._isAMomentObject
+      ? ride.startDate
+        .startOf('day')
+        .add(parseInt(ride.startTimeHour, 10), 'hours')
+        .add(parseInt(ride.startTimeMin, 10), 'minutes')
+        .toDate()
+      : ''
   }
 
   _resetFormState() {

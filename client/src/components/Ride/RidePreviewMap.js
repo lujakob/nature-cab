@@ -67,7 +67,6 @@ class RidePreviewMap extends PureComponent {
     })
   }
 
-
   _initMap() {
 
     const {latitude: lat, longitude: lng} = MAP_CENTER_DEFAULT

@@ -226,23 +226,6 @@ class UserProfile extends Component {
   }
 
   /**
-   * check user props for not empty
-   * @param ride
-   * @returns {boolean}
-   * @private
-   */
-  _formIsValid = (user) => {
-    for (let prop in user) {
-      let isMandatory = !userSkipMandatoryFields.includes(prop)
-
-      if (isMandatory && !user[prop]) {
-        return false
-      }
-    }
-    return true
-  }
-
-  /**
    * set field value on state, reset error prop
    * @param evt
    * @private
