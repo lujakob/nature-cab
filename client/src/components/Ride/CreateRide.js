@@ -98,9 +98,12 @@ class CreateRide extends Component {
                     placeholder: "Zum Beispiel: Marienplatz, München",
                     value: ride.startLocation,
                     name: "startLocation",
-                    onChange: value => this._setStateForField('startLocation', value)
+                    onChange: value => this._setStateForField('startLocation', value),
+                    onBlur: e => {
+                      e.target.value.length === 0 && this._placesOnSelect('', ['startLatLng', 'startCity'])
+                    }
                   }}
-                  onSelect={(address, placeId) => this._placesOnSelect(address, placeId, ['startLatLng', 'startCity'])}
+                  onSelect={(address) => this._placesOnSelect(address, ['startLatLng', 'startCity'])}
               />
 
               </div>
@@ -111,9 +114,10 @@ class CreateRide extends Component {
                     placeholder: "Zum Beispiel: Seesauna, Tegernsee",
                     value: ride.endLocation,
                     name: "endLocation",
-                    onChange: value => this._setStateForField('endLocation', value)
+                    onChange: value => this._setStateForField('endLocation', value),
+                    onBlur: e => e.target.value.length === 0 && this._placesOnSelect('', ['endLatLng', 'endCity'])
                   }}
-                  onSelect={(address, placeId) => this._placesOnSelect(address, placeId, ['endLatLng', 'endCity'])}
+                  onSelect={(address) => this._placesOnSelect(address, ['endLatLng', 'endCity'])}
                 />
 
               </div>
@@ -268,15 +272,29 @@ class CreateRide extends Component {
   /**
    * _placesOnSelect
    * @param address
-   * @param placeId
    * @param fieldName - array of fields to set: [0] => latLng, [1], city
    * @private
    */
-  _placesOnSelect = async (address, placeId, fieldName) => {
-    let startGeocodeByAddress = await geocodeByAddress(address)
-    let {lat, lng} = await getLatLng(startGeocodeByAddress[0])
-    let city = this._getCity(startGeocodeByAddress[0]['address_components'])
-    this._setStateForField(fieldName[0], [lat, lng])
+  _placesOnSelect = async (address, fieldName) => {
+    if (address.length > 0) {
+      let startGeocodeByAddress = await geocodeByAddress(address)
+      let {lat, lng} = await getLatLng(startGeocodeByAddress[0])
+      let city = this._getCity(startGeocodeByAddress[0]['address_components'])
+      this._setValuesForDestination(fieldName, [lat, lng], city)
+    } else {
+      this._setValuesForDestination(fieldName)
+    }
+  }
+
+  /**
+   * _setValuesForDestination
+   * @param fieldName
+   * @param latLng
+   * @param city
+   * @private
+   */
+  _setValuesForDestination(fieldName, latLng = [], city = '') {
+    this._setStateForField(fieldName[0], latLng)
     this._setStateForField(fieldName[1], city)
   }
 
@@ -310,9 +328,9 @@ class CreateRide extends Component {
    * @param value
    * @private
    */
-  _setStateForField(name, value) {
+  _setStateForField(field, value) {
     let newState = Object.assign({}, this.state, {error: null})
-    newState['ride'][name] = value
+    newState['ride'][field] = value
     this.setState(newState)
   }
 

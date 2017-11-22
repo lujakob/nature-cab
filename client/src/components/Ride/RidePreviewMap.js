@@ -8,16 +8,19 @@ class RidePreviewMap extends PureComponent {
 
   google = window.google
   map = null
+  marker = null
   directionsDisplay = null
   directionsService = new this.google.maps.DirectionsService();
 
   componentDidMount() {
     this.initialize()
-    this.calcRoute()
+    const {startLatLng, endLatLng} = this.props
+    this.calcRoute(startLatLng, endLatLng)
   }
 
   componentDidUpdate() {
-    this.calcRoute()
+    const {startLatLng, endLatLng} = this.props
+    this.calcRoute(startLatLng, endLatLng)
   }
 
   render(){
@@ -38,33 +41,56 @@ class RidePreviewMap extends PureComponent {
 
     this.directionsDisplay = new this.google.maps.DirectionsRenderer()
 
-    var mapOptions = {
+    const mapOptions = {
       zoom,
       center,
       streetViewControl: false,
       mapTypeControl: false
     }
-    this.map = new this.google.maps.Map(document.getElementById(mapDomElId), mapOptions);
-    this.directionsDisplay.setMap(this.map);
+    
+    this.map = new this.google.maps.Map(document.getElementById(mapDomElId), mapOptions)
   }
 
-  calcRoute() {
-    const {startLatLng, endLatLng} = this.props
+  calcRoute(startLatLng, endLatLng) {
 
-    if (!startLatLng || startLatLng.length !== 2 || !endLatLng || endLatLng.length !== 2)
-      return
+    if (this._startPointsSet(startLatLng) && this._endPointsSet(endLatLng)) {
+      // remove marker
+      this.marker && this.marker.setMap(null)
+      this.directionsDisplay.setMap(this.map)
 
-    const request = {
-      origin: {lat: startLatLng[0], lng: startLatLng[1]},
-      destination: {lat: endLatLng[0], lng: endLatLng[1]},
-      travelMode: 'DRIVING'
+      const request = {
+        origin: {lat: startLatLng[0], lng: startLatLng[1]},
+        destination: {lat: endLatLng[0], lng: endLatLng[1]},
+        travelMode: 'DRIVING'
+      }
+
+      this.directionsService.route(request, (result, status) => {
+        if (status === 'OK') {
+          this.directionsDisplay.setDirections(result);
+        }
+      })
+
+    } else if (this._startPointsSet(startLatLng) && !this._endPointsSet(endLatLng)) {
+      this.directionsDisplay.setMap(null)
+
+      this.marker = new this.google.maps.Marker({
+        position: {lat: startLatLng[0], lng: startLatLng[1]},
+        map: this.map
+      })
+    } else {
+      this.marker && this.marker.setMap(null)
+      this.directionsDisplay && this.directionsDisplay.setMap(null);
+
     }
 
-    this.directionsService.route(request, (result, status) => {
-      if (status === 'OK') {
-        this.directionsDisplay.setDirections(result);
-      }
-    })
+  }
+
+  _startPointsSet(startLatLng) {
+    return !!startLatLng && startLatLng.length === 2
+  }
+
+  _endPointsSet(endLatLng) {
+    return !!endLatLng && endLatLng.length === 2
   }
 
   _initMap() {
