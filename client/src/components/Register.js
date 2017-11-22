@@ -129,7 +129,7 @@ class Register extends LayoutLeftCol {
       </div>
     )
   }
-
+  
   _getErrorClass(field) {
     return this.state.error && !this.state.user[field] ? 'is-error' : ''
   }
