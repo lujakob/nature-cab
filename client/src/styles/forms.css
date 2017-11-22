@@ -1,7 +1,4 @@
-
-
-
-input[type=text], select {
+input[type=text], input[type=password], select {
   border: 1px solid #ddd;
   border-radius: 2px;
   padding: 10px 10px 8px;
@@ -97,10 +94,16 @@ textarea {
   text-align:center;
   padding-top:10px;
 }
+
 .time-spacer--time {
   width:32px !important;
 }
 
 .select-time-spacer--time {
   margin-left:5px;
+}
+
+fieldset .error-message {
+  padding:0;
+  margin-bottom:20px;
 }

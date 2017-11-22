@@ -50,6 +50,6 @@ a {
   color:#333;
 }
 
-.error-message {
-  padding:5px 0;
+button {
+  outline: 0;
 }

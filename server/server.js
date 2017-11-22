@@ -48,7 +48,7 @@ server.post('/login', function(req, res) {
     } else {
 
       if( !user ){
-        res.status(401).json({message:'no such user found'});
+        res.status(401).json({message:'EMAIL_NOT_FOUND'});
       } else {
 
         bcrypt.compare(req.body.password, user.password).then(authenticated => {
@@ -58,7 +58,7 @@ server.post('/login', function(req, res) {
             let token = jwt.sign(payload, JWT_SECRET);
             res.json({message: 'ok', token: token, id: user._id});
           } else {
-            res.status(401).json({message:'passwords did not match'});
+            res.status(401).json({message:'UNAUTHORIZED'});
           }
         }).catch(err => console.log(err))
       }
