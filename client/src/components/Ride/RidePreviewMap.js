@@ -40,7 +40,9 @@ class RidePreviewMap extends PureComponent {
 
     var mapOptions = {
       zoom,
-      center
+      center,
+      streetViewControl: false,
+      mapTypeControl: false
     }
     this.map = new this.google.maps.Map(document.getElementById(mapDomElId), mapOptions);
     this.directionsDisplay.setMap(this.map);
