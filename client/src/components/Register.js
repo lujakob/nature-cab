@@ -117,13 +117,19 @@ class Register extends LayoutLeftCol {
           </div>
           }
 
-          <div className="form-row form-row--button-right">
+          <div className="form-row">
             <button
               className='link ph3 pv2 white bg-blue'
               onClick={() => this._submit()}
             >
               Registrieren
             </button>
+            <div
+              className='register-button pointer'
+              onClick={() => this.props.history.push('/login')}
+            >
+              Login
+            </div>
           </div>
         </fieldset>
       </div>

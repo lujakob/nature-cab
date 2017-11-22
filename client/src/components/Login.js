@@ -57,7 +57,7 @@ class Login extends LayoutLeftCol {
           </div>
           }
 
-          <div className="form-row form-row--button-login">
+          <div className="form-row">
             <button
               className='link ph3 pv2 white bg-blue'
               onClick={() => this._confirm()}
