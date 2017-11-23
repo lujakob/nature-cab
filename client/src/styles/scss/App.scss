@@ -1,11 +1,18 @@
 @import './variables.scss';
 
+html {
+  font-family: 'Open Sans', sans-serif;
+  font-size:8px;
+  line-height:1.35;
+  color:$grey-font;
+  @media  screen and (min-width:768px) {
+    font-size:10px;
+  }
+}
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Open Sans', sans-serif;
-  font-size:14px;
-  color:$grey-font;
+  font-size:1.4rem;
 }
 
 .is-login-page .page-wrapper fieldset {
@@ -62,18 +69,16 @@ body {
   }
 }
 
-.logo{
-  color:$blue;
-  font-size:24px;
-  margin:0;
-  font-family: 'Ruda', cursive;
-  font-weight:700;
-}
-
 a {
   color:$grey-font;
 }
 
 button {
   outline: 0;
+}
+
+.mobile-hidden {
+      @media  screen and (max-width:767px) {
+          display:none;
+        }
 }

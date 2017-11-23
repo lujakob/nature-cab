@@ -27,7 +27,7 @@ class RideDetail extends Component {
         <div className="ride-detail cf">
           <div className="ride-detail__back-btn" onClick={this._goBack}>zurück zur Übersicht</div>
           <h3>{ride.startCity} - {ride.endCity}</h3>
-          <div className="ride-detail__left">
+          <div className="ride-detail__ride-info">
             <div className="ride-detail-info">
               <div className="ride-detail-info__row cf">
                 <div className="ride-detail-info__label">Abfahrtsort</div>
@@ -73,7 +73,7 @@ class RideDetail extends Component {
 
             </div>
           </div>
-          <div className="ride-detail__right">
+          <div className="ride-detail__user-info">
             <div className="ride-detail-user">
               <h3>Fahrer</h3>
               <div className="ride-detail-user__user-info">

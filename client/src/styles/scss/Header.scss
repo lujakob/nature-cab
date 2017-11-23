@@ -17,6 +17,16 @@
   border-radius:1px;
 }
 
+
+.logo{
+  color:$blue;
+  font-size:24px;
+  margin:0;
+  font-family: 'Ruda', cursive;
+  font-weight:700;
+}
+
+
 .header button:focus {
   outline:0;
 }
@@ -26,12 +36,15 @@
 }
 
 .visual {
-  width:calc(100% + 40px);
+  width:calc(100% + 20px);
   height:auto;
-  margin:-60px -20px 10px;
+  margin:-60px -10px 10px;
   z-index:-1;
   position: relative;
   display:none;
+  @media  screen and (max-width:767px) {
+    display:none !important;
+  }
 }
 
 .visual img {

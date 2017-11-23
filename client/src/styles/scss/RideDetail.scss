@@ -1,13 +1,21 @@
 @import './variables.scss';
 
-.ride-detail__left {
-  float:left;
-  width:calc(100% - 250px);
+.ride-detail__ride-info {
+  @media  screen and (min-width:768px) {
+    float:left;
+    width:calc(100% - 250px);
+  }
 }
-.ride-detail__right {
-  float:right;
-  width:240px;
+.ride-detail__user-info {
+  margin-top:20px;
+  @media  screen and (min-width:768px) {
+    margin-top:0;
+    float:right;
+    width:240px;
+  }
 }
+
+
 .ride-detail__back-btn {
   cursor:pointer;
   display:inline-block;
@@ -23,18 +31,31 @@
 }
 
 .ride-detail-info__row {
-  padding-bottom:8px;
+  padding-bottom:10px;
 }
 
 .ride-detail-info__row--return-info {
   border-top:1px solid #ddd;
   margin-top:10px;
   padding-top:10px;
+  @media  screen and (max-width:767px) {
+    .ride-detail-info__label {
+      margin-bottom:5px;
+    }
+    .ride-detail-info__label,
+    .ride-detail-info__field {
+      float:none;
+      width:100%;
+    }
+  }
 }
 
 .ride-detail-info__label {
   float:left;
-  width:150px;
+  width:130px;
+  @media  screen and (min-width:768px) {
+    width:150px;
+  }
 }
 
 .ride-detail-info__field {

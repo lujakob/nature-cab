@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import RideDetail from './RideDetail'
 // import RideListFilter from './RideListFilter'
 import {Route} from 'react-router-dom'
-import { withRouter } from 'react-router'
+import {withRouter} from 'react-router'
 import homeImg from '../../img/home1.jpg'
 
 class Rides extends Component {

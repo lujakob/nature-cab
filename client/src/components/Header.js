@@ -34,7 +34,7 @@ class Header extends Component {
     this.userId = localStorage.getItem(GC_USER_ID)
 
     return (
-      <div className='header flex justify-between nowrap ph3'>
+      <div className='header flex justify-between ph3'>
         <div className='flex flex-fixed black'>
           <div className='heading fw7 mr1'>
             <Logo/>
@@ -43,9 +43,9 @@ class Header extends Component {
 
         <div className='flex flex-fixed'>
           {this.props.location.pathname !== "/create" &&
-          <div className="flex flex-fixed">
+          <div className="flex flex-fixed mobile-hidden">
             <button
-              className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
+              className='link ph3 pv2 white'
               onClick={() => this._createRide()}
             >
               Fahrt anbieten
@@ -53,7 +53,7 @@ class Header extends Component {
           </div>
           }
           {this.userId ?
-          <div className="flex flex-fixed">
+          <div className="flex flex-fixed mobile-hidden">
             {user &&
             <div className='flex'>
               <Link to='/user'  className='mr1 no-underline black'>{user.firstname} {truncateName(user.lastname)}</Link>
@@ -63,7 +63,7 @@ class Header extends Component {
             <div className='ml1 pointer' onClick={() => this._logout()}>Logout</div>
           </div>
           :
-          <Link to='/login' className='ml1 no-underline login-link'>Login</Link>
+          <Link to='/login' className='ml1 no-underline login-link mobile-hidden'>Login</Link>
           }
         </div>
       </div>

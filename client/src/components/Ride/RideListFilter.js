@@ -57,7 +57,7 @@ class RideListFilter extends Component {
           </div>
           <div className="ride-list-filter-field">
             <button
-              className='f6 link br3 ba ph3 pv2 mb2 dib white bg-blue'
+              className='link ph3 pv2 white bg-blue'
               onClick={() => this._filter()}
             >
               Fahrt finden

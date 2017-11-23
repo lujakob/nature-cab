@@ -8,7 +8,6 @@ import { ApolloProvider } from 'react-apollo'
 import { onError } from 'apollo-link-error'
 import { ApolloLink, from } from 'apollo-link';
 
-import Header from './components/Header'
 import Rides from './components/Ride/Rides'
 import {CreateRideWithData} from './components/Ride/CreateRide'
 import Login from './components/Login'
@@ -16,6 +15,7 @@ import Register from './components/Register'
 import UserPage from './components/User/UserPage'
 import {NoMatch404} from './components/NoMatch404'
 import Home from './components/Home/Home'
+import {LayoutBase} from './components/Layout/LayoutBase'
 
 import {GC_AUTH_TOKEN, GC_USER_ID} from './constants'
 import './styles/css/App.css'
@@ -57,7 +57,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/login' component={Login}/>
           <Route exact path='/register' component={Register}/>
-          <Layout>
+          <LayoutBase client={client}>
             <Switch>
               <Route exact path='/' component={Home}/>
               <Route path='/rides' component={Rides}/>
@@ -66,22 +66,11 @@ class App extends Component {
               <Route exact path="/404" component={NoMatch404}/>
               <Redirect to="/404"/>
             </Switch>
-          </Layout>
+          </LayoutBase>
         </Switch>
       </ApolloProvider>
     )
   }
-}
-
-const Layout = ({children}) => {
-  return (
-    <div className='center w85'>
-      <Header resetStore={client.resetStore}/>
-      <div className='ph3 background-gray'>
-        {children}
-      </div>
-    </div>
-  )
 }
 
 const ProtectedRoute = ({component: Component, ...rest}) => (
