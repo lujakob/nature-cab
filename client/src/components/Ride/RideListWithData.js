@@ -23,7 +23,7 @@ class RideListWithData extends Component {
         }
         {rides && rides.total > 0 &&
           <div>
-            <p class="total-count">{rides.total} Ergebnisse gefunden</p>
+            <p className="total-count">{rides.total} Ergebnisse gefunden</p>
             <RideList rides={rides.rides} detailLinkPrefix="/rides/"/>
           </div>
         }
