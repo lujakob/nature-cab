@@ -13,6 +13,13 @@ class Header extends Component {
   userId = null
   emitterToken = null
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      mobileMenuIsVisible: false
+    }
+  }
+
   componentWillMount() {
     this.emitterToken = emitter.addListener('loginSuccess', userId => {
       this.props.resetStore()
@@ -45,7 +52,7 @@ class Header extends Component {
           {this.props.location.pathname !== "/create" &&
           <div className="flex flex-fixed mobile-hidden">
             <button
-              className='link ph3 pv2 white'
+              className='link ph3 pv2 white main-button'
               onClick={() => this._createRide()}
             >
               Fahrt anbieten
@@ -65,9 +72,34 @@ class Header extends Component {
           :
           <Link to='/login' className='ml1 no-underline login-link mobile-hidden'>Login</Link>
           }
+          <div className="burger-mobile-buttons">
+            <button
+              class={'hamburger ' + (this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
+              onClick={this._toggleMobileMenu}>
+              &#9776;
+            </button>
+            <button
+              class={'cross ' + (!this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
+              onClick={this._toggleMobileMenu}>
+              &#735;
+            </button>
+          </div>
+        </div>
+        <div class={'menu-mobile ' + (!this.state.mobileMenuIsVisible ? 'is-hidden' : '')}>
+          <ul>
+            <a href="#"><li>LINK ONE</li></a>
+            <a href="#"><li>LINK TWO</li></a>
+            <a href="#"><li>LINK THREE</li></a>
+            <a href="#"><li>LINK FOUR</li></a>
+            <a href="#"><li>LINK FIVE</li></a>
+          </ul>
         </div>
       </div>
     )
+  }
+
+  _toggleMobileMenu = () => {
+    this.setState({mobileMenuIsVisible: !this.state.mobileMenuIsVisible})
   }
 
   _createRide = () => {
