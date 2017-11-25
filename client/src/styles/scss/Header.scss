@@ -17,7 +17,6 @@
   border-radius:1px;
 }
 
-
 .logo{
   color:$blue;
   font-size:24px;
@@ -25,7 +24,6 @@
   font-family: 'Ruda', cursive;
   font-weight:700;
 }
-
 
 .header button:focus {
   outline:0;
@@ -79,13 +77,23 @@
     display:none !important;
   }
 }
-.menu-mobile ul {margin: 0; padding: 0; list-style-type: none; list-style-image: none;}
-.menu-mobile li {display: block;   padding:15px 0 15px 0; border-bottom:#dddddd 1px solid;}
-.menu-mobile li:hover{display: block;    background:#ffffff; padding:15px 0 15px 0; border-bottom:#dddddd 1px solid;}
-.menu-mobile ul li a { text-decoration:none;  margin: 0px; color:#666;}
-.menu-mobile ul li a:hover {  color: #666; text-decoration:none;}
-.menu-mobile a{text-decoration:none; color:#666;}
-.menu-mobile a:hover{text-decoration:none; color:#666;}
+
+.menu-mobile ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  list-style-image: none;
+}
+
+.menu-mobile li {}
+.menu-mobile ul li a {
+  text-decoration:none;
+  margin: 0px;
+  color:#666;
+  padding:15px 0 15px 0;
+  border-bottom:#dddddd 1px solid;
+  display:block;
+}
 
 .hamburger{
   background:none;
@@ -106,6 +114,7 @@
     display:none;
   }
 }
+
 .cross {
   background:none;
   display:block;

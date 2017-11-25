@@ -87,11 +87,18 @@ class Header extends Component {
         </div>
         <div class={'menu-mobile ' + (!this.state.mobileMenuIsVisible ? 'is-hidden' : '')}>
           <ul>
-            <a href="#"><li>LINK ONE</li></a>
-            <a href="#"><li>LINK TWO</li></a>
-            <a href="#"><li>LINK THREE</li></a>
-            <a href="#"><li>LINK FOUR</li></a>
-            <a href="#"><li>LINK FIVE</li></a>
+            <li><a href="#">Link one</a></li>
+            <li><a href="#">Link two</a></li>
+            <li><a href="#">Link three</a></li>
+            {this.userId ? (
+              <li>
+                <a onClick={() => this._logout()}><li>Logout</li></a>
+              </li>
+            ) : (
+              <li>
+                <Link to='/login' className=''>Login</Link>
+              </li>
+            ) }
           </ul>
         </div>
       </div>
