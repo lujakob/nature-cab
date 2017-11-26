@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../Header'
+import Footer from '../Footer'
 
 export const LayoutBase = ({client, children}) => {
   return (
@@ -8,6 +9,7 @@ export const LayoutBase = ({client, children}) => {
       <div className='ph3 background-gray'>
         {children}
       </div>
+      <Footer />
     </div>
   )
 }
