@@ -3,12 +3,15 @@ import {GC_USER_ID, GC_AUTH_TOKEN} from '../constants'
 import {emitter} from '../utils/emitter'
 import {LayoutLeftCol} from './Layout/LayoutLeftCol'
 import {Logo} from './Logo'
+import FacebookLogin from 'react-facebook-login'
 
 const LOGIN_ERRORS = {
   EMAIL_NOT_FOUND: 'EMAIL_NOT_FOUND',
   UNAUTHORIZED: 'UNAUTHORIZED',
   EMPTY: 'EMPTY'
 }
+
+const FACEBOOK_APP_ID = 1953108001624740
 
 class Login extends LayoutLeftCol {
   state = {
@@ -64,16 +67,38 @@ class Login extends LayoutLeftCol {
             >
               Login
             </button>
-            <div
+          </div>
+
+          <div className="form-row">oder</div>
+
+          <div className="form-row">
+            <FacebookLogin
+              cssClass="link ph3 pv2 white bg-blue"
+              textButton="Login mit Facebook"
+              appId={FACEBOOK_APP_ID}
+              autoLoad={true}
+              fields="name,email,picture"
+              callback={this._responseFacebook} />
+          </div>
+
+          <div className="form-row">
+            Du hast kein Konto?&nbsp;
+            <span
               className='register-button pointer'
               onClick={() => this.props.history.push('/register')}
             >
-              Registrieren
-            </div>
+              Anmelden
+            </span>
           </div>
+
+
         </fieldset>
       </div>
     )
+  }
+
+  _responseFacebook = (response) => {
+    console.log(response);
   }
 
   /**

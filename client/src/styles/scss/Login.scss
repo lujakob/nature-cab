@@ -1,3 +1,21 @@
+@import './variables.scss';
+
 .login-page .form-row--button-login {
+
+}
+
+.login-page  {
+
+  .form-row-spacer-login {
+    border-bottom:1px solid $grey-border;
+    margin-bottom:20px;
+  }
+
+  button {
+    background-color:$blue;
+    width:100%;
+    line-height:34px;
+    border:none;
+  }
 
 }

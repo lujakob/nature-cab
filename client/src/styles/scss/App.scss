@@ -31,8 +31,7 @@ body {
 }
 
 .is-login-page .page-wrapper .register-button {
-  float:right;
-  line-height:33px;
+  color:$blue;
 }
 
 @media screen and (min-width:768px) {
@@ -58,15 +57,6 @@ body {
     margin-bottom:20px;
   }
 
-  .is-login-page .page-wrapper button {
-    background-color:$blue;
-    border:none;
-  }
-
-  .is-login-page .page-wrapper .register-button {
-    float:right;
-    line-height:33px;
-  }
 }
 
 a {
