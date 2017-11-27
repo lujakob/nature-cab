@@ -7,20 +7,17 @@ import morgan from 'morgan'
 import bearerToken from 'express-bearer-token'
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
-
+import request from 'request'
 
 import {schema} from './src/schema'
 import USER from './src/models/user'
 
 import {JWT_SECRET} from './constants'
 
-export const users = [
-  {id:1, email: 'test', password: 'test', name: 'Lukas'},
-  {id:2, email: 'test2', password: 'test', name: 'Tom'}
-]
-
 const PORT = 4000
 const server = express()
+
+const accessToken = '1953108001624740|3-YCCMcfRiGG2F-pc4PUxh9FsRA'
 
 // add token to request
 server.use(bearerToken())
@@ -34,36 +31,60 @@ server.use(bodyParser.json())
 
 // login route - returns jwt token for valid user
 server.post('/login', function(req, res) {
-  if(!req.body.email || !req.body.password){
-    throw Error('email and password not in post request')
+  let {email, password, accessToken} = req.body
+
+  if(!(email && password || accessToken)){
+    console.log("No credentials in response body found.")
+    res.status(401).json({message:'UNAUTHORIZED'})
   }
 
-  let {email, password} = req.body
+  // on the client side FB API this is called "accessToken", requesting '/debug_token' verification it's called inputToken
+  const inputToken = accessToken
 
-  // find user in DB and check password
-  USER.findOne({email: email}, (err, user) => {
+  if (email && password) {
+    // find user in DB and check password
+    USER.findOne({email: email}, (err, user) => {
 
-    if (err) {
-      console.log('Login failed, user not found', err)
-    } else {
-
-      if( !user ){
-        res.status(401).json({message:'EMAIL_NOT_FOUND'});
+      if (err) {
+        console.log('Login failed, user not found', err)
       } else {
 
-        bcrypt.compare(req.body.password, user.password).then(authenticated => {
+        if( !user ){
+          res.status(401).json({message:'EMAIL_NOT_FOUND'});
+        } else {
 
-          if(authenticated) {
-            let payload = {_id: user._id};
-            let token = jwt.sign(payload, JWT_SECRET);
-            res.json({message: 'ok', token: token, id: user._id});
-          } else {
-            res.status(401).json({message:'UNAUTHORIZED'});
-          }
-        }).catch(err => console.log(err))
+          bcrypt.compare(password, user.password).then(authenticated => {
+
+            if(authenticated) {
+              let payload = {_id: user._id};
+              let token = jwt.sign(payload, JWT_SECRET);
+              res.json({message: 'ok', token: token, id: user._id});
+            } else {
+              res.status(401).json({message:'UNAUTHORIZED'});
+            }
+          }).catch(err => console.log(err))
+        }
       }
-    }
-  })
+    })
+  } else if(inputToken) {
+    const url = `https://graph.facebook.com/debug_token?input_token=${inputToken}&access_token=${accessToken}`
+    request(url, { json: true }, (err, res, body) => {
+      if (err) {
+        console.log('Facebook /debug_token failed', err)
+      }
+
+      if (body && body.data && body.data.is_valid) {
+        // get user data and store in db
+        // USER.findOrCreate({ email: 'Mike' }, { slug: 'mike' }, (err, result) => {
+        //   // my new or existing model is loaded as result
+        // })
+
+      }
+
+      console.log(body)
+    })
+  }
+
 })
 
 // check valid token and add user if available

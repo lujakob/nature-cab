@@ -17,7 +17,8 @@ class Login extends LayoutLeftCol {
   state = {
     email: '',
     password: '',
-    error: ''
+    error: '',
+    facebookLoginLoading: false
   }
 
   render() {
@@ -26,8 +27,8 @@ class Login extends LayoutLeftCol {
 
     if (token) {
       return (
-        <div className="login">
-          You are currently logged in.
+        <div className="login-page page-wrapper">
+          <p>You are currently logged in.</p>
         </div>
       )
     }
@@ -72,13 +73,18 @@ class Login extends LayoutLeftCol {
           <div className="form-row">oder</div>
 
           <div className="form-row">
-            <FacebookLogin
+            {!this.state.facebookLoginLoading ? (
+              <FacebookLogin
               cssClass="link ph3 pv2 white bg-blue"
               textButton="Login mit Facebook"
               appId={FACEBOOK_APP_ID}
               autoLoad={true}
-              fields="name,email,picture"
+              fields="name,first_name,last_name,email,picture"
               callback={this._responseFacebook} />
+              ) : (
+                <p>Loading...</p>
+              ) }
+
           </div>
 
           <div className="form-row">
@@ -91,13 +97,16 @@ class Login extends LayoutLeftCol {
             </span>
           </div>
 
-
         </fieldset>
       </div>
     )
   }
 
   _responseFacebook = (response) => {
+    if (response && response.accessToken) {
+      // const result = this._authenticateFacebook(response.accessToken)
+
+    }
     console.log(response);
   }
 
@@ -180,6 +189,27 @@ class Login extends LayoutLeftCol {
       body: JSON.stringify({
         email: this.state.email,
         password: this.state.password
+      })
+    })
+
+    if (response.ok) {
+      return await response.json()
+    } else {
+      return response
+    }
+  }
+
+  // request login
+  async _authenticateFacebook (accessToken) {
+    const response = await fetch('http://localhost:4000/login', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Accept': 'Application/JSON',
+        'Content-Type': 'Application/JSON'
+      },
+      body: JSON.stringify({
+        accessToken
       })
     })
 
