@@ -1,6 +1,6 @@
 import React from 'react'
 import {GC_USER_ID, GC_AUTH_TOKEN} from '../constants'
-import {FACEBOOK_APP_ID} from '../../config'
+import {FACEBOOK_APP_ID} from '../config'
 import {emitter} from '../utils/emitter'
 import {LayoutLeftCol} from './Layout/LayoutLeftCol'
 import {Logo} from './Logo'
@@ -11,8 +11,6 @@ const LOGIN_ERRORS = {
   UNAUTHORIZED: 'UNAUTHORIZED',
   EMPTY: 'EMPTY'
 }
-
-const FACEBOOK_APP_ID = 1953108001624740
 
 class Login extends LayoutLeftCol {
   state = {

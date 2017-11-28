@@ -25,4 +25,4 @@ yarn-error.log*
 # css styles
 /src/styles/css/
 
-/config.js
+/src/config.js
