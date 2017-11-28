@@ -78,8 +78,8 @@ class Login extends LayoutLeftCol {
               cssClass="link ph3 pv2 white bg-blue"
               textButton="Login mit Facebook"
               appId={FACEBOOK_APP_ID}
-              autoLoad={true}
-              fields="name,first_name,last_name,email,picture"
+              scope="user_birthday"
+              fields="name,first_name,last_name,email,picture,birthday,gender"
               callback={this._responseFacebook} />
               ) : (
                 <p>Loading...</p>
@@ -102,12 +102,12 @@ class Login extends LayoutLeftCol {
     )
   }
 
-  _responseFacebook = (response) => {
-    if (response && response.accessToken) {
-      // const result = this._authenticateFacebook(response.accessToken)
+  _responseFacebook = async (response) => {
 
+    if (response && response.accessToken) {
+      const result = await this._authenticateFacebook(response)
+      this._loginResult(result)
     }
-    console.log(response);
   }
 
   /**
@@ -144,8 +144,12 @@ class Login extends LayoutLeftCol {
     }
 
     let result = await this._authenticate()
+    this._loginResult(result)
+  }
 
-    if (result.message === 'ok') {
+  _loginResult = async (result) => {
+  const res = result
+    if (result.message === 'OK') {
       this._saveUserData(result)
 
       // emit login success to display username in header
@@ -162,7 +166,6 @@ class Login extends LayoutLeftCol {
 
     } else {
       throw new Error('Login failed')
-
     }
   }
 
@@ -200,7 +203,9 @@ class Login extends LayoutLeftCol {
   }
 
   // request login
-  async _authenticateFacebook (accessToken) {
+  async _authenticateFacebook (data) {
+    const {accessToken} = data
+    const user = this._getFacebookUserData(data)
     const response = await fetch('http://localhost:4000/login', {
       method: 'POST',
       mode: 'cors',
@@ -209,7 +214,8 @@ class Login extends LayoutLeftCol {
         'Content-Type': 'Application/JSON'
       },
       body: JSON.stringify({
-        accessToken
+        accessToken,
+        user
       })
     })
 
@@ -218,6 +224,16 @@ class Login extends LayoutLeftCol {
     } else {
       return response
     }
+  }
+
+
+  _getFacebookUserData(data) {
+    let {email, first_name: firstname, last_name: lastname, userID: facebookUserId, picture, birthday, gender} = data
+    picture = picture && picture.data && picture.data.url ? picture.data.url : ''
+    let yearOfBirth = !!birthday ? (new Date(birthday).getFullYear()).toString() : ''
+
+    return {email, firstname, lastname, facebookUserId, picture, gender, yearOfBirth}
+
   }
 }
 

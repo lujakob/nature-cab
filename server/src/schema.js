@@ -57,6 +57,7 @@ type User {
   carType: String
   carColor: String
   description: String
+  picture: String
 }
 
 input UserInput {

@@ -74,31 +74,26 @@ class Header extends Component {
           }
           <div className="burger-mobile-buttons">
             <button
-              class={'hamburger ' + (this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
+              className={'hamburger ' + (this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
               onClick={this._toggleMobileMenu}>
               &#9776;
             </button>
             <button
-              class={'cross ' + (!this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
+              className={'cross ' + (!this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
               onClick={this._toggleMobileMenu}>
               &#735;
             </button>
           </div>
         </div>
-        <div class={'menu-mobile ' + (!this.state.mobileMenuIsVisible ? 'is-hidden' : '')}>
+        <div className={'menu-mobile ' + (!this.state.mobileMenuIsVisible ? 'is-hidden' : '')}>
           <ul>
             <li><a>Link one</a></li>
             <li><a>Link two</a></li>
             <li><a>Link three</a></li>
-            {this.userId ? (
-              <li>
-                <a onClick={() => this._logout()}><li>Logout</li></a>
-              </li>
-            ) : (
-              <li>
-                <Link to='/login' className=''>Login</Link>
-              </li>
-            ) }
+            {this.userId
+              ? <li><a onClick={() => this._logout()}>Logout</a></li>
+              : <li><Link to='/login' className=''>Login</Link></li>
+            }
           </ul>
         </div>
       </div>

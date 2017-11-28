@@ -3,7 +3,7 @@ import {graphqlExpress, graphiqlExpress} from 'graphql-server-express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import jwt from 'jsonwebtoken'
-import morgan from 'morgan'
+import morganBody from 'morgan-body'
 import bearerToken from 'express-bearer-token'
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
@@ -23,7 +23,8 @@ const accessToken = '1953108001624740|3-YCCMcfRiGG2F-pc4PUxh9FsRA'
 server.use(bearerToken())
 
 // log requests to console
-server.use(morgan('dev'))
+// server.use(morgan('dev'))
+morganBody(server)
 
 server.use('*', cors({ origin: 'http://localhost:3000' }))
 server.use(bodyParser.urlencoded({extended: true}))
@@ -31,7 +32,7 @@ server.use(bodyParser.json())
 
 // login route - returns jwt token for valid user
 server.post('/login', function(req, res) {
-  let {email, password, accessToken} = req.body
+  let {email, password, accessToken, user} = req.body
 
   if(!(email && password || accessToken)){
     console.log("No credentials in response body found.")
@@ -50,17 +51,16 @@ server.post('/login', function(req, res) {
       } else {
 
         if( !user ){
-          res.status(401).json({message:'EMAIL_NOT_FOUND'});
+          res.status(401).json({message:'EMAIL_NOT_FOUND'})
         } else {
 
           bcrypt.compare(password, user.password).then(authenticated => {
 
             if(authenticated) {
-              let payload = {_id: user._id};
-              let token = jwt.sign(payload, JWT_SECRET);
-              res.json({message: 'ok', token: token, id: user._id});
+
+              res.json({message: 'OK', token: getJWT(user), id: user._id})
             } else {
-              res.status(401).json({message:'UNAUTHORIZED'});
+              res.status(401).json({message:'UNAUTHORIZED'})
             }
           }).catch(err => console.log(err))
         }
@@ -68,24 +68,38 @@ server.post('/login', function(req, res) {
     })
   } else if(inputToken) {
     const url = `https://graph.facebook.com/debug_token?input_token=${inputToken}&access_token=${accessToken}`
-    request(url, { json: true }, (err, res, body) => {
+    request(url, { json: true }, (err, response, body) => {
       if (err) {
-        console.log('Facebook /debug_token failed', err)
+        console.log('Facebook request /debug_token failed', err)
       }
 
-      if (body && body.data && body.data.is_valid) {
-        // get user data and store in db
-        // USER.findOrCreate({ email: 'Mike' }, { slug: 'mike' }, (err, result) => {
-        //   // my new or existing model is loaded as result
-        // })
+      if (body && body.data && user) {
+        if (body.data.is_valid === true) {
+          // get user data and store in db
+          USER.findOrCreate({ email: user.email }, user, (err, result) => {
+            if (err) {
+              console.log('USER.findOrCreate failed', err)
+            }
+            res.json({message: 'OK', token: getJWT(result), id: result._id})
+          })
 
+        } else {
+          res.status(401).json({message: 'UNAUTHORIZED'})
+
+        }
+
+      } else {
+        res.status(401).json({message: 'UNAUTHORIZED'})
       }
-
-      console.log(body)
     })
   }
 
 })
+
+const getJWT = (user) => {
+  let payload = {_id: user._id}
+  return jwt.sign(payload, JWT_SECRET)
+}
 
 // check valid token and add user if available
 const authenticate = (req, res, next) => {
