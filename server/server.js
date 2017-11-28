@@ -13,6 +13,7 @@ import {schema} from './src/schema'
 import USER from './src/models/user'
 
 import {JWT_SECRET} from './constants'
+import {FACEBOOK_ACCESS_TOKEN} from './config'
 
 const PORT = 4000
 const server = express()
@@ -67,7 +68,7 @@ server.post('/login', function(req, res) {
       }
     })
   } else if(inputToken) {
-    const url = `https://graph.facebook.com/debug_token?input_token=${inputToken}&access_token=${accessToken}`
+    const url = `https://graph.facebook.com/debug_token?input_token=${inputToken}&access_token=${FACEBOOK_ACCESS_TOKEN}`
     request(url, { json: true }, (err, response, body) => {
       if (err) {
         console.log('Facebook request /debug_token failed', err)

@@ -1,5 +1,6 @@
 import React from 'react'
 import {GC_USER_ID, GC_AUTH_TOKEN} from '../constants'
+import {FACEBOOK_APP_ID} from '../../config'
 import {emitter} from '../utils/emitter'
 import {LayoutLeftCol} from './Layout/LayoutLeftCol'
 import {Logo} from './Logo'
