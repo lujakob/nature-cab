@@ -18,8 +18,6 @@ import {FACEBOOK_ACCESS_TOKEN} from './config'
 const PORT = 4000
 const server = express()
 
-const accessToken = '1953108001624740|3-YCCMcfRiGG2F-pc4PUxh9FsRA'
-
 // add token to request
 server.use(bearerToken())
 
