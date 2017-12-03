@@ -118,6 +118,7 @@ const RideDetailQuery = gql`
         yearOfBirth
         email
         phone
+        picture
         carType
         carColor
         description

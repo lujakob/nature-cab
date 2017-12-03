@@ -7,11 +7,13 @@ class RideUser extends Component {
 
     const {user, showVehicle, showDescription} = this.props
 
+    const picture = user.picture || '/no-headshot.jpg'
+
     return (
       <div className="ride-user">
         <div className="ride-user__top cf">
           <div className="ride-user__user-image">
-            <img src="/no-headshot.jpg" alt="Benutzer Bild"/>
+            <img src={picture} alt="Benutzer Bild"/>
           </div>
           <div className="ride-user__user-info">
             <div className="ride-user__user-name">{user.firstname} {truncateName(user.lastname)}</div>
