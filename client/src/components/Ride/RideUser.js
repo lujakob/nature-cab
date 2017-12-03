@@ -33,10 +33,10 @@ class RideUser extends Component {
         </div>
         }
 
-        {showDescription && user.phone &&
+        {showDescription &&
         <div className="ride-user__add-info">
           <h4>Telefon</h4>
-          {user.phone}
+          {user.phone || 'keine Angabe'}
         </div>
         }
 
