@@ -65,7 +65,7 @@ class UserProfile extends Component {
     }
 
     return (
-      <div>
+      <div className="content-max-width">
         <fieldset className="form-fieldset">
           <h3>Deine persönlichen Daten</h3>
 

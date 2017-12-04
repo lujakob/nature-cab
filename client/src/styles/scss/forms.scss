@@ -115,3 +115,9 @@ fieldset .error-message {
   padding:0;
   margin-bottom:20px;
 }
+
+button {
+  &.bg-blue {
+    background-color:$blue;
+  }
+}

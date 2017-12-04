@@ -1,11 +1,13 @@
 @import './variables.scss';
 
-.ride-list .error-message {
-  margin-top:20px;
-  font-weight:bold;
-  text-align:center;
-}
-.ride-list .total-count {
-  display:none;
-  margin:-10px 0 20px;
+.ride-list {
+  .error-message {
+    margin-top:20px;
+    font-weight:bold;
+    text-align:center;
+  }
+  .total-count {
+    display:none;
+    margin:-10px 0 20px;
+  }
 }

@@ -25,9 +25,11 @@ class Rides extends Component {
           this.props.history.push('/')
           return ''
         }}/>
+
         {/*<Route exact path={`${this.props.match.url}`} render={() => (*/}
-          {/*<div>*/}
-            {/*<RideListFilter filterFunc={({start, end, activity}) => this.setState({start, end, activity})}/>*/}
+        {/*<RideListFilter filterFunc={({start, end, activity}) => this.setState({start, end, activity})}/>*/}
+
+        {/*<div className="centered-container">*/}
             {/*<RideListWithData start={this.state.start} end={this.state.end} activity={this.state.activity}/>*/}
           {/*</div>*/}
         {/*)}/>*/}

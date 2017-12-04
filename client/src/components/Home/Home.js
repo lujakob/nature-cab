@@ -16,17 +16,17 @@ class Home extends Component {
     return (
       <div className="home-page has-visual">
         <div className="visual">
-          <img src={homeImg} alt=""/>
+          <img src={homeImg} alt="NatureCab Mitfahrgelegenheit Visual Image"/>
         </div>
 
         <RideListFilter filterFunc={({start, end, activity}) => {
           this.setState({start, end, activity})
-
-          // go to list view
           //this.props.history.push('/rides')
         }}/>
 
-        <RideListWithData start={this.state.start} end={this.state.end} activity={this.state.activity}/>
+        <div className="centered-container">
+          <RideListWithData start={this.state.start} end={this.state.end} activity={this.state.activity}/>
+        </div>
       </div>
     )
   }
