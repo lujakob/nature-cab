@@ -8,6 +8,7 @@ import { ApolloProvider } from 'react-apollo'
 import { onError } from 'apollo-link-error'
 import { ApolloLink, from } from 'apollo-link';
 
+import UeberNatureCabPage from './pages/UeberNatureCab'
 import RidesPage from './pages/RidesPage'
 import CreateRidePage from './pages/CreateRidePage'
 import LoginPage from './pages/LoginPage'
@@ -64,6 +65,7 @@ class App extends Component {
               <Route path='/rides' component={RidesPage}/>
               <ProtectedRoute exact path='/create' component={CreateRidePage}/>
               <ProtectedRoute path='/user' component={UserPage}/>
+              <ProtectedRoute path='/ueber-naturecab' component={UeberNatureCabPage}/>
               <Route exact path="/404" component={NoMatch404}/>
               <Redirect to="/404"/>
             </Switch>
