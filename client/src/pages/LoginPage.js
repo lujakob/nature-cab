@@ -2,8 +2,8 @@ import React from 'react'
 import {GC_USER_ID, GC_AUTH_TOKEN} from '../constants'
 import {FACEBOOK_APP_ID} from '../config'
 import {emitter} from '../utils/emitter'
-import {LayoutLeftCol} from './Layout/LayoutLeftCol'
-import {Logo} from './Logo'
+import {LayoutLeftCol} from '../components/Layout/LayoutLeftCol'
+import {Logo} from '../components/Logo'
 import FacebookLogin from 'react-facebook-login'
 
 const LOGIN_ERRORS = {
@@ -12,7 +12,7 @@ const LOGIN_ERRORS = {
   EMPTY: 'EMPTY'
 }
 
-class Login extends LayoutLeftCol {
+class LoginPage extends LayoutLeftCol {
   state = {
     email: '',
     password: '',
@@ -147,7 +147,7 @@ class Login extends LayoutLeftCol {
   }
 
   _loginResult = async (result) => {
-  const res = result
+
     if (result.message === 'OK') {
       this._saveUserData(result)
 
@@ -236,4 +236,4 @@ class Login extends LayoutLeftCol {
   }
 }
 
-export default Login
+export default LoginPage

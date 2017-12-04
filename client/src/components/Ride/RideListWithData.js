@@ -59,8 +59,10 @@ export const rideListQuery = gql`
   }
 `
 
-export default graphql(rideListQuery, {
+const withData = graphql(rideListQuery, {
   options: (props) => ({
     variables: {start: props.start, end: props.end, activity: props.activity}
   })
-})(RideListWithData)
+})
+
+export default withData(RideListWithData)

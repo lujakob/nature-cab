@@ -20,7 +20,7 @@ const defaultUser = {
   description: ''
 }
 
-class UserProfile extends Component {
+class UserProfilePage extends Component {
 
   state = {
     user: defaultUser,
@@ -273,7 +273,7 @@ export const updateUserMutation = gql`
   }  
 `
 
-export const UserProfileWithData = compose(
+export const withData = compose(
   graphql(userQuery, {
     options: (props) => {
       const userId = localStorage.getItem(GC_USER_ID)
@@ -283,4 +283,6 @@ export const UserProfileWithData = compose(
   graphql(updateUserMutation, {
     name: 'updateUserMutation'
   })
-)(UserProfile)
+)
+
+export default withData(UserProfilePage)

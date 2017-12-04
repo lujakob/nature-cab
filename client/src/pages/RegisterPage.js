@@ -3,8 +3,8 @@ import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
 import {VALIDATION} from '../constants'
 import {formIsValid, getYearOfBirthOptions} from '../utils/misc'
-import {LayoutLeftCol} from './Layout/LayoutLeftCol'
-import {Logo} from './Logo'
+import {LayoutLeftCol} from '../components/Layout/LayoutLeftCol'
+import {Logo} from '../components/Logo'
 
 const userSkipMandatoryFields = []
 
@@ -17,7 +17,7 @@ let defaultUser = {
   password: ''
 }
 
-class Register extends LayoutLeftCol {
+class RegisterPage extends LayoutLeftCol {
   state = {
     user: Object.assign({}, defaultUser),
     error: null
@@ -202,4 +202,6 @@ const CreateUserMutation = gql`
   }
 `
 
-export default graphql(CreateUserMutation, {name: 'createUserMutation'})(Register)
+const withData = graphql(CreateUserMutation, {name: 'createUserMutation'})
+
+export default withData(RegisterPage)

@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql, compose}from 'react-apollo'
-import {rideListQuery} from './RideListWithData'
+import {rideListQuery} from '../components/Ride/RideListWithData'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'moment/locale/de'
-import {GC_USER_ID, ACTIVITIES, HOURS, MINS, VEHICLES} from '../../constants'
-import {formIsValid, isNormalInteger} from '../../utils/misc'
+import {GC_USER_ID, ACTIVITIES, HOURS, MINS, VEHICLES} from '../constants'
+import {formIsValid, isNormalInteger} from '../utils/misc'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
-import RidePreviewMap from './RidePreviewMap'
+import RidePreviewMap from '../components/Ride/RidePreviewMap'
 
 const rideSkipMandatoryFields = ['returnInfo' , 'startLatLng', 'startCity', 'endLatLng', 'endCity', 'activity']
 
@@ -528,7 +528,7 @@ const AddRideMutation = gql`
   }
 `
 
-export const CreateRideWithData = compose(
+export const withData = compose(
   graphql(RideDetailQuery, {
     options: ({match}) => {
       const id = match.params.id
@@ -538,4 +538,6 @@ export const CreateRideWithData = compose(
     skip: ({match}) => !match.params.id
   }),
   graphql(AddRideMutation, {name: 'addRideMutation'})
-)(CreateRide)
+)
+
+export default withData(CreateRide)

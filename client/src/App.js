@@ -8,13 +8,13 @@ import { ApolloProvider } from 'react-apollo'
 import { onError } from 'apollo-link-error'
 import { ApolloLink, from } from 'apollo-link';
 
-import Rides from './components/Ride/Rides'
-import {CreateRideWithData} from './components/Ride/CreateRide'
-import Login from './components/Login'
-import Register from './components/Register'
-import UserPage from './components/User/UserPage'
+import RidesPage from './pages/RidesPage'
+import CreateRidePage from './pages/CreateRidePage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
+import UserPage from './pages/user/UserPage'
 import {NoMatch404} from './components/NoMatch404'
-import Home from './components/Home/Home'
+import HomePage from './pages/HomePage'
 import {LayoutBase} from './components/Layout/LayoutBase'
 
 import {GC_AUTH_TOKEN, GC_USER_ID} from './constants'
@@ -56,13 +56,13 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <Switch>
-          <Route exact path='/login' component={Login}/>
-          <Route exact path='/register' component={Register}/>
+          <Route exact path='/login' component={LoginPage}/>
+          <Route exact path='/register' component={RegisterPage}/>
           <LayoutBase client={client}>
             <Switch>
-              <Route exact path='/' component={Home}/>
-              <Route path='/rides' component={Rides}/>
-              <ProtectedRoute exact path='/create' component={CreateRideWithData}/>
+              <Route exact path='/' component={HomePage}/>
+              <Route path='/rides' component={RidesPage}/>
+              <ProtectedRoute exact path='/create' component={CreateRidePage}/>
               <ProtectedRoute path='/user' component={UserPage}/>
               <Route exact path="/404" component={NoMatch404}/>
               <Redirect to="/404"/>

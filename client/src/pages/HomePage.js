@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import RideListWithData from '../Ride/RideListWithData'
-import RideListFilter from '../Ride/RideListFilter'
+import RideListWithData from '../components/Ride/RideListWithData'
+import RideListFilter from '../components/Ride/RideListFilter'
 import { withRouter } from 'react-router'
-import homeImg from '../../img/home1.jpg'
+import homeImg from '../img/home1.jpg'
 
-class Home extends Component {
+class HomePage extends Component {
 
   state = {
     start: '',
@@ -16,7 +16,7 @@ class Home extends Component {
     return (
       <div className="home-page has-visual">
         <div className="visual">
-          <img src={homeImg} alt="NatureCab Mitfahrgelegenheit Visual Image"/>
+          <img src={homeImg} alt='NatureCab Mitfahrgelegenheit Visual'/>
         </div>
 
         <RideListFilter filterFunc={({start, end, activity}) => {
@@ -32,4 +32,4 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home)
+export default withRouter(HomePage)

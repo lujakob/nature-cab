@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 // import RideListWithData from './RideListWithData'
-import RideDetail from './RideDetail'
+import RideDetail from '../components/Ride/RideDetail'
 // import RideListFilter from './RideListFilter'
 import {Route} from 'react-router-dom'
 import {withRouter} from 'react-router'
-import homeImg from '../../img/home1.jpg'
+import homeImg from '../img/home1.jpg'
 
-class Rides extends Component {
+class RidesPage extends Component {
 
   state = {
     start: '',
@@ -40,4 +40,4 @@ class Rides extends Component {
 
 }
 
-export default withRouter(Rides)
+export default withRouter(RidesPage)
