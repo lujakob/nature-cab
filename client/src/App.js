@@ -14,7 +14,7 @@ import CreateRidePage from './pages/CreateRidePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import UserPage from './pages/user/UserPage'
-import {NoMatch404} from './components/NoMatch404'
+import NoMatch404Page from './pages/NoMatch404Page'
 import HomePage from './pages/HomePage'
 import {LayoutBase} from './components/Layout/LayoutBase'
 
@@ -66,7 +66,7 @@ class App extends Component {
               <ProtectedRoute exact path='/create' component={CreateRidePage}/>
               <ProtectedRoute path='/user' component={UserPage}/>
               <ProtectedRoute path='/ueber-naturecab' component={UeberNatureCabPage}/>
-              <Route exact path="/404" component={NoMatch404}/>
+              <Route exact path="/404" component={NoMatch404Page}/>
               <Redirect to="/404"/>
             </Switch>
           </LayoutBase>
