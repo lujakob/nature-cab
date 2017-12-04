@@ -75,7 +75,6 @@ export const rideResolver = (root, {id}, context) => {
         if (err) {
           reject(err)
         } else {
-          console.log(ride)
           return resolve(ride)
         }
       })

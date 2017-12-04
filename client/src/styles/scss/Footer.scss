@@ -4,10 +4,16 @@
   ul {
     text-decoration: none;
     margin:20px 0;
+    padding:0;
+    list-style-type:none;
     li {
-      display:inline-block;
+      padding:5px 0;
+      @media  screen and (min-width:768px) {
+        display:inline-block;
+      }
       a {
         padding:0 10px;
+        text-decoration: none;
       }
     }
   }
