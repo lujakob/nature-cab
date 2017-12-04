@@ -28,7 +28,8 @@ const authMiddleware = new ApolloLink((operation, forward) => {
     const token = localStorage.getItem(GC_AUTH_TOKEN)
     return {
       headers: {
-        authorization: token ? `Bearer ${token}` : null
+        authorization: token ? `Bearer ${token}` : null,
+        accept: 'application/json'
       }
     }
   })

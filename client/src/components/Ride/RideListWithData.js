@@ -52,6 +52,7 @@ export const rideListQuery = gql`
           firstname
           lastname
           yearOfBirth
+          picture
         }
       }
     }
