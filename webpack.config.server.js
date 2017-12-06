@@ -11,7 +11,7 @@ module.exports = {
   output: {
     path: __dirname + '/build/server',
     filename: 'bundle.js',
-    publicPath: 'static/',
+    publicPath: '/static/',
   },
   externals: (context, request, callback) => {
     // Externalize all npm modules.

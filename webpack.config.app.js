@@ -10,7 +10,7 @@ module.exports = {
   output: {
     path: __dirname + '/build/frontend',
     filename: 'bundle.js',
-    publicPath: 'static/',
+    publicPath: '/static/',
   },
   module: {
     loaders: [
