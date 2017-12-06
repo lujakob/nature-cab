@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {getAgeFromYearOfBirth, truncateName} from '../../utils/misc'
+import noHeadShot from '../../img/no-headshot.jpg'
+
 
 class RideUser extends Component {
 
@@ -7,7 +9,7 @@ class RideUser extends Component {
 
     const {user, showVehicle, showDescription} = this.props
 
-    const picture = user.picture || '/no-headshot.jpg'
+    const picture = user.picture || noHeadShot
 
     return (
       <div className="ride-user">
