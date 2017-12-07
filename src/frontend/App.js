@@ -11,10 +11,22 @@ import LayoutRoutes from './components/Layout/LayoutRoutes'
 import LocalStorage from './utils/localStorage'
 
 import {GC_AUTH_TOKEN, GC_USER_ID} from './constants'
+import {BASE_URL, isProduction, DEFAULT_PORT} from '../config'
 
 import './styles/scss/index.scss'
 
-const httpLink = createHttpLink({uri: 'http://localhost:4000/graphql'})
+console.log("isProduction", isProduction);
+
+const PORT =
+  process.env.PORT
+    ? parseInt(process.env.PORT, 10)
+    : DEFAULT_PORT
+
+const API_URL = isProduction
+  ? BASE_URL
+  : 'http://localhost:' + PORT
+
+const httpLink = createHttpLink({uri: API_URL + '/graphql'})
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers

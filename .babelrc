@@ -2,10 +2,13 @@
     "plugins": [
         "react-native-web/babel",
         "transform-class-properties",
-        ["transform-runtime", {
-            "polyfill": false,
-            "regenerator": true
-        }]
+        [
+            "transform-runtime",
+            {
+                "polyfill": false,
+                "regenerator": true
+            }
+        ]
     ],
     "presets": [
         "stage-2",
@@ -15,7 +18,9 @@
             {
                 "targets": {
                     "node": "current",
-                    "browsers": ["last 2 versions"]
+                    "browsers": [
+                        "last 2 versions"
+                    ]
                 }
             }
         ]

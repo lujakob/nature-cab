@@ -1,6 +1,6 @@
 import React from 'react'
 import {GC_USER_ID, GC_AUTH_TOKEN} from '../constants'
-import {FACEBOOK_APP_ID} from '../../config'
+import {FACEBOOK_APP_ID, BASE_URL} from '../../config'
 import {emitter} from '../utils/emitter'
 import {LayoutLeftCol} from '../components/Layout/LayoutLeftCol'
 import {Logo} from '../components/Logo'
@@ -12,6 +12,19 @@ const LOGIN_ERRORS = {
   UNAUTHORIZED: 'UNAUTHORIZED',
   EMPTY: 'EMPTY'
 }
+
+const isProduction = process.env.NODE_ENV === 'production'
+
+const PORT =
+  process.env.PORT
+    ? parseInt(process.env.PORT, 10)
+    : 3000
+
+const API_URL = isProduction
+  ? BASE_URL
+  : 'http://localhost:' + PORT
+
+const loginUrl = `${API_URL}/login`
 
 class LoginPage extends LayoutLeftCol {
   state = {
@@ -182,7 +195,7 @@ class LoginPage extends LayoutLeftCol {
 
   // request login
   async _authenticate () {
-    const response = await fetch('http://localhost:4000/login', {
+    const response = await fetch(loginUrl, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -206,7 +219,7 @@ class LoginPage extends LayoutLeftCol {
   async _authenticateFacebook (data) {
     const {accessToken} = data
     const user = this._getFacebookUserData(data)
-    const response = await fetch('http://localhost:4000/login', {
+    const response = await fetch(loginUrl, {
       method: 'POST',
       mode: 'cors',
       headers: {

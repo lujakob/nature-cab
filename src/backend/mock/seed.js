@@ -7,7 +7,7 @@ import 'moment/locale/de'
 import {users} from './user'
 import {rides} from './ride'
 
-import {saltRounds} from '../constants'
+import {saltRounds} from '../../config'
 
 // store save promises here to exit after all resolved
 let userSavePromises = []

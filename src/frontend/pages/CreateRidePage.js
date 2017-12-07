@@ -403,7 +403,8 @@ class CreateRide extends Component {
           try {
             const variables = {start: '', end: '', activity: ''}
             const data = store.readQuery({query: rideListQuery, variables})
-            data.rides.push(Object.assign({}, addRide))
+            data.rides.rides.push(Object.assign({}, addRide))
+            data.rides.total++
             store.writeQuery({query: rideListQuery, variables, data})
           } catch(e) {
             console.log('Update store not possible.', e)

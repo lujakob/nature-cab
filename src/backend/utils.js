@@ -1,3 +1,6 @@
+import {JWT_SECRET} from '../config'
+import jwt from 'jsonwebtoken'
+
 /**
  * getYesterday returns date object from yesterday
  */
@@ -48,4 +51,9 @@ export const removePassword = (data) => {
 
     return data
   }
+}
+
+export const getJWT = (user) => {
+  let payload = {_id: user._id}
+  return jwt.sign(payload, JWT_SECRET)
 }

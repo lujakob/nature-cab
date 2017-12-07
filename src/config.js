@@ -1,1 +1,0 @@
-export const FACEBOOK_APP_ID = '1953108001624740'

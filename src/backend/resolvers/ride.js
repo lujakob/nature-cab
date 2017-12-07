@@ -24,6 +24,7 @@ export const ridesResolver = (root, args, context) => {
   const RidesPromise = new Promise((resolve, reject) => {
     RIDE
       .find(filter, (err, rides) => {
+
         if (err) {
           reject(err)
         } else {

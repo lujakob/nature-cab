@@ -1,6 +1,6 @@
 import USER from '../models/user'
 import bcrypt from 'bcrypt'
-import {saltRounds} from '../constants'
+import {saltRounds} from '../../config'
 import {removePassword, isEmailValidationError} from '../utils'
 
 export const userResolver = (root, {userId}, context) => {
