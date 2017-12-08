@@ -75,9 +75,23 @@ db.once('open', () => {
   // server side rendering
   server.use(serverSideRenderingMiddleware)
 
-
   // run server
   server.listen(PORT, () =>
     console.log(`Server is now running on http://localhost:${PORT}`)
   )
 })
+
+// When the connection is disconnected
+db.on('disconnected', function () {
+  console.log('Mongoose default connection to DB disconnected');
+})
+
+const gracefulExit = () => {
+  db.close(() => {
+    console.log('Mongoose default connection with DB is disconnected through app termination');
+    process.exit(0);
+  })
+}
+
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);

@@ -10,10 +10,10 @@ class RideListWithData extends Component {
     const {loading, error, rides} = this.props.data
 
     if (loading) {
-      return <p>Loading ...</p>;
+      return <div className="ride-list">Loading...</div>
     }
     if (error) {
-      return <p>{error.message}</p>;
+      return <div className="ride-list">{error.message}</div>
     }
 
     return (

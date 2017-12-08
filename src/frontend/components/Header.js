@@ -33,14 +33,11 @@ class Header extends Component {
   }
 
   render() {
-    const {data: {user, loading}} = this.props
-
-    if (loading) {
-      return <div>Loading...</div>;
-    }
+    const {data: {user}} = this.props
 
     this.userId = LocalStorage.getItem(GC_USER_ID)
-
+console.log("this.userId", this.userId);
+    console.log("user", user);
     return (
       <div className='header flex justify-between ph3'>
         <div className='flex flex-fixed black'>

@@ -1,4 +1,7 @@
-import React from 'react';
+import React from 'react'
+
+// disable server side rendering for debugging purposes
+const isSSR = true
 
 const Html = ({ content, state }) => (
   <html lang="de">
@@ -11,7 +14,7 @@ const Html = ({ content, state }) => (
       <title>NatureCab - Mitfahrgelegenheit</title>
     </head>
     <body>
-      <div id="root" dangerouslySetInnerHTML={{ __html: content }}></div>
+      <div id="root" dangerouslySetInnerHTML={{ __html: isSSR ? content : '' }}></div>
       <script
         charSet="UTF-8"
         dangerouslySetInnerHTML={{
@@ -24,6 +27,4 @@ const Html = ({ content, state }) => (
   </html>
 );
 
-
-
-export default Html;
+export default Html
