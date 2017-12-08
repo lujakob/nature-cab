@@ -36,8 +36,7 @@ class Header extends Component {
     const {data: {user}} = this.props
 
     this.userId = LocalStorage.getItem(GC_USER_ID)
-console.log("this.userId", this.userId);
-    console.log("user", user);
+
     return (
       <div className='header flex justify-between ph3'>
         <div className='flex flex-fixed black'>
@@ -47,7 +46,7 @@ console.log("this.userId", this.userId);
         </div>
 
         <div className='flex flex-fixed'>
-          {this.props.location.pathname !== "/create" &&
+          {this.props.location.pathname !== '/create' &&
           <div className="flex flex-fixed mobile-hidden">
             <button
               className='link ph3 pv2 white main-button'
@@ -57,19 +56,18 @@ console.log("this.userId", this.userId);
             </button>
           </div>
           }
-          {this.userId ?
-            <div className="flex flex-fixed mobile-hidden">
-              {user &&
+          <div className="flex flex-fixed mobile-hidden">
+            {user ? (
               <div className='flex'>
                 <Link to='/user'  className='mr1 no-underline black'>{user.firstname} {truncateName(user.lastname)}</Link>
                 <div>|</div>
+                <div className='ml1 pointer' onClick={() => this._logout()}>Logout</div>
               </div>
-              }
-              <div className='ml1 pointer' onClick={() => this._logout()}>Logout</div>
-            </div>
-            :
-            <Link to='/login' className='ml1 no-underline login-link mobile-hidden'>Login</Link>
-          }
+            ) : (
+              <Link to='/login' className='ml1 no-underline login-link mobile-hidden'>Login</Link>
+              )
+            }
+          </div>
           <div className="burger-mobile-buttons">
             <button
               className={'hamburger ' + (this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
@@ -118,12 +116,12 @@ console.log("this.userId", this.userId);
 }
 
 export const userQuery = gql`
-    query UserQuery($userId: ID) {
-        user(userId: $userId) {
-            firstname
-            lastname
-        }
+  query UserQuery($userId: ID) {
+    user(userId: $userId) {
+      firstname
+      lastname
     }
+  }
 `
 
 const withData = graphql(userQuery, {
