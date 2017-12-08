@@ -126,9 +126,11 @@ export const userQuery = gql`
     }
 `
 
-export default graphql(userQuery, {
+const withData = graphql(userQuery, {
   options: (props) => {
     const userId = LocalStorage.getItem(GC_USER_ID)
     return {variables: {userId}}
   }
-})(withRouter(Header))
+})
+
+export default withData(withRouter(Header))
