@@ -69,6 +69,11 @@ class Header extends Component {
             }
           </div>
           <div className="burger-mobile-buttons">
+            <div
+              className="search-btn"
+              onClick={this._toggleSearch}>
+              s
+            </div>
             <button
               className={'hamburger ' + (this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
               onClick={this._toggleMobileMenu}>
@@ -94,6 +99,10 @@ class Header extends Component {
         </div>
       </div>
     )
+  }
+
+  _toggleSearch = () => {
+
   }
 
   _toggleMobileMenu = () => {

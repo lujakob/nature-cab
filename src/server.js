@@ -86,12 +86,12 @@ db.on('disconnected', function () {
   console.log('Mongoose default connection to DB disconnected');
 })
 
-const gracefulExit = () => {
-  db.close(() => {
-    console.log('Mongoose default connection with DB is disconnected through app termination');
-    process.exit(0);
-  })
-}
-
-// If the Node process ends, close the Mongoose connection
-process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);
+// const gracefulExit = () => {
+//   db.close(() => {
+//     console.log('Mongoose default connection with DB is disconnected through app termination');
+//     process.exit(0);
+//   })
+// }
+//
+// // If the Node process ends, close the Mongoose connection
+// process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);

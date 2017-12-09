@@ -135,6 +135,13 @@
   }
 }
 
+.search-btn {
+  width:20px;
+  height:20px;
+  background:url('../../img/filter-bg.png') 0 0 no-repeat;
+
+}
+
 .burger-mobile-buttons {
   @media  screen and (min-width:768px) {
     display:none !important;
