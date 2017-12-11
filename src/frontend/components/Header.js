@@ -17,7 +17,8 @@ class Header extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      mobileMenuIsVisible: false
+      mobileMenuIsVisible: false,
+      searchIsVisible: false
     }
   }
 
@@ -68,22 +69,19 @@ class Header extends Component {
               )
             }
           </div>
-          <div className="burger-mobile-buttons">
-            <div
-              className="search-btn"
-              onClick={this._toggleSearch}>
-              s
+          <div className="burger-mobile-button-container flex flex-fixed">
+            <div className="flex burger-mobile-button">
+              <button
+                className={'button-toggle hamburger ' + (this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
+                onClick={this._toggleMobileMenu}>
+                &#9776;
+              </button>
+              <button
+                className={'button-toggle cross ' + (!this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
+                onClick={this._toggleMobileMenu}>
+                &#735;
+              </button>
             </div>
-            <button
-              className={'hamburger ' + (this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
-              onClick={this._toggleMobileMenu}>
-              &#9776;
-            </button>
-            <button
-              className={'cross ' + (!this.state.mobileMenuIsVisible ? 'is-hidden' : '')}
-              onClick={this._toggleMobileMenu}>
-              &#735;
-            </button>
           </div>
         </div>
         <div className={'menu-mobile ' + (!this.state.mobileMenuIsVisible ? 'is-hidden' : '')}>
@@ -102,7 +100,7 @@ class Header extends Component {
   }
 
   _toggleSearch = () => {
-
+    this.setState({searchIsVisible: !this.state.searchIsVisible})
   }
 
   _toggleMobileMenu = () => {

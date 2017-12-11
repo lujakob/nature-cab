@@ -95,44 +95,35 @@
   display:block;
 }
 
-.hamburger{
-  background:none;
-  display:block;
-  position:absolute;
-  top:0;
-  right:0;
-  line-height:50px;
-  padding:5px 15px 0px 15px;
+.burger-mobile-button {
+  position: relative;
+}
+
+.button-toggle {
+  padding:0;
   color:#999;
   border:0;
-  font-size:20px;
+  color:#999;
+  background:none;
+  display:block;
   font-weight:bold;
   cursor:pointer;
   outline:none;
   z-index:10000000000000;
+  width:38px;
   &.is-hidden {
     display:none;
   }
 }
 
+.hamburger{
+  line-height:32px;
+  font-size:20px;
+}
+
 .cross {
-  background:none;
-  display:block;
-  position:absolute;
-  top:0px;
-  right:0;
-  padding:15px 15px 0px 15px;
-  color:#999;
-  border:0;
   font-size:44px;
   line-height:40px;
-  font-weight:bold;
-  cursor:pointer;
-  outline:none;
-  z-index:10000000000000;
-  &.is-hidden {
-    display:none;
-  }
 }
 
 .search-btn {
