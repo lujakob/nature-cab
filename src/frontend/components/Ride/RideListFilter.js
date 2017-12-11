@@ -11,7 +11,7 @@ class RideListFilter extends Component {
   }
 
   componentWillMount() {
-    const {start, end, activity} = this.props.match.params
+    const {start = '', end = '', activity = ''} = this.props.match.params
     this.setState({start, end, activity})
   }
 
@@ -27,6 +27,7 @@ class RideListFilter extends Component {
               value={this.state.start}
               name="start"
               onChange={this._onChange}
+              onBlur={this._filter}
             />
           </div>
           {false &&
@@ -43,7 +44,7 @@ class RideListFilter extends Component {
 
           <div className="ride-list-filter-field">
             <select
-              onChange={this._onChange}
+              onChange={this._onChangeSelect}
               value={this.state.activity}
               name="activity"
             >
@@ -55,7 +56,7 @@ class RideListFilter extends Component {
               })}
             </select>
           </div>
-          <div className="ride-list-filter-field">
+          <div className="ride-list-filter-field ride-list-filter-field--button">
             <button
               className='link ph3 pv2 white bg-blue'
               onClick={() => this._filter()}
@@ -70,6 +71,10 @@ class RideListFilter extends Component {
 
   _onChange = (evt) => {
     this.setState({[evt.target.name]: evt.target.value})
+  }
+
+  _onChangeSelect = (evt) => {
+    this.setState({[evt.target.name]: evt.target.value}, () => this._filter())
   }
 
   _filter = () => {

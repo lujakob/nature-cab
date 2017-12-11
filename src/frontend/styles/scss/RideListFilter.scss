@@ -2,11 +2,10 @@
 
 .ride-list-filter {
   padding:10px 1rem;
-  margin:0 -1rem 10px;
+  margin:-15px -1rem 10px;
 
-  display:none;
   @media  screen and (min-width:768px) {
-    display:block;
+    margin-top:0;
   }
 }
 
@@ -15,39 +14,59 @@
   margin-bottom:13px;
   color:white;
   text-align:center;
-  /*font-family: 'Kalam', cursive;*/
   font-family: 'Ruda', cursive;
+  display:none;
+  @media  screen and (min-width:768px) {
+    display:block;
+  }
 
 }
 .ride-list-filter__wrapper {
-  display:flex;
+  @media  screen and (min-width:768px) {
+    display:flex;
+  }
 }
-.ride-list-filter-field input {
-  width: 160px;
-  margin-right:10px;
-}
-.ride-list-filter-field input,
-.ride-list-filter-field select,
-.ride-list-filter-field button {
-  -webkit-appearance: none;
-  border-radius: 1px;
+.ride-list-filter-field {
+  input,
+  select,
+  button {
+    -webkit-appearance: none;
+    border-radius: 1px;
+    width:100%;
+    margin-bottom:10px;
+    @media  screen and (min-width:768px) {
+      width: 160px;
+      margin-right:10px;
+      margin-bottom:0;
+    }
+  }
+
+  select {
+    line-height:14px;
+  }
+  button {
+    outline:0;
+    background-color:$orange;
+    border:none;
+    height:34px;
+  }
 }
 
-.ride-list-filter-field select {
-  width: 160px;
-  margin-right:10px;
-  line-height:14px;
+.ride-list-filter-field--button {
+  display:none;
+  @media  screen and (min-width:768px) {
+    display:block;
+  }
 }
-.ride-list-filter button {
-  outline:0;
-  background-color:$orange;
-  border:none;
-  height:34px;
-}
-
 
 .has-visual .ride-list-filter {
-  margin:-110px -1rem 25px;
+  margin-left: -1rem;
+  margin-right: -1rem;
+
+  @media screen and (min-width:768px) {
+    margin-top:-110px;
+    margin-bottom:25px;
+  }
 }
 
 .has-visual .ride-list-filter__wrapper {
