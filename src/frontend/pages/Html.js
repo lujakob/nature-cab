@@ -10,7 +10,7 @@ const Html = ({ content, state }) => {
     <html lang="de">
     <head>
       <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       <link rel="stylesheet" href="https://unpkg.com/tachyons@4.2.1/css/tachyons.min.css"/>
       <link rel="stylesheet" href="/static/main.css"/>
       <link href="https://fonts.googleapis.com/css?family=Kalam|Open+Sans|Ruda:400,700" rel="stylesheet" />

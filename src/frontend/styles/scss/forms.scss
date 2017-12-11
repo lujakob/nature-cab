@@ -3,13 +3,19 @@
 input[type=text], input[type=password], select {
   border: 1px solid #ddd;
   border-radius: 2px;
-  padding: 10px 10px 8px;
   width: 100%;
   height:34px;
+  padding-left:10px;
+  padding-right:10px;
+}
+input[type=text], input[type=password] {
+  padding-top: 10px;
+  padding-bottom: 8px;
 }
 
-input[type=radio] {
-
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 label {
@@ -30,76 +36,87 @@ fieldset {
     border-radius:2px;
     border: 1px solid #ddd;
   }
+
+  h3 {
+    font-weight:normal;
+    background-color:#f2f2f2;
+    border-bottom:1px solid #ddd;
+    margin:-20px -20px  20px;
+    padding:20px 20px 20px;
+  }
+
+  label {
+    padding-bottom: 2px;
+  }
+
+  .form-row {
+    margin-bottom:20px;
+
+    &.mb0 {
+      margin-bottom:0px;
+    }
+
+    &:last-child {
+      margin-bottom:0;
+    }
+
+    &--submit {
+      text-align:right;
+
+      @media  screen and (min-width:768px) {
+        margin-top:20px;
+      }
+
+      button {
+        width:100%;
+        @media  screen and (min-width:768px) {
+          width:inherit;
+        }
+      }
+    }
+  }
+
+  .error-message {
+    padding:0;
+    margin-bottom:20px;
+  }
+
+  .form-row.is-error input,
+  .datepicker-wrapper.is-error input,
+  .form-row.is-error select,
+  select.is-error {
+    border-color:red;
+  }
 }
 
-fieldset label {
-  padding-bottom: 2px;
-}
-
-fieldset .form-row {
-  margin-bottom:20px;
-}
-fieldset .form-row.is-error input,
-fieldset .datepicker-wrapper.is-error input,
-fieldset .form-row.is-error select,
-fieldset select.is-error {
-  border-color:red;
-}
-
-fieldset .form-row.mb0 {
-  margin-bottom:0px;
-}
 
 .content-placeholder-wrapper {
   position:relative;
-}
-.content-placeholder-wrapper input {
-  background-color:transparent;
-}
-.content-placeholder-wrapper .content-placeholder-container {
-  position:absolute;
-  width:100%;
-  height:100%;
-  top:0;
-  left:0;
-  padding: 10px 10px 8px;
-  z-index:-1;
-}
-.content-placeholder-wrapper .content-placeholder-spacer {
-  display:inline-block;
-  visibility:hidden;
-}
-.content-placeholder-wrapper .content-placeholder-value {
-  display:inline-block;
-  z-index:10;
-  position:relative;
-  padding-left:4px;
-}
 
-fieldset .form-row:last-child {
-  margin-bottom:0;
-}
-
-fieldset h3 {
-  font-weight:normal;
-  background-color:#f2f2f2;
-  border-bottom:1px solid #ddd;
-  margin:-20px -20px  20px;
-  padding:20px 20px 20px;
-}
-
-.form-row--submit {
-  text-align:right;
-
-  @media  screen and (min-width:768px) {
-    margin-top:20px;
+  &input {
+    background-color:transparent;
   }
 
-  button {
+  .content-placeholder-container {
+    position:absolute;
     width:100%;
-    @media  screen and (min-width:768px) {
-      width:inherit;
-    }
+    height:100%;
+    top:0;
+    left:0;
+    padding: 10px 10px 8px;
+    z-index:-1;
+  }
+
+  .content-placeholder-spacer {
+    display:inline-block;
+    visibility:hidden;
+  }
+
+  .content-placeholder-value {
+    display:inline-block;
+    z-index:10;
+    position:relative;
+    padding-left:4px;
   }
 }
 
@@ -123,11 +140,6 @@ textarea {
 
 .select-time-spacer--time {
   margin-left:5px;
-}
-
-fieldset .error-message {
-  padding:0;
-  margin-bottom:20px;
 }
 
 button {

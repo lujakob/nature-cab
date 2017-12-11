@@ -191,7 +191,7 @@ class CreateRide extends Component {
 
               <div className="form-row">
                 <label htmlFor="ride-start">Abfahrt</label>
-                <div className={'datepicker-wrapper ' + this._getErrorClass('startDate')}>
+                <div className={'datepicker-wrapper cf ' + this._getErrorClass('startDate')}>
                   <DatePicker
                     placeholderText={moment().add(4, 'days').format('LL')}
                     selected={ride.startDate}
