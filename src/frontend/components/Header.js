@@ -50,7 +50,7 @@ class Header extends Component {
           {this.props.location.pathname !== '/create' &&
           <div className="flex flex-fixed mobile-hidden">
             <button
-              className='link ph3 pv2 white main-button'
+              className='link white main-button'
               onClick={() => this._createRide()}
             >
               Fahrt anbieten

@@ -119,7 +119,7 @@ class RegisterPage extends LayoutLeftCol {
 
           <div className="form-row">
             <button
-              className='link ph3 pv2 white bg-blue'
+              className='link white bg-blue'
               onClick={() => this._submit()}
             >
               Registrieren

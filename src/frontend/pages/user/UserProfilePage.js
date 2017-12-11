@@ -179,7 +179,7 @@ class UserProfilePage extends Component {
 
         <div className="form-row form-row--button-right">
           <button
-            className='link ph3 pv2 white bg-blue'
+            className='link white bg-blue'
             onClick={() => this._submit()}
           >
             Speichern

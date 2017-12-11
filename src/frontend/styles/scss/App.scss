@@ -15,23 +15,22 @@ body {
   font-size:1.4rem;
 }
 
-.is-login-page .page-wrapper fieldset {
-  height:100%;
-  border:none;
-}
+.page-wrapper {
+  .is-login-page & {
+    fieldset {
+      height:100%;
+      border:none;
+    }
 
-.is-login-page .page-wrapper .logo {
-  display:inline-block;
-  margin-bottom:20px;
-}
+    .logo {
+      display:inline-block;
+      margin-bottom:20px;
+    }
 
-.is-login-page .page-wrapper button {
-  background-color:$blue;
-  border:none;
-}
-
-.is-login-page .page-wrapper .register-button {
-  color:$blue;
+    .register-button {
+      color:$blue;
+    }
+  }
 }
 
 @media screen and (min-width:768px) {
@@ -43,28 +42,40 @@ body {
   .content-max-width {
     max-width: $content-max-width;
   }
+
+  .page-wrapper {
+    .is-login-page & {
+      position:fixed;
+      height:100%;
+      width:400px;
+      background-color:white;
+
+      fieldset {
+        height:100%;
+        margin:140px 40px 0;
+        border:none;
+      }
+
+      .logo {
+        display:inline-block;
+        margin-bottom:20px;
+      }
+    }
+  }
+
   .is-login-page {
     background:url("../../img/login-bg.jpg") center center fixed no-repeat;
     background-size:cover;
   }
 
-  .is-login-page .page-wrapper {
-    position:fixed;
-    height:100%;
-    width:400px;
-    background-color:white;
-  }
-  .is-login-page .page-wrapper fieldset {
-    height:100%;
-    margin:140px 40px 0;
-    border:none;
-  }
+}
 
-  .is-login-page .page-wrapper .logo {
-    display:inline-block;
-    margin-bottom:20px;
-  }
-
+.logo {
+  color:$blue;
+  font-size:24px;
+  margin:0;
+  font-family: 'Ruda', cursive;
+  font-weight:700;
 }
 
 a {
@@ -73,15 +84,15 @@ a {
 
 button {
   outline: 0;
-}
-
-.mobile-hidden {
-  @media  screen and (max-width:767px) {
-    display:none;
-  }
+  background-color:$blue;
+  border:none;
+  padding:1rem 2rem;
 }
 
 @media screen and (max-width:767px) {
+  .mobile-hidden {
+    display:none;
+  }
   .ph3 {
     padding-left:1.5rem;
     padding-right:1.5rem;

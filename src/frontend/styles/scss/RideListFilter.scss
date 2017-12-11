@@ -4,28 +4,45 @@
   padding:10px 1rem;
   margin:-15px -1rem 10px;
 
-  @media  screen and (min-width:768px) {
+  @media screen and (min-width:768px) {
     margin-top:0;
   }
-}
 
-.ride-list-filter .heading {
-  font-size:2.0rem;
-  margin-bottom:13px;
-  color:white;
-  text-align:center;
-  font-family: 'Ruda', cursive;
-  display:none;
-  @media  screen and (min-width:768px) {
-    display:block;
+  .has-visual & {
+    margin-left: -1rem;
+    margin-right: -1rem;
+
+    @media screen and (min-width:768px) {
+      margin-top:-110px;
+      margin-bottom:25px;
+    }
   }
 
-}
-.ride-list-filter__wrapper {
-  @media  screen and (min-width:768px) {
-    display:flex;
+  .heading {
+    font-size:2.0rem;
+    margin-bottom:13px;
+    color:white;
+    text-align:center;
+    font-family: 'Ruda', cursive;
+    display:none;
+
+    @media  screen and (min-width:768px) {
+      display:block;
+    }
+
+  }
+
+  &__wrapper {
+    @media  screen and (min-width:768px) {
+      display:flex;
+    }
+
+    .has-visual & {
+      justify-content: center;
+    }
   }
 }
+
 .ride-list-filter-field {
   input,
   select,
@@ -44,35 +61,18 @@
   select {
     line-height:14px;
   }
+
   button {
     outline:0;
     background-color:$orange;
     border:none;
     height:34px;
   }
-}
 
-.ride-list-filter-field--button {
-  display:none;
-  @media  screen and (min-width:768px) {
-    display:block;
+  &--button {
+    display:none;
+    @media  screen and (min-width:768px) {
+      display:block;
+    }
   }
-}
-
-.has-visual .ride-list-filter {
-  margin-left: -1rem;
-  margin-right: -1rem;
-
-  @media screen and (min-width:768px) {
-    margin-top:-110px;
-    margin-bottom:25px;
-  }
-}
-
-.has-visual .ride-list-filter__wrapper {
-  justify-content: center;
-}
-
-.has-visual .ride-list-filter .ride-list-filter-field {
-
 }

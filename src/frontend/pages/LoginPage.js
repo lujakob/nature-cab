@@ -76,7 +76,7 @@ class LoginPage extends LayoutLeftCol {
 
           <div className="form-row">
             <button
-              className='link ph3 pv2 white bg-blue'
+              className='link white bg-blue'
               onClick={() => this._confirm()}
             >
               Login
@@ -88,7 +88,7 @@ class LoginPage extends LayoutLeftCol {
           <div className="form-row">
             {!this.state.facebookLoginLoading ? (
               <FacebookLogin
-              cssClass="link ph3 pv2 white bg-blue"
+              cssClass="link white bg-blue"
               textButton="Login mit Facebook"
               appId={FACEBOOK_APP_ID}
               scope="user_birthday"
