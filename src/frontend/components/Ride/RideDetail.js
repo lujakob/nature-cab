@@ -7,6 +7,9 @@ import {getActivityFromId, getFormattedDate, getVehicleTitleByKey, vehicleIsCar}
 import {VEHICLES} from '../../constants'
 import FacebookShareButton from '../FacebookShareButton'
 import {BASE_URL} from '../../../config'
+import {Helmet} from 'react-helmet'
+import homeImg from '../../img/home1.jpg'
+
 
 class RideDetail extends Component {
 
@@ -30,9 +33,22 @@ class RideDetail extends Component {
     const rideEditUrl = `/user/rides/${match.params.id}/edit`
     const redirectedFromCreate = location.from === '/create'
     const shareUrl = `${BASE_URL}/rides/${match.params.id}`
+    const image = `${BASE_URL}${homeImg}`
+    const title = `NatureCab - Mitfahrgelegenheit von ${ride.startCity} nach ${ride.endCity}`
+    const description = `Die Mitfahrgelegenheit zum ${getActivityFromId(ride.activity)} von ${ride.startCity} nach ${ride.endCity}`
 
     return (
       <div>
+        <Helmet>
+          <title>{title}</title>
+          <link rel="canonical" href={shareUrl} />
+          <meta property="og:url"           content={shareUrl} />
+          <meta property="og:type"          content="website" />
+          <meta property="og:title"         content={title} />
+          <meta property="og:description"   content={description} />
+          <meta property="og:image"         content={image} />
+        </Helmet>
+
         <div className="ride-detail cf">
           <div className="ride-detail__back-btn" onClick={this._goBack}>zurück zur Übersicht</div>
           {redirectedFromCreate &&
