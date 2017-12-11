@@ -15,7 +15,7 @@ export default class FacebookShareButton extends Component {
     if (typeof FB === 'undefined') {
       const facebookbutton = this.node;
       const facebookscript = document.createElement('script');
-      facebookscript.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5';
+      facebookscript.src = '//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.5';
       facebookscript.id = 'facebook-jssdk';
       facebookbutton.parentNode.appendChild(facebookscript);
     } else {

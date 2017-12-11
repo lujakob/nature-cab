@@ -21,9 +21,26 @@
       width: 240px;
     }
   }
+
+  &__options-container {
+    margin-top:10px;
+    line-height:23px;
+    @media screen and (min-width:768px) {
+      margin-top:0;
+    }
+  }
   &__back-btn {
+    float:left;
     cursor:pointer;
     display:inline-block;
+    text-decoration: underline;
+  }
+  &__options {
+    float:right;
+    text-align:right;
+    .fb-share-button {
+      margin-left:10px;
+    }
   }
 }
 

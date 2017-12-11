@@ -10,7 +10,6 @@ import {BASE_URL} from '../../../config'
 import {Helmet} from 'react-helmet'
 import homeImg from '../../img/home1.jpg'
 
-
 class RideDetail extends Component {
 
   render() {
@@ -50,18 +49,22 @@ class RideDetail extends Component {
         </Helmet>
 
         <div className="ride-detail cf">
-          <div className="ride-detail__back-btn" onClick={this._goBack}>zurück zur Übersicht</div>
           {redirectedFromCreate &&
           <div className="ride-detail__message">
             <p>Deine Fahrt wurde gespeichert.</p>
           </div>
           }
-          {isUserPage &&
-          <div className="ride-detail__options">
-            <Link to={rideEditUrl}>Fahrt bearbeiten</Link>
-            <FacebookShareButton url={shareUrl} layout="button" />
+          <div className="ride-detail__options-container cf">
+            <div className="ride-detail__back-btn" onClick={this._goBack}>zurück zur Übersicht</div>
+
+            {isUserPage &&
+            <div className="ride-detail__options">
+              <Link to={rideEditUrl}>bearbeiten</Link>
+              <FacebookShareButton url={shareUrl} layout="button" />
+            </div>
+            }
           </div>
-          }
+
           <h3>{ride.startCity} - {ride.endCity}</h3>
           <div className="ride-detail__ride-info">
             <div className="ride-detail-info">
