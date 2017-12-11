@@ -9,6 +9,8 @@ import {emitter} from '../utils/emitter'
 import {Logo} from './Logo'
 import LocalStorage from '../utils/localStorage'
 
+import {userRoutes} from './User/UserNav'
+
 class Header extends Component {
 
   userId = null
@@ -86,9 +88,12 @@ class Header extends Component {
         </div>
         <div className={'menu-mobile ' + (!this.state.mobileMenuIsVisible ? 'is-hidden' : '')}>
           <ul>
-            <li><a>Link one</a></li>
-            <li><a>Link two</a></li>
-            <li><a>Link three</a></li>
+            <li onClick={this._closeMenu}><Link to='/create' className=''>Fahrt anlegen</Link></li>
+
+            {user && userRoutes.map(el => (
+              <li onClick={this._closeMenu}><Link to={el.pathname} className=''>{el.title}</Link></li>
+            ))}
+
             {this.userId
               ? <li><a onClick={() => this._logout()}>Logout</a></li>
               : <li><Link to='/login' className=''>Login</Link></li>
@@ -99,8 +104,8 @@ class Header extends Component {
     )
   }
 
-  _toggleSearch = () => {
-    this.setState({searchIsVisible: !this.state.searchIsVisible})
+  _closeMenu = () => {
+    this.setState({mobileMenuIsVisible: false})
   }
 
   _toggleMobileMenu = () => {

@@ -16,7 +16,9 @@ const UserRides = ({ data: {loading, error, myRides }}) => {
   }
 
   return (
-    <RideList rides={myRides} detailLinkPrefix="/user/rides/"/>
+    <div className="user-rides-page">
+      <RideList rides={myRides} detailLinkPrefix="/user/rides/"/>
+    </div>
   )
 };
 

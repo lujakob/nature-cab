@@ -1,10 +1,19 @@
 @import './variables.scss';
 
 .header {
-  line-height:30px;
-  height:60px;
-  padding-top:15px;
-  padding-bottom:15px;
+  line-height:25px;
+  height:45px;
+  padding-top:10px;
+  padding-bottom:10px;
+  background-color:$header-bg-mobile;
+
+  @media  screen and (min-width:768px) {
+    background-color:transparent;
+    line-height:30px;
+    height:60px;
+    padding-top:15px;
+    padding-bottom:15px;
+  }
 
   .main-button {
     margin-bottom: 0;
@@ -53,9 +62,8 @@
   width:100%;
   background:#f1f1f1;
   position:absolute;
-  text-align:center;
   font-size:12px;
-  top:55px;
+  top:45px;
   left:0;
   max-height: 500px;
   transition: max-height 0.35s ease-out;
@@ -75,10 +83,11 @@
     list-style-image: none;
 
     li a {
+      font-size:14px;
       text-decoration:none;
       margin: 0px;
       color:#666;
-      padding:15px 0 15px 0;
+      padding:15px 0 15px 1.5rem;
       border-bottom:#dddddd 1px solid;
       display:block;
     }
@@ -112,12 +121,12 @@
   }
 
   .hamburger{
-    line-height:32px;
-    font-size:20px;
+    line-height:25px;
+    font-size:23px;
   }
 
   .cross {
-    font-size:44px;
-    line-height:40px;
+    font-size: 48px;
+    line-height: 37px;
   }
 }

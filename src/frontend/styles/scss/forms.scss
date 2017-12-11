@@ -22,10 +22,14 @@ label.radio-label {
 }
 
 fieldset {
-  border: 1px solid #ddd;
   padding:20px;
-  border-radius:2px;
-  margin:0 0 20px;
+  border:none;
+  margin:0 -1.5rem 0;
+  @media  screen and (min-width:768px) {
+    margin:0 0 20px;
+    border-radius:2px;
+    border: 1px solid #ddd;
+  }
 }
 
 fieldset label {
@@ -84,9 +88,19 @@ fieldset h3 {
   padding:20px 20px 20px;
 }
 
-.form-row--button-right {
-  margin-top:20px;
+.form-row--submit {
   text-align:right;
+
+  @media  screen and (min-width:768px) {
+    margin-top:20px;
+  }
+
+  button {
+    width:100%;
+    @media  screen and (min-width:768px) {
+      width:inherit;
+    }
+  }
 }
 
 textarea {
