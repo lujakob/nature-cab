@@ -23,7 +23,7 @@ class UserNav extends Component {
   }
 
   _isActive(pathname) {
-    return this.props.location.pathname === pathname
+    return this.props.location.pathname.indexOf(pathname) >= 0
   }
 }
 

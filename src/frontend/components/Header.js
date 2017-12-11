@@ -90,8 +90,8 @@ class Header extends Component {
           <ul>
             <li onClick={this._closeMenu}><Link to='/create' className=''>Fahrt anlegen</Link></li>
 
-            {user && userRoutes.map(el => (
-              <li onClick={this._closeMenu}><Link to={el.pathname} className=''>{el.title}</Link></li>
+            {user && userRoutes.map((el, key) => (
+              <li key={key} onClick={this._closeMenu}><Link to={el.pathname} className=''>{el.title}</Link></li>
             ))}
 
             {this.userId

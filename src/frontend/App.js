@@ -15,8 +15,6 @@ import {BASE_URL, isProduction, DEFAULT_PORT} from '../config'
 
 import './styles/scss/index.scss'
 
-console.log("isProduction", isProduction);
-
 const PORT =
   process.env.PORT
     ? parseInt(process.env.PORT, 10)

@@ -383,6 +383,7 @@ class CreateRide extends Component {
   _submit = async () => {
 
     const _id = this.props.match.params.id
+    const isCreateMode = !this.props.match.params.id
 
     let rideData = this._buildRide()
 
@@ -395,9 +396,6 @@ class CreateRide extends Component {
           ride: rideData
         },
         update: (store, { data: { addRide } }) => {
-
-          // show success message
-          this.setState({view: VIEWS.SUCCESS})
 
           // if rideListQuery was not queried yet, the store has no 'rides' prop and will err
           try {
@@ -419,11 +417,15 @@ class CreateRide extends Component {
             console.log('Update store not possible.', e)
           }
 
-          !_id && this._resetFormState()
+          isCreateMode && this._resetFormState()
+
+          // redirect to detail page
+          this.props.history.push({pathname: `/user/rides/${addRide._id}`, from: '/create'})
+
         }
       })
 
-      !_id && this.setState({'ride': resetRide})
+      isCreateMode && this.setState({'ride': resetRide})
 
     } else {
       this.setState({error: true})

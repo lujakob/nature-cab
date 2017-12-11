@@ -1,25 +1,32 @@
 @import './variables.scss';
 
-.ride-detail__ride-info {
-  @media  screen and (min-width:768px) {
-    float:left;
-    width:calc(100% - 250px);
+
+.ride-detail {
+
+  &__message {
+    font-weight:bold;
   }
-}
-.ride-detail__user-info {
-  margin-top:20px;
-  @media  screen and (min-width:768px) {
-    margin-top:0;
-    float:right;
-    width:240px;
+
+  &__ride-info {
+    @media screen and (min-width: 768px) {
+      float: left;
+      width: calc(100% - 250px);
+    }
+  }
+  &__user-info {
+    margin-top: 20px;
+    @media screen and (min-width: 768px) {
+      margin-top: 0;
+      float: right;
+      width: 240px;
+    }
+  }
+  &__back-btn {
+    cursor:pointer;
+    display:inline-block;
   }
 }
 
-
-.ride-detail__back-btn {
-  cursor:pointer;
-  display:inline-block;
-}
 
 .ride-detail-info {
 

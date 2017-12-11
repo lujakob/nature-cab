@@ -2,8 +2,11 @@ import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
 import RideUser from './RideUser'
+import {Link} from 'react-router-dom'
 import {getActivityFromId, getFormattedDate, getVehicleTitleByKey, vehicleIsCar} from '../../utils/misc'
 import {VEHICLES} from '../../constants'
+import FacebookShareButton from '../FacebookShareButton'
+import {BASE_URL} from '../../../config'
 
 class RideDetail extends Component {
 
@@ -19,13 +22,30 @@ class RideDetail extends Component {
     const ride = this.props.data.ride
 
     if (!ride) {
-      return <p>Sorry this ride is not available.</p>
+      return <p>Sorry, die Fahrt mit dieser ID ist nicht vorhanden.</p>
     }
+
+    const {match, location} = this.props
+    const isUserPage = match.path.indexOf('/user') >= 0
+    const rideEditUrl = `/user/rides/${match.params.id}/edit`
+    const redirectedFromCreate = location.from === '/create'
+    const shareUrl = `${BASE_URL}/rides/${match.params.id}`
 
     return (
       <div>
         <div className="ride-detail cf">
           <div className="ride-detail__back-btn" onClick={this._goBack}>zurück zur Übersicht</div>
+          {redirectedFromCreate &&
+          <div className="ride-detail__message">
+            <p>Deine Fahrt wurde gespeichert.</p>
+          </div>
+          }
+          {isUserPage &&
+          <div className="ride-detail__options">
+            <Link to={rideEditUrl}>Fahrt bearbeiten</Link>
+            <FacebookShareButton url={shareUrl} layout="button" />
+          </div>
+          }
           <h3>{ride.startCity} - {ride.endCity}</h3>
           <div className="ride-detail__ride-info">
             <div className="ride-detail-info">
