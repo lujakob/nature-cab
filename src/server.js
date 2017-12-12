@@ -20,6 +20,7 @@ const mongoUri = isProduction
   ? `mongodb://${USERNAME}:${PASSWORD}@${HOST}/${DATABASE_NAME}?${PARAMS}`
   : 'mongodb://localhost:27017/naturecab'
 
+mongoose.Promise = global.Promise
 mongoose.connect(mongoUri, {useMongoClient: true})
 const db = mongoose.connection
 
