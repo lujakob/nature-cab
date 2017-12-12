@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
 import {VALIDATION} from '../constants'
 import {formIsValid, getYearOfBirthOptions} from '../utils/misc'
-import {LayoutLeftCol} from '../components/Layout/LayoutLeftCol'
 import {Logo} from '../components/Logo'
+import {Helmet} from 'react-helmet'
 
 const userSkipMandatoryFields = []
 
@@ -17,7 +17,7 @@ let defaultUser = {
   password: ''
 }
 
-class RegisterPage extends LayoutLeftCol {
+class RegisterPage extends Component {
   state = {
     user: Object.assign({}, defaultUser),
     error: null
@@ -27,6 +27,7 @@ class RegisterPage extends LayoutLeftCol {
     const {user, error} = this.state
     return (
       <div className="register-page page-wrapper">
+        <Helmet bodyAttributes={{class: "is-login-page"}}/>
 
         <fieldset>
           <Logo/>

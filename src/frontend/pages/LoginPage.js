@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {GC_USER_ID, GC_AUTH_TOKEN} from '../constants'
 import {FACEBOOK_APP_ID, BASE_URL} from '../../config'
 import {emitter} from '../utils/emitter'
-import {LayoutLeftCol} from '../components/Layout/LayoutLeftCol'
 import {Logo} from '../components/Logo'
 import FacebookLogin from 'react-facebook-login'
 import LocalStorage from '../utils/localStorage'
+import {Helmet} from 'react-helmet'
 
 const LOGIN_ERRORS = {
   EMAIL_NOT_FOUND: 'EMAIL_NOT_FOUND',
@@ -20,13 +20,14 @@ const PORT =
     ? parseInt(process.env.PORT, 10)
     : 3000
 
-const API_URL = isProduction
-  ? BASE_URL
-  : 'http://localhost:' + PORT
+const API_URL =
+  isProduction
+    ? BASE_URL
+    : 'http://localhost:' + PORT
 
 const loginUrl = `${API_URL}/login`
 
-class LoginPage extends LayoutLeftCol {
+class LoginPage extends Component {
   state = {
     email: '',
     password: '',
@@ -36,80 +37,80 @@ class LoginPage extends LayoutLeftCol {
 
   render() {
 
-    const token = LocalStorage.getItem(GC_AUTH_TOKEN)
-
-    if (token) {
-      return (
-        <div className="login-page page-wrapper">
-          <p>You are currently logged in.</p>
-        </div>
-      )
-    }
+    const isLoggedIn = LocalStorage.getItem(GC_AUTH_TOKEN)
 
     return (
       <div className="login-page page-wrapper">
+        <Helmet bodyAttributes={{class: 'is-login-page'}}/>
         <fieldset>
           <Logo/>
+          {isLoggedIn
+            ? (
+              <p>You are currently logged in.</p>
+            ) : (
+              <div>
 
-          <div className="form-row">
-            <input
-              type="text"
-              placeholder="Email"
-              value={this.state.email}
-              onChange={(evt) => this.setState({email: evt.target.value, error: null})}
-            />
-          </div>
-          <div className="form-row">
-            <input
-              type="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={(evt) => this.setState({password: evt.target.value, error: null})}
-            />
-          </div>
+                <div className="form-row">
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    value={this.state.email}
+                    onChange={(evt) => this.setState({email: evt.target.value, error: null})}
+                  />
+                </div>
+                <div className="form-row">
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={(evt) => this.setState({password: evt.target.value, error: null})}
+                  />
+                </div>
 
-          {this.state.error &&
-          <div className="error-message dark-red">
-            {this._getLoginErrorMessage(this.state.error)}
-          </div>
+                {this.state.error &&
+                <div className="error-message dark-red">
+                  {this._getLoginErrorMessage(this.state.error)}
+                </div>
+                }
+
+                <div className="form-row">
+                  <button
+                    className='link white bg-blue'
+                    onClick={() => this._confirm()}
+                  >
+                    Login
+                  </button>
+                </div>
+
+                <div className="form-row">oder</div>
+
+                <div className="form-row">
+                  {!this.state.facebookLoginLoading ? (
+                    <FacebookLogin
+                      cssClass="link white bg-blue"
+                      textButton="Login mit Facebook"
+                      appId={FACEBOOK_APP_ID}
+                      scope="user_birthday"
+                      fields="name,first_name,last_name,email,picture,birthday,gender"
+                      callback={this._responseFacebook} />
+                  ) : (
+                    <p>Loading...</p>
+                  ) }
+
+                </div>
+
+                <div className="form-row">
+                  Du hast kein Konto?&nbsp;
+                  <span
+                    className='register-button pointer'
+                    onClick={() => this.props.history.push('/register')}
+                  >
+                    Anmelden
+                  </span>
+                </div>
+              </div>
+            )
           }
-
-          <div className="form-row">
-            <button
-              className='link white bg-blue'
-              onClick={() => this._confirm()}
-            >
-              Login
-            </button>
-          </div>
-
-          <div className="form-row">oder</div>
-
-          <div className="form-row">
-            {!this.state.facebookLoginLoading ? (
-              <FacebookLogin
-              cssClass="link white bg-blue"
-              textButton="Login mit Facebook"
-              appId={FACEBOOK_APP_ID}
-              scope="user_birthday"
-              fields="name,first_name,last_name,email,picture,birthday,gender"
-              callback={this._responseFacebook} />
-              ) : (
-                <p>Loading...</p>
-              ) }
-
-          </div>
-
-          <div className="form-row">
-            Du hast kein Konto?&nbsp;
-            <span
-              className='register-button pointer'
-              onClick={() => this.props.history.push('/register')}
-            >
-              Anmelden
-            </span>
-          </div>
-
         </fieldset>
       </div>
     )
