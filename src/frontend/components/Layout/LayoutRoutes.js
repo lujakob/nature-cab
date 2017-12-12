@@ -2,7 +2,7 @@ import React from 'react'
 import {Switch,Route,Redirect} from 'react-router-dom'
 
 import {GC_AUTH_TOKEN} from '../../constants'
-import {GOOGLE_ANALYTICS_ID, isProduction, defaultPageTitle} from '../../../config'
+import {GOOGLE_KEYS, isProduction, defaultPageTitle} from '../../../config'
 
 import UeberNatureCabPage from '../../pages/UeberNatureCab'
 import RidesPage from '../../pages/RidesPage'
@@ -20,7 +20,7 @@ import LocalStorage from '../../utils/localStorage'
 const ReactGA = process.browser ? require('react-ga') : {}
 
 if (isProduction && process.browser) {
-  ReactGA.initialize(GOOGLE_ANALYTICS_ID)
+  ReactGA.initialize(GOOGLE_KEYS.ANALYTICS)
 }
 
 const gaLogPageView = () => {

@@ -6,11 +6,11 @@ const DEFAULT_ZOOM = 7
 
 class RidePreviewMap extends PureComponent {
 
-  google = window.google
+  google = null
   map = null
   marker = null
   directionsDisplay = null
-  directionsService = new this.google.maps.DirectionsService();
+  directionsService = null
 
   componentDidMount() {
     this.initialize()
@@ -35,6 +35,9 @@ class RidePreviewMap extends PureComponent {
   }
 
   initialize() {
+    this.google = window.google
+    this.directionsService = new this.google.maps.DirectionsService()
+
     const {latitude: lat, longitude: lng} = MAP_CENTER_DEFAULT
     const center = {lat, lng}
     const zoom = this.props.zoom || DEFAULT_ZOOM

@@ -6,11 +6,14 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'moment/locale/de'
 import {GC_USER_ID, ACTIVITIES, HOURS, MINS, VEHICLES} from '../constants'
+import {GOOGLE_KEYS} from '../../config'
 import {formIsValid, isNormalInteger} from '../utils/misc'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import RidePreviewMap from '../components/Ride/RidePreviewMap'
 import LocalStorage from '../utils/localStorage'
+import scriptLoader from 'react-async-script-loader'
 
+const asyncScriptSrc = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEYS.MAPS}&libraries=places`
 const rideSkipMandatoryFields = ['returnInfo' , 'startLatLng', 'startCity', 'endLatLng', 'endCity', 'activity']
 
 const resetRide = {
@@ -52,10 +55,9 @@ class CreateRide extends Component {
    * componentWillReceiveProps - preset ride data from query result for form fields
    * @param nextProps
    */
-  componentWillReceiveProps(nextProps) {
-    const {ride} = nextProps.data
-
-    if (ride) {
+  componentWillReceiveProps({data}) {
+    if (data && data.ride) {
+      const ride = data.ride
       const newState = Object.assign({}, this.state, {
         ride: {
           startLocation: ride.startLocation,
@@ -79,12 +81,12 @@ class CreateRide extends Component {
 
   render() {
     const {ride, view} = this.state
-
     const {match} = this.props
 
     if (view === VIEWS.FORM) {
       return (
         <div className="create-ride-container cf">
+
           {match.params.id &&
           <p>Fahrt bearbeiten: {ride.startCity} - {ride.endCity}</p>
           }
@@ -94,6 +96,7 @@ class CreateRide extends Component {
 
               <div className={'form-row ' + this._getErrorClass('startLocation')}>
                 <label htmlFor="startLocation">Wo geht's los?</label>
+                {this.props.isScriptLoaded &&
                 <PlacesAutocomplete
                   inputProps={{
                     placeholder: "Zum Beispiel: Marienplatz, München",
@@ -105,11 +108,14 @@ class CreateRide extends Component {
                     }
                   }}
                   onSelect={(address) => this._placesOnSelect(address, ['startLatLng', 'startCity'])}
-              />
+                />
+                }
+
 
               </div>
               <div className={'form-row ' + this._getErrorClass('endLocation')}>
                 <label htmlFor="endLocation">Wohin geht die Fahrt?</label>
+                {this.props.isScriptLoaded &&
                 <PlacesAutocomplete
                   inputProps={{
                     placeholder: "Zum Beispiel: Seesauna, Tegernsee",
@@ -120,7 +126,7 @@ class CreateRide extends Component {
                   }}
                   onSelect={(address) => this._placesOnSelect(address, ['endLatLng', 'endCity'])}
                 />
-
+                }
               </div>
               <div className="form-row">
                 <label htmlFor="ride-activity">Welche Aktivität hast Du vor?</label>
@@ -254,7 +260,9 @@ class CreateRide extends Component {
             </div>
           </div>
           <div className="create-ride-right-col">
+            {this.props.isScriptLoaded &&
             <RidePreviewMap startLatLng={ride.startLatLng} endLatLng={ride.endLatLng} />
+            }
           </div>
         </div>
       )
@@ -544,4 +552,4 @@ export const withData = compose(
   graphql(AddRideMutation, {name: 'addRideMutation'})
 )
 
-export default withData(CreateRide)
+export default scriptLoader(asyncScriptSrc)(withData(CreateRide))
