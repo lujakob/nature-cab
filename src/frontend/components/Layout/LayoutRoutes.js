@@ -2,7 +2,7 @@ import React from 'react'
 import {Switch,Route,Redirect} from 'react-router-dom'
 
 import {GC_AUTH_TOKEN} from '../../constants'
-import {GOOGLE_ANALYTICS_ID, isProduction} from '../../../config'
+import {GOOGLE_ANALYTICS_ID, isProduction, defaultPageTitle} from '../../../config'
 
 import UeberNatureCabPage from '../../pages/UeberNatureCab'
 import RidesPage from '../../pages/RidesPage'
@@ -13,6 +13,7 @@ import UserPage from '../../pages/user/UserPage'
 import NoMatch404Page from '../../pages/NoMatch404Page'
 import HomePage from '../../pages/HomePage'
 import LayoutBase from './LayoutBase'
+import {Helmet} from 'react-helmet'
 
 import LocalStorage from '../../utils/localStorage'
 
@@ -32,9 +33,13 @@ const gaLogPageView = () => {
   return null;
 }
 
+// dynamically setting "helmet" head tags is nested, hence the defaults are set here in the layout
 export default ({client}) => {
   return (
     <div>
+      <Helmet>
+        <title>{defaultPageTitle}</title>
+      </Helmet>
       <Route path='/' component={gaLogPageView} />
       <Switch>
         <Route exact path='/login' component={LoginPage}/>

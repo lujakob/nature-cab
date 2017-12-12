@@ -14,7 +14,6 @@ const Html = ({ content, state }) => {
       <link rel="stylesheet" href="https://unpkg.com/tachyons@4.2.1/css/tachyons.min.css"/>
       <link rel="stylesheet" href="/static/main.css"/>
       <link href="https://fonts.googleapis.com/css?family=Kalam|Open+Sans|Ruda:400,700" rel="stylesheet" />
-      <title>NatureCab - Mitfahrgelegenheit in die Berge</title>
       {helmet.title.toComponent()}
       {helmet.meta.toComponent()}
       {helmet.link.toComponent()}
