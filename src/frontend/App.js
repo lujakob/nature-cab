@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 
-import { ApolloClient } from 'apollo-client'
-import { createHttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { ApolloProvider } from 'react-apollo'
-import { onError } from 'apollo-link-error'
-import { ApolloLink, from } from 'apollo-link'
-
+import {ApolloClient} from 'apollo-client'
+import {createHttpLink} from 'apollo-link-http'
+import {InMemoryCache} from 'apollo-cache-inmemory'
+import {ApolloProvider} from 'react-apollo'
+import {onError} from 'apollo-link-error'
+import {ApolloLink, from} from 'apollo-link'
 import LayoutRoutes from './components/Layout/LayoutRoutes'
 import LocalStorage from './utils/localStorage'
 
@@ -64,7 +63,6 @@ class App extends Component {
     )
   }
 }
-
 
 const logout = () => {
   LocalStorage.removeItem(GC_USER_ID)

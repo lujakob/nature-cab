@@ -2,6 +2,7 @@ import React from 'react'
 import {Switch,Route,Redirect} from 'react-router-dom'
 
 import {GC_AUTH_TOKEN} from '../../constants'
+import {GOOGLE_ANALYTICS_ID, isProduction} from '../../../config'
 
 import UeberNatureCabPage from '../../pages/UeberNatureCab'
 import RidesPage from '../../pages/RidesPage'
@@ -15,23 +16,42 @@ import LayoutBase from './LayoutBase'
 
 import LocalStorage from '../../utils/localStorage'
 
+const ReactGA = process.browser ? require('react-ga') : {}
+
+if (isProduction && process.browser) {
+  ReactGA.initialize(GOOGLE_ANALYTICS_ID)
+}
+
+const gaLogPageView = () => {
+
+  if (isProduction && process.browser) {
+    ReactGA.set({ page: window.location.pathname })
+    ReactGA.pageview(window.location.pathname)
+  }
+
+  return null;
+}
+
 export default ({client}) => {
   return (
-    <Switch>
-      <Route exact path='/login' component={LoginPage}/>
-      <Route exact path='/register' component={RegisterPage}/>
-      <LayoutBase client={client}>
-        <Switch>
-          <Route exact path='/' component={HomePage}/>
-          <Route path='/rides' component={RidesPage}/>
-          <ProtectedRoute exact path='/create' component={CreateRidePage}/>
-          <ProtectedRoute path='/user' component={UserPage}/>
-          <ProtectedRoute path='/ueber-naturecab' component={UeberNatureCabPage}/>
-          <Route exact path="/404" component={NoMatch404Page}/>
-          <Redirect to="/404"/>
-        </Switch>
-      </LayoutBase>
-    </Switch>
+    <div>
+      <Route path='/' component={gaLogPageView} />
+      <Switch>
+        <Route exact path='/login' component={LoginPage}/>
+        <Route exact path='/register' component={RegisterPage}/>
+        <LayoutBase client={client}>
+          <Switch>
+            <Route exact path='/' component={HomePage}/>
+            <Route path='/rides' component={RidesPage}/>
+            <ProtectedRoute exact path='/create' component={CreateRidePage}/>
+            <ProtectedRoute path='/user' component={UserPage}/>
+            <ProtectedRoute path='/ueber-naturecab' component={UeberNatureCabPage}/>
+            <Route exact path="/404" component={NoMatch404Page}/>
+            <Redirect to="/404"/>
+          </Switch>
+        </LayoutBase>
+      </Switch>
+    </div>
   )
 }
 
