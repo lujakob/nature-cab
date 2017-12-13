@@ -18,9 +18,9 @@ class RideListFilter extends Component {
   render() {
     return (
       <div className="ride-list-filter">
-        <div className="heading">Dein Taxi ins Gr&uuml;ne - oder in den Schnee.</div>
+        <h1 className="heading">Die Mitfahrgelegenheit in die Berge</h1>
         <div className="ride-list-filter__wrapper">
-          <div className="ride-list-filter-field">
+          <div className="ride-list-filter__field">
             <input
               type="text"
               placeholder="Von..."
@@ -31,7 +31,7 @@ class RideListFilter extends Component {
             />
           </div>
           {false &&
-          <div className="ride-list-filter-field">
+          <div className="ride-list-filter__field">
             <input
               type="text"
               placeholder="Nach..."
@@ -42,7 +42,7 @@ class RideListFilter extends Component {
           </div>
           }
 
-          <div className="ride-list-filter-field">
+          <div className="ride-list-filter__field ride-list-filter__field--activity">
             <select
               onChange={this._onChangeSelect}
               value={this.state.activity}
@@ -56,7 +56,7 @@ class RideListFilter extends Component {
               })}
             </select>
           </div>
-          <div className="ride-list-filter-field ride-list-filter-field--button">
+          <div className="ride-list-filter__field ride-list-filter__field--button">
             <button
               className='link white bg-blue'
               onClick={() => this._filter()}

@@ -9,6 +9,7 @@ class RideListWithData extends Component {
   render() {
 
     const {loading, error, rides} = this.props.data
+    const showLatestTitle = this.props.limit && this.props.limit > 0
 
     if (loading) {
       return <div className="ride-list">Loading...</div>
@@ -24,7 +25,12 @@ class RideListWithData extends Component {
         }
         {rides && rides.total > 0 &&
           <div>
-            <p className="total-count">{rides.total} Ergebnisse gefunden</p>
+            {showLatestTitle ? (
+              <p className="latest-title">Neueste Fahrten</p>
+            ) : (
+              <p className="total-count-title">{rides.total} Ergebnisse gefunden</p>
+            )}
+
             <RideList rides={rides.rides} detailLinkPrefix="/rides/"/>
           </div>
         }
