@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {graphql} from 'react-apollo'
 import gql from 'graphql-tag';
 import RideList from './RideList'
+import PropTypes from 'prop-types'
 
 class RideListWithData extends Component {
 
@@ -30,12 +31,11 @@ class RideListWithData extends Component {
       </div>
     )
   }
-
 }
 
 export const rideListQuery = gql`
-  query RideListQuery($start: String, $end: String, $activity: String) {
-    rides(start: $start, end: $end, activity: $activity) {
+  query RideListQuery($start: String, $end: String, $activity: String, $limit: Int) {
+    rides(start: $start, end: $end, activity: $activity, limit: $limit) {
       total
       rides {
         _id
@@ -59,9 +59,15 @@ export const rideListQuery = gql`
   }
 `
 
+RideListWithData.propTypes = {
+  start: PropTypes.string,
+  end: PropTypes.string,
+  activity: PropTypes.string,
+  limit: PropTypes.number
+}
 const withData = graphql(rideListQuery, {
-  options: (props) => ({
-    variables: {start: props.start, end: props.end, activity: props.activity}
+  options: ({start, end, activity, limit}) => ({
+    variables: {start, end, activity, limit}
   })
 })
 
