@@ -1,6 +1,6 @@
-const isNode = typeof window === 'undefined'
+import ExecutionEnvironment from 'exenv'
 
-const LocalStorage = !isNode
+const LocalStorage = ExecutionEnvironment.canUseDOM
   ? window.localStorage
   : {getItem() {}, removeItem() {}, setItem() {console.log("localstorage mock")}}
 
