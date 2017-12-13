@@ -4,15 +4,20 @@ import RideListFilter from '../components/Ride/RideListFilter'
 import { withRouter } from 'react-router'
 import Visual from '../components/Visual'
 
+const limit = 5
+
 class HomePage extends Component {
 
   state = {
     start: '',
     end: '',
-    activity: ''
+    activity: '',
+    latest: null
   }
 
   render () {
+    const {start, end, activity} = this.state
+
     return (
       <div className="home-page has-visual">
         <Visual/>
@@ -23,7 +28,12 @@ class HomePage extends Component {
         }}/>
 
         <div className="centered-container">
-          <RideListWithData start={this.state.start} end={this.state.end} activity={this.state.activity}/>
+          <RideListWithData
+            start={start}
+            end={end}
+            activity={activity}
+            limit={limit}
+          />
         </div>
       </div>
     )

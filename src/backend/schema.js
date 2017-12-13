@@ -82,7 +82,7 @@ input UserUpdateInput {
 }
 
 type Query {
-  rides(start: String, end: String, activity: String): RidesResult
+  rides(start: String, end: String, activity: String, limit: Int): RidesResult
   ride(id: ID!): Ride
   myRides(userId: ID!): [Ride]
   users: [User]

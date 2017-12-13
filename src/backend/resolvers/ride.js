@@ -4,26 +4,37 @@ import {getYesterday} from '../utils'
 export const ridesResolver = (root, args, context) => {
   let filter = {}
 
+  const {start, end, activity, limit} = args
+
   // add 'start' filter
-  if (args.start && args.start.length > 0) {
-    Object.assign(filter, {startCity: args.start})
+  if (start && start.length > 0) {
+    Object.assign(filter, {startCity: start})
   }
 
   // add 'end' filter
-  if (args.end && args.end.length > 0) {
-    Object.assign(filter, {endCity: args.end})
+  if (end && end.length > 0) {
+    Object.assign(filter, {endCity: end})
   }
 
   // add 'activity' filter
-  if (args.activity && args.activity.length > 0) {
-    Object.assign(filter, {activity: args.activity})
+  if (activity && activity.length > 0) {
+    Object.assign(filter, {activity: activity})
   }
 
   Object.assign(filter, {startDate: {$gt: getYesterday()}})
 
   const RidesPromise = new Promise((resolve, reject) => {
-    RIDE
-      .find(filter, (err, rides) => {
+    const query = RIDE.find(filter)
+
+    query.populate('user')
+    query.sort({startDate: 'asc'})
+
+    // add 'limit'
+    if (limit && limit > 0) {
+      query.limit(limit)
+    }
+
+    query.exec((err, rides) => {
 
         if (err) {
           reject(err)
@@ -31,8 +42,6 @@ export const ridesResolver = (root, args, context) => {
           return resolve(rides)
         }
       })
-      .populate('user')
-      .sort({startDate: 'asc'})
   })
 
   const TotalPromise = new Promise((resolve, reject) => {
