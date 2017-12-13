@@ -2,7 +2,7 @@ import React from 'react'
 import {graphql} from 'react-apollo'
 import gql from 'graphql-tag';
 import RideList from '../../components/Ride/RideList'
-import {GC_USER_ID} from '../../constants'
+import {GC_USER_ID} from '../../../constants'
 import LocalStorage from '../../utils/localStorage'
 
 
@@ -17,7 +17,7 @@ const UserRides = ({ data: {loading, error, myRides }}) => {
 
   return (
     <div className="user-rides-page">
-      <RideList rides={myRides} detailLinkPrefix="/user/rides/"/>
+      <RideList rides={myRides} detailLinkPrefix="/user/ride/"/>
     </div>
   )
 };

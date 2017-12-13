@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import {MAP_CENTER_DEFAULT} from '../../constants'
+import {MAP_CENTER_DEFAULT} from '../../../constants'
 
 const mapDomElId = 'map'
 const DEFAULT_ZOOM = 7

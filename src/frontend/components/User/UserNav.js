@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
 export const userRoutes = [
-  {pathname: '/user/profile', title:'Profil'},
-  {pathname: '/user/rides', title:'Meine Fahrten'}
+  {pathname: '/user/profile', title:'Profil', activePath: '/user/profile'},
+  {pathname: '/user/rides', title:'Meine Fahrten', activePath: '/user/ride'}
 ]
 
 class UserNav extends Component {
@@ -15,7 +15,7 @@ class UserNav extends Component {
       <div className='user-nav'>
         <ul className="cf">
           {userRoutes.map((link, index) => (
-            <li key={index} className={this._isActive(link.pathname) ? 'active' : ''}><Link to={link.pathname}>{link.title}</Link></li>
+            <li key={index} className={this._isActive(link.activePath) ? 'active' : ''}><Link to={link.pathname}>{link.title}</Link></li>
           ))}
         </ul>
       </div>

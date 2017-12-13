@@ -31,7 +31,7 @@ class RideListWithData extends Component {
               <p className="total-count-title">{rides.total} Ergebnisse gefunden</p>
             )}
 
-            <RideList rides={rides.rides} detailLinkPrefix="/rides/"/>
+            <RideList rides={rides.rides} detailLinkPrefix="/ride/"/>
           </div>
         }
       </div>

@@ -1,11 +1,12 @@
 import React from 'react'
 import {Switch,Route,Redirect} from 'react-router-dom'
 
-import {GC_AUTH_TOKEN} from '../../constants'
+import {GC_AUTH_TOKEN} from '../../../constants'
 import {GOOGLE_KEYS, isProduction, defaultPageTitle} from '../../../config'
 
 import UeberNatureCabPage from '../../pages/UeberNatureCab'
 import RidesPage from '../../pages/RidesPage'
+import RideDetailPage from '../../pages/RideDetailPage'
 import CreateRidePage from '../../pages/CreateRidePage'
 import LoginPage from '../../pages/LoginPage'
 import RegisterPage from '../../pages/RegisterPage'
@@ -47,7 +48,8 @@ export default ({client}) => {
         <LayoutBase client={client}>
           <Switch>
             <Route exact path='/' component={HomePage}/>
-            <Route path='/rides' component={RidesPage}/>
+            <Route exact path='/ride/:id' component={RideDetailPage}/>
+            <Route path='/rides/:start?/:activity?' component={RidesPage}/>
             <ProtectedRoute exact path='/create' component={CreateRidePage}/>
             <ProtectedRoute path='/user' component={UserPage}/>
             <ProtectedRoute path='/ueber-naturecab' component={UeberNatureCabPage}/>

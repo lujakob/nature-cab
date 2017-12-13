@@ -1,4 +1,4 @@
-import {ACTIVITIES} from '../constants'
+import {ACTIVITIES} from '../../constants'
 import moment from 'moment'
 import 'moment/locale/de'
 
@@ -51,9 +51,15 @@ export const truncateName = (name) => {
  * @returns {string}
  */
 export const getActivityFromId = (id) => {
-  let activity = ACTIVITIES[id]
+  let activity = ACTIVITIES.find(el => parseInt(el.id, 10) === parseInt(id, 10))
   return activity ? activity['title'] : ''
 }
+
+export const getActivityIdFromTitle = (title) => {
+  let targetEl = ACTIVITIES.find(el => el.title.toLowerCase() === title.toLowerCase())
+  return targetEl ? targetEl['id'] : null
+}
+
 
 /**
  * getFormattedDate - return date and time, 'today' for current day, otherwise date

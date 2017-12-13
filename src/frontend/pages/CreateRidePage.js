@@ -5,7 +5,7 @@ import {rideListQuery} from '../components/Ride/RideListWithData'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'moment/locale/de'
-import {GC_USER_ID, ACTIVITIES, HOURS, MINS, VEHICLES} from '../constants'
+import {GC_USER_ID, ACTIVITIES, HOURS, MINS, VEHICLES} from '../../constants'
 import {GOOGLE_KEYS} from '../../config'
 import {formIsValid, isNormalInteger} from '../utils/misc'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
@@ -431,7 +431,7 @@ class CreateRide extends Component {
           isCreateMode && this._resetFormState()
 
           // redirect to detail page
-          this.props.history.push({pathname: `/user/rides/${addRide._id}`, from: '/create'})
+          this.props.history.push({pathname: `/user/ride/${addRide._id}`, from: '/create'})
 
         }
       })

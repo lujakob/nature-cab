@@ -1,7 +1,6 @@
-import {ACTIVITIES} from '../constants'
+import {ACTIVITIES} from '../../constants'
 import moment from 'moment'
 import 'moment/locale/de'
-import {users} from './user'
 
 moment.locale('de')
 

@@ -1,16 +1,16 @@
 import React, {Component} from 'react'
 import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
-import RideUser from './RideUser'
+import RideUser from '../components/Ride/RideUser'
 import {Link} from 'react-router-dom'
-import {getActivityFromId, getFormattedDate, getVehicleTitleByKey, vehicleIsCar} from '../../utils/misc'
+import {getActivityFromId, getFormattedDate, getVehicleTitleByKey, vehicleIsCar} from '../utils/misc'
 import {VEHICLES} from '../../constants'
-import FacebookShareButton from '../FacebookShareButton'
-import {BASE_URL} from '../../../config'
+import FacebookShareButton from '../components/FacebookShareButton'
+import {BASE_URL} from '../../config'
 import {Helmet} from 'react-helmet'
-import homeImg from '../../img/home1.jpg'
+import homeImg from '../img/home1.jpg'
 
-class RideDetail extends Component {
+class RideDetailPage extends Component {
 
   render() {
 
@@ -29,7 +29,7 @@ class RideDetail extends Component {
 
     const {match, location} = this.props
     const isUserPage = match.path.indexOf('/user') >= 0
-    const rideEditUrl = `/user/rides/${match.params.id}/edit`
+    const rideEditUrl = `/user/ride/${match.params.id}/edit`
     const redirectedFromCreate = location.from === '/create'
     const shareUrl = `${BASE_URL}/rides/${match.params.id}`
     const image = `${BASE_URL}${homeImg}`
@@ -165,9 +165,10 @@ const RideDetailQuery = gql`
     }
   }
 `
-
-export default graphql(RideDetailQuery, {
+const withData = graphql(RideDetailQuery, {
   options: (props) => ({
     variables: {id: props.match.params.id}
   })
-})(RideDetail)
+}) 
+
+export default withData(RideDetailPage)

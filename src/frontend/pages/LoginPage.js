@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {GC_USER_ID, GC_AUTH_TOKEN} from '../constants'
+import {GC_USER_ID, GC_AUTH_TOKEN} from '../../constants'
 import {FACEBOOK_APP_ID, BASE_URL} from '../../config'
 import {emitter} from '../utils/emitter'
 import {Logo} from '../components/Logo'

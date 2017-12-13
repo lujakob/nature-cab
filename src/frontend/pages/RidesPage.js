@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
-// import RideListWithData from './RideListWithData'
-import RideDetail from '../components/Ride/RideDetail'
-// import RideListFilter from './RideListFilter'
-import {Route} from 'react-router-dom'
+import RideListWithData from '../components/Ride/RideListWithData'
+import RideListFilter from '../components/Ride/RideListFilter'
 import {withRouter} from 'react-router'
 import Visual from '../components/Visual'
 
@@ -14,28 +12,41 @@ class RidesPage extends Component {
     activity: ''
   }
 
+  componentWillMount() {
+    const {params} = this.props.match
+    this._setStateFromParams(params)
+  }
+
   render () {
-    const isListView = this.props.location.pathname === '/rides'
+
+    const {match} = this.props
+
     return (
-      <div className={'ride-list-page' + (isListView ? ' has-visual' : '')}>
+      <div className={'ride-list-page  has-visual'}>
         <Visual/>
-        <Route exact path={`${this.props.match.url}`} render={() => {
-          this.props.history.push('/')
-          return ''
-        }}/>
+        <RideListFilter filterFunc={({start, end, activity}) => this.setState({start, end, activity})}/>
 
-        {/*<Route exact path={`${this.props.match.url}`} render={() => (*/}
-        {/*<RideListFilter filterFunc={({start, end, activity}) => this.setState({start, end, activity})}/>*/}
-
-        {/*<div className="centered-container">*/}
-            {/*<RideListWithData start={this.state.start} end={this.state.end} activity={this.state.activity}/>*/}
-          {/*</div>*/}
-        {/*)}/>*/}
-        <Route path={`${this.props.match.url}/:id`} component={RideDetail}/>
+        <div className="centered-container">
+          <RideListWithData start={this.state.start} end={this.state.end} activity={this.state.activity}/>
+        </div>
       </div>
     )
   }
 
+  _setStateFromParams = ({start, end, activity}) => {
+
+    let params = {}
+
+    start && Object.assign(params, {start: decodeURI(start)})
+    end && Object.assign(params, {end: decodeURI(end)})
+
+    if (activity) {
+      const id = getActivityIdFromTitle(decodeURI(activity))
+      activity && Object.assign(params, {activity: String(id)})
+    }
+
+    this.setState(params)
+  }
 }
 
 export default withRouter(RidesPage)

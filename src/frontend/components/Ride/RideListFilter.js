@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {ACTIVITIES} from '../../constants'
+import {ACTIVITIES} from '../../../constants'
 import {withRouter} from 'react-router-dom'
-import {getSortedActivities} from '../../utils/misc'
+import {getSortedActivities, getActivityIdFromTitle} from '../../utils/misc'
 
 class RideListFilter extends Component {
 
@@ -11,11 +11,6 @@ class RideListFilter extends Component {
     start: this.props.start ? this.props.start : '',
     end: this.props.end ? this.props.end : '',
     activity: this.props.activity ? this.props.activity : '',
-  }
-
-  componentWillMount() {
-    const {start = '', end = '', activity = ''} = this.props.match.params
-    this.setState({start, end, activity})
   }
 
   render() {

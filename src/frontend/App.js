@@ -9,7 +9,7 @@ import {ApolloLink, from} from 'apollo-link'
 import LayoutRoutes from './components/Layout/LayoutRoutes'
 import LocalStorage from './utils/localStorage'
 
-import {GC_AUTH_TOKEN, GC_USER_ID} from './constants'
+import {GC_AUTH_TOKEN, GC_USER_ID} from '../constants'
 import {BASE_URL, isProduction, DEFAULT_PORT} from '../config'
 
 import './styles/scss/index.scss'
