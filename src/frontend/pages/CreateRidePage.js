@@ -12,6 +12,7 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 import RidePreviewMap from '../components/Ride/RidePreviewMap'
 import LocalStorage from '../utils/localStorage'
 import scriptLoader from 'react-async-script-loader'
+import {getSortedActivities} from '../utils/misc'
 
 const asyncScriptSrc = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEYS.MAPS}&libraries=places`
 const rideSkipMandatoryFields = ['returnInfo' , 'startLatLng', 'startCity', 'endLatLng', 'endCity', 'activity']
@@ -39,6 +40,8 @@ const VIEWS = {
 }
 
 class CreateRide extends Component {
+
+  activities = getSortedActivities(ACTIVITIES)
 
   constructor(props) {
     super(props)
@@ -135,7 +138,7 @@ class CreateRide extends Component {
                   name="activity"
                   value={ride.activity}
                 >
-                  {ACTIVITIES.map((activity, index) => {
+                  {this.activities.map((activity, index) => {
                     return <option key={index} value={activity.id}>{activity.title}</option>
                   })}
                 </select>

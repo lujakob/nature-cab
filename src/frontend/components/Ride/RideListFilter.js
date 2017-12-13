@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
 import {ACTIVITIES} from '../../constants'
 import {withRouter} from 'react-router-dom'
+import {getSortedActivities} from '../../utils/misc'
 
 class RideListFilter extends Component {
+
+  activities = getSortedActivities(ACTIVITIES)
 
   state = {
     start: this.props.start ? this.props.start : '',
@@ -48,7 +51,7 @@ class RideListFilter extends Component {
               value={this.state.activity}
               name="activity"
             >
-              {ACTIVITIES.map((activity, index) => {
+              {this.activities.map((activity, index) => {
                 return <option
                   key={index}
                   value={activity.id}
@@ -81,6 +84,5 @@ class RideListFilter extends Component {
     this.props.filterFunc(this.state)
   }
 }
-
 
 export default withRouter(RideListFilter)

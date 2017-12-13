@@ -84,3 +84,23 @@ export const getVehicleTitleByKey = (value, vehicles) => {
 export const vehicleIsCar = (value, vehicles) => {
   return value === vehicles[0]['value']
 }
+
+export const getSortedActivities = (activities) => {
+  // https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+  const compareFunc = (a, b) => {
+    const nameA = a.title.toUpperCase()
+    const nameB = b.title.toUpperCase()
+    if (nameA < nameB) {
+      return -1
+    }
+    if (nameA > nameB) {
+      return 1
+    }
+
+    return 0
+  }
+  
+  activities.sort(compareFunc)
+  
+  return activities
+}
