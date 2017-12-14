@@ -29,7 +29,15 @@
       color:white;
       margin:0 0 13px;
     }
+  }
 
+  .has-visual.ride-list-page & {
+    @media screen and (min-width:768px) {
+      margin-top:-70px;
+    }
+    .heading {
+      display:none;
+    }
   }
 
   &__wrapper {
