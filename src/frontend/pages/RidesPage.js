@@ -30,6 +30,7 @@ class RidesPage extends Component {
           start={start}
           end={end}
           activity={activity}
+          showHeadline={false}
           filterFunc={({start, end, activity}) => this.setState({start, end, activity})}
         />
 

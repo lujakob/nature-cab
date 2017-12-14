@@ -11,7 +11,7 @@ class RideListFilter extends Component {
   state = {
     start: '',
     end: '',
-    activity: '',
+    activity: ''
   }
 
   componentWillMount() {
@@ -20,9 +20,12 @@ class RideListFilter extends Component {
   }
 
   render() {
+    const {showHeadline = true} = this.props
     return (
       <div className="ride-list-filter">
+        {showHeadline &&
         <h1 className="heading">Die Mitfahrgelegenheit in die Berge</h1>
+        }
         <div className="ride-list-filter__wrapper">
           <div className="ride-list-filter__field">
             <input

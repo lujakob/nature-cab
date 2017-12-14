@@ -55,6 +55,11 @@
         margin-right:10px;
         margin-bottom:0;
       }
+
+    }
+
+    &:last-child > * {
+      margin-right:0;
     }
 
     select {
@@ -65,7 +70,7 @@
       outline:0;
       background-color:$orange;
       border:none;
-      height:34px;
+      line-height:$line-height-button;
     }
 
     &--button {

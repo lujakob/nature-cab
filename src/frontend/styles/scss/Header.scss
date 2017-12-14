@@ -1,28 +1,28 @@
 @import './variables.scss';
 
 .header {
-  line-height:25px;
-  height:45px;
-  padding-top:10px;
-  padding-bottom:10px;
-  background-color:$header-bg-mobile;
+  line-height: 25px;
+  height: $m-header-height;
+  padding-top: $m-header-pv;
+  padding-bottom: $m-header-pv;
+  background-color: $header-bg-mobile;
 
   @media  screen and (min-width:768px) {
-    background-color:transparent;
     line-height:30px;
-    height:60px;
-    padding-top:15px;
-    padding-bottom:15px;
+    height:$header-height;
+    padding-top: $header-pv;
+    padding-bottom: $header-pv;
+    background-color: transparent;
   }
 
   .main-button {
     margin-bottom: 0;
-    margin-right:20px;
-    line-height:17px;
-    background-color:$orange;
+    margin-right: 20px;
+    line-height: 17px;
+    background-color: $orange;
     border:none;
-    height:34px;
-    border-radius:1px;
+    line-height: $line-height-button;
+    border-radius: 1px;
   }
 
   button:focus {
@@ -37,7 +37,7 @@
 .visual {
   width:calc(100% + 20px);
   height:auto;
-  margin:-60px -10px 10px;
+  margin:-$header-height -10px 10px;
   z-index:-1;
   position: relative;
   display:none;
