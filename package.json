@@ -70,7 +70,8 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
     "react-social-sharebuttons": "^2.1.4",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "urlify": "^0.3.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

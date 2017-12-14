@@ -3,8 +3,8 @@ import RideListWithData from '../components/Ride/RideListWithData'
 import RideListFilter from '../components/Ride/RideListFilter'
 import {withRouter} from 'react-router'
 import Visual from '../components/Visual'
-import {getActivityIdFromTitle} from '../utils/misc'
-import {activityParamPrefix, endParamPrefix} from './HomePage'
+import {getActivityIdFromTitle, urlToStr} from '../utils/misc'
+import {activityParamPrefix, endParamPrefix} from '../../constants'
 
 class RidesPage extends Component {
 
@@ -51,14 +51,15 @@ class RidesPage extends Component {
       setActivity(first)
 
     } else if (this._isEndParam(first) ) {
-      Object.assign(res, {end: decodeURI(first)})
+      Object.assign(res, {end: urlToStr(decodeURI(first))})
 
       if (this._isActivityParam(second)) {
         setActivity(second)
       }
+
     } else {
-      first && Object.assign(res, {start: decodeURI(first)})
-      second && Object.assign(res, {end: decodeURI(second)})
+      first && Object.assign(res, {start: urlToStr(decodeURI(first))})
+      second && Object.assign(res, {end: urlToStr(decodeURI(second))})
       third && setActivity(third)
     }
 
@@ -69,7 +70,6 @@ class RidesPage extends Component {
       const act = decodeURI(activity).substr(activityParamPrefix.length)
       const id = getActivityIdFromTitle(act)
       Object.assign(res, {activity: String(id)})
-      console.log("res", res);
     }
   }
 
@@ -82,8 +82,6 @@ class RidesPage extends Component {
     // activity param starts with 'activityParamPrefix'
     return val && val.indexOf(endParamPrefix) === 0
   }
-
-
 }
 
 export default withRouter(RidesPage)

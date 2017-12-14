@@ -1,6 +1,7 @@
 import {ACTIVITIES} from '../../constants'
 import moment from 'moment'
 import 'moment/locale/de'
+import {endParamPrefix, activityParamPrefix} from '../../constants'
 
 /**
  * check props for not empty
@@ -123,4 +124,58 @@ export const getSortedActivities = (activities) => {
 export const isMobile = () => {
   const mobileBreakPoint = 768
   return window && window.innerWidth < mobileBreakPoint
+}
+
+export const upperCaseFirst = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+/**
+ * replace 'umlaut' - transform string to url
+ * @param str
+ * @returns {string}
+ */
+export const strToUrl = (str) => {
+  return str
+    .toLowerCase()
+    .replace(/\u00fc/g, 'ue')
+    .replace(/\u00e4/g, 'ae')
+    .replace(/\u00f6/g, 'oe')
+    .replace(/\u00df/g, 'ss')
+    .replace(/\s/g, '-')
+}
+
+export const urlToStr = (str) => {
+  return upperCaseFirst(
+    str
+      .replace(/ue/gi, "ü")
+      .replace(/ae/gi, 'ä')
+      .replace(/oe/gi, 'ö')
+      .replace(/-/g, ' ')
+  )
+}
+
+
+/**
+ * add url params to base path if available - add specific prefix 'zum-', 'nach-', replace umlaut
+ * @param start
+ * @param end
+ * @param activity
+ * @returns {string}
+ * @private
+ */
+export const ridesBuildUrl = (basePath, {start, end, activity}) => {
+  let url = basePath
+  
+  if (start) {
+    url = url + '/' + strToUrl(start)
+  }
+  if (end) {
+    url = url + '/' + endParamPrefix + strToUrl(end)
+  }
+  if (activity) {
+    url = url + '/' + activityParamPrefix + strToUrl(getActivityFromId(activity))
+  }
+
+  return url
 }

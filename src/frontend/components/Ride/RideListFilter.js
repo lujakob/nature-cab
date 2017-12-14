@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {ACTIVITIES} from '../../../constants'
 import {withRouter} from 'react-router-dom'
-import {getSortedActivities, isMobile} from '../../utils/misc'
+import {getSortedActivities, isMobile, ridesBuildUrl} from '../../utils/misc'
+import {ridesBasePath} from '../../../constants'
 
 class RideListFilter extends Component {
 
@@ -87,7 +88,11 @@ class RideListFilter extends Component {
   }
 
   _filter = () => {
-    this.props.filterFunc(this.state)
+    const {filterFunc} = this.props
+    const url = ridesBuildUrl(ridesBasePath, this.state)
+    this.props.history.push(url)
+
+    filterFunc && filterFunc(this.state)
   }
 }
 
