@@ -20,8 +20,15 @@ const mongoUri = isProduction
   ? `mongodb://${USERNAME}:${PASSWORD}@${HOST}/${DATABASE_NAME}?${PARAMS}`
   : 'mongodb://localhost:27017/naturecab'
 
-mongoose.Promise = global.Promise
-mongoose.connect(mongoUri, {useMongoClient: true})
+mongoose.Promise = require('bluebird')
+mongoose.connect(mongoUri, {useMongoClient: true}, (err, db) => {
+  if (err) {
+    console.log('---Unable to connect to mongoose. Error', err);
+  } else {
+    console.log('+++Connected to mongoose')
+  }
+})
+
 const db = mongoose.connection
 
 db.on('error', (e) => {
@@ -29,7 +36,6 @@ db.on('error', (e) => {
 })
 
 db.once('open', () => {
-  console.log('+++Connected to mongoose')
 
   const server = express()
 
@@ -86,6 +92,8 @@ db.once('open', () => {
 db.on('disconnected', function () {
   console.log('Mongoose default connection to DB disconnected');
 })
+
+// process.on('unhandledRejection', err => console.log(err.stack))
 
 // const gracefulExit = () => {
 //   db.close(() => {

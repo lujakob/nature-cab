@@ -37,6 +37,8 @@
 .visual {
   width:calc(100% + 20px);
   height:auto;
+  max-height:40vh;
+  overflow:hidden;
   margin:-$header-height -10px 10px;
   z-index:-1;
   position: relative;
