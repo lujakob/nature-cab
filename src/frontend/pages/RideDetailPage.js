@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import {graphql} from 'react-apollo'
 import RideUser from '../components/Ride/RideUser'
 import {Link} from 'react-router-dom'
-import {getActivityFromId, getFormattedDate, getVehicleTitleByKey, vehicleIsCar} from '../utils/misc'
+import {getActivityFromId, getFormattedDate, getVehicleTitleByKey, vehicleIsCar, getUserMailToHref} from '../utils/misc'
 import {VEHICLES} from '../../constants'
 import FacebookShareButton from '../components/FacebookShareButton'
 import {BASE_URL} from '../../config'
@@ -113,16 +113,30 @@ class RideDetailPage extends Component {
             </div>
           </div>
           <div className="ride-detail__user-info">
-            <div className="ride-detail-user">
+            <div className="ride-detail__user-info-content">
               <h3>Fahrer</h3>
-              <div className="ride-detail-user__user-info">
-                <RideUser user={ride.user} showVehicle={vehicleIsCar(ride.vehicle, VEHICLES)} showDescription="true"/>
-              </div>
+              <RideUser user={ride.user} showVehicle={vehicleIsCar(ride.vehicle, VEHICLES)} showDescription="true"/>
+            </div>
+            <div className="ride-detail__action">
+              <button
+                className='link white bg-blue btn-primary'
+                onClick={() => this._action(ride.user)}
+              >
+                Mitfahren
+              </button>
             </div>
           </div>
         </div>
       </div>
     )
+  }
+
+  _action({firstname, email, phone}) {
+    const href = phone
+      ? `tel:${phone}`
+      : getUserMailToHref(email, firstname)
+
+    window.location.href = href
   }
 
   _getVehicle(ride) {

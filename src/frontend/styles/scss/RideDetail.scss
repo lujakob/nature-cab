@@ -42,59 +42,60 @@
       margin-left:10px;
     }
   }
+
+  &__user-info-content {
+    border:1px solid #ddd;
+    padding:15px;
+    border-radius: 3px;
+
+    h3 {
+      background-color:#f2f2f2;
+      margin:-15px -15px 15px;
+      padding:15px;
+    }
+
+  }
+
+  &__action {
+    margin-top:20px;
+  }
 }
 
-
-.ride-detail-info {
-
-}
 .ride-detail-info {
   padding:15px;
   border:1px solid #ddd;
   border-radius: 3px;
-}
 
-.ride-detail-info__row {
-  padding-bottom:10px;
-}
+  &__row {
+    padding-bottom:10px;
 
-.ride-detail-info__row--return-info {
-  border-top:1px solid #ddd;
-  margin-top:10px;
-  padding-top:10px;
-  @media  screen and (max-width:767px) {
-    .ride-detail-info__label {
-      margin-bottom:5px;
-    }
-    .ride-detail-info__label,
-    .ride-detail-info__field {
-      float:none;
-      width:100%;
+    &--return-info {
+      border-top:1px solid #ddd;
+      margin-top:10px;
+      padding-top:10px;
+      @media  screen and (max-width:767px) {
+        .ride-detail-info__label {
+          margin-bottom:5px;
+        }
+        .ride-detail-info__label,
+        .ride-detail-info__field {
+          float:none;
+          width:100%;
+        }
+      }
     }
   }
-}
 
-.ride-detail-info__label {
-  float:left;
-  width:130px;
-  @media  screen and (min-width:768px) {
-    width:150px;
+  &__label {
+    float:left;
+    width:130px;
+    @media  screen and (min-width:768px) {
+      width:150px;
+    }
   }
-}
 
-.ride-detail-info__field {
-  float:left;
-  width:calc(100% - 150px);
-}
-
-.ride-detail-user {
-  border:1px solid #ddd;
-  padding:15px;
-  border-radius: 3px;
-}
-
-.ride-detail-user h3 {
-  background-color:#f2f2f2;
-  margin:-15px -15px 15px;
-  padding:15px;
+  &__field {
+    float:left;
+    width:calc(100% - 150px);
+  }
 }

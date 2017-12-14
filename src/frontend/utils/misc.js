@@ -166,7 +166,7 @@ export const urlToStr = (str) => {
  */
 export const ridesBuildUrl = (basePath, {start, end, activity}) => {
   let url = basePath
-  
+
   if (start) {
     url = url + '/' + strToUrl(start)
   }
@@ -178,4 +178,8 @@ export const ridesBuildUrl = (basePath, {start, end, activity}) => {
   }
 
   return url
+}
+
+export const getUserMailToHref = (email, firstname) => {
+  return `mailto:${email}?subject=NatureCab Mitfahrgelegenheit Anfrage&body=Hallo ${firstname},`
 }

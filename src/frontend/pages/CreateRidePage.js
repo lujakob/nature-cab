@@ -254,7 +254,7 @@ class CreateRide extends Component {
 
               <div className="form-row form-row--submit">
                 <button
-                  className='link white bg-blue'
+                  className='link white bg-blue btn-primary'
                   onClick={() => this._submit()}
                 >
                   Senden

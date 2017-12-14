@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {getAgeFromYearOfBirth, truncateName} from '../../utils/misc'
+import {getAgeFromYearOfBirth, truncateName, getUserMailToHref} from '../../utils/misc'
 import noHeadShot from '../../img/no-headshot.jpg'
 
 
@@ -33,14 +33,18 @@ class RideUser extends Component {
         {showDescription && user.email &&
         <div className="ride-user__add-info">
           <h4>Email</h4>
-          {user.email}
+          <a href={getUserMailToHref(user.email, user.firstname)}>{user.email}</a>
         </div>
         }
 
         {showDescription &&
         <div className="ride-user__add-info">
           <h4>Telefon</h4>
-          {user.phone || 'keine Angabe'}
+          {user.phone ? (
+            <a href={'tel:' + user.phone}>{user.phone}</a>
+          ) : (
+            <span>keine Angabe</span>
+          )}
         </div>
         }
 

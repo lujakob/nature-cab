@@ -1,34 +1,38 @@
 @import './variables.scss';
 
-.ride-user__user-image {
-  float:left;
-  width:60px;
-}
-.ride-user__user-image img {
-  border-radius:50%;
-}
-.ride-user__user-info {
-  float:right;
-  padding-left:15px;
-  width:calc(100% - 60px);
-}
+.ride-user {
+  h4 {
+    margin:0 0 5px;
+  }
 
-.ride-user__user-name {
-  font-weight:bold;
-  margin-bottom:4px;
-}
+  &__user-image {
+    float:left;
+    width:60px;
 
-.ride-user__top {}
+    img {
+      border-radius:50%;
+    }
+  }
 
-.ride-user__add-info {
-  padding-top:10px;
-}
+  &__user-info {
+    float:right;
+    padding-left:15px;
+    width:calc(100% - 60px);
+  }
 
-.ride-user__add-info--first {
-  border-top: 1px solid #ddd;
-  margin-top:10px;
-}
+  &__user-name {
+    font-weight:bold;
+    margin-bottom:4px;
+  }
 
-.ride-user h4 {
-  margin:0 0 5px;
+  &__top {}
+
+  &__add-info {
+    padding-top:10px;
+
+    &--first {
+      border-top: 1px solid #ddd;
+      margin-top:10px;
+    }
+  }
 }

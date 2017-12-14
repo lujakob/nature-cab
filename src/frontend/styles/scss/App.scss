@@ -98,3 +98,11 @@ button {
     padding-right:1.5rem;
   }
 }
+
+.btn-primary {
+  width:100%;
+  font-size:1.8rem;
+  @media  screen and (min-width:768px) {
+    width:inherit;
+  }
+}
