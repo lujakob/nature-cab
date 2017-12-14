@@ -28,7 +28,7 @@ label.radio-label {
 }
 
 fieldset {
-  padding:20px;
+  padding:1.5rem;
   border:none;
   margin:0 -1.5rem 0;
   @media  screen and (min-width:768px) {
@@ -41,8 +41,8 @@ fieldset {
     font-weight:normal;
     background-color:#f2f2f2;
     border-bottom:1px solid #ddd;
-    margin:-20px -20px  20px;
-    padding:20px 20px 20px;
+    margin:-1.5rem -1.5rem  1.5rem;
+    padding:1.5rem 1.5rem 1.5rem;
   }
 
   label {
@@ -50,7 +50,11 @@ fieldset {
   }
 
   .form-row {
-    margin-bottom:20px;
+    margin-bottom:10px;
+
+    @media  screen and (min-width:768px) {
+      margin-bottom:20px;
+    }
 
     &.mb0 {
       margin-bottom:0px;

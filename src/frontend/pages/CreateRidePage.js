@@ -245,22 +245,23 @@ class CreateRide extends Component {
                   onChange={this._setFieldValue}
                 />
               </div>
+
+              {this.state.error &&
+              <div className="error-message dark-red">
+                Bitte füllen Sie alle Felder aus.
+              </div>
+              }
+
+              <div className="form-row form-row--submit">
+                <button
+                  className='link white bg-blue'
+                  onClick={() => this._submit()}
+                >
+                  Senden
+                </button>
+              </div>
             </fieldset>
 
-            {this.state.error &&
-            <div className="error-message dark-red">
-              Bitte füllen Sie alle Felder aus.
-            </div>
-            }
-
-            <div className="form-row form-row--submit">
-              <button
-                className='link white bg-blue'
-                onClick={() => this._submit()}
-              >
-                Senden
-              </button>
-            </div>
           </div>
           <div className="create-ride-right-col">
             {this.props.isScriptLoaded &&

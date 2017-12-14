@@ -6,6 +6,14 @@
 
 .login-page  {
 
+  padding-left:1.5rem;
+  padding-right:1.5rem;
+
+  @media  screen and (min-width:768px) {
+    padding-left:0;
+    padding-right:0;
+  }
+
   .form-row-spacer-login {
     border-bottom:1px solid $grey-border;
     margin-bottom:20px;
