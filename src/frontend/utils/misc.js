@@ -55,6 +55,11 @@ export const getActivityFromId = (id) => {
   return activity ? activity['title'] : ''
 }
 
+/**
+ * getActivityIdFromTitle - get activity id from title
+ * @param title
+ * @returns {null}
+ */
 export const getActivityIdFromTitle = (title) => {
   let targetEl = ACTIVITIES.find(el => el.title.toLowerCase() === title.toLowerCase())
   return targetEl ? targetEl['id'] : null
@@ -109,4 +114,13 @@ export const getSortedActivities = (activities) => {
   activities.sort(compareFunc)
   
   return activities
+}
+
+/**
+ * isMobile - checking mobile device by window with. return false if window is undefined, server side
+ * @returns {Window|*|boolean}
+ */
+export const isMobile = () => {
+  const mobileBreakPoint = 768
+  return window && window.innerWidth < mobileBreakPoint
 }

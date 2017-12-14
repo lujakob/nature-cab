@@ -3,6 +3,8 @@ import RideListWithData from '../components/Ride/RideListWithData'
 import RideListFilter from '../components/Ride/RideListFilter'
 import {withRouter} from 'react-router'
 import Visual from '../components/Visual'
+import {getActivityIdFromTitle} from '../utils/misc'
+import {activityParamPrefix, endParamPrefix} from './HomePage'
 
 class RidesPage extends Component {
 
@@ -19,12 +21,17 @@ class RidesPage extends Component {
 
   render () {
 
-    const {match} = this.props
+    const {start, end, activity} = this.state
 
     return (
       <div className={'ride-list-page  has-visual'}>
         <Visual/>
-        <RideListFilter filterFunc={({start, end, activity}) => this.setState({start, end, activity})}/>
+        <RideListFilter
+          start={start}
+          end={end}
+          activity={activity}
+          filterFunc={({start, end, activity}) => this.setState({start, end, activity})}
+        />
 
         <div className="centered-container">
           <RideListWithData start={this.state.start} end={this.state.end} activity={this.state.activity}/>
@@ -33,20 +40,50 @@ class RidesPage extends Component {
     )
   }
 
-  _setStateFromParams = ({start, end, activity}) => {
+  _setStateFromParams = ({start: first, end: second, activity: third}) => {
 
-    let params = {}
+    let res = {}
 
-    start && Object.assign(params, {start: decodeURI(start)})
-    end && Object.assign(params, {end: decodeURI(end)})
+    // params start, end, activity are defined by position, not name.
+    // Hence if 'start' is missing, 'end' moves on first position, etc
 
-    if (activity) {
-      const id = getActivityIdFromTitle(decodeURI(activity))
-      activity && Object.assign(params, {activity: String(id)})
+    if (this._isActivityParam(first)) {
+      setActivity(first)
+
+    } else if (this._isEndParam(first) ) {
+      Object.assign(res, {end: decodeURI(first)})
+
+      if (this._isActivityParam(second)) {
+        setActivity(second)
+      }
+    } else {
+      first && Object.assign(res, {start: decodeURI(first)})
+      second && Object.assign(res, {end: decodeURI(second)})
+      third && setActivity(third)
     }
 
-    this.setState(params)
+    this.setState(res)
+
+    function setActivity(activity) {
+      // 'zum-wandern' - remove prefix first, get ID from activity-id map
+      const act = decodeURI(activity).substr(activityParamPrefix.length)
+      const id = getActivityIdFromTitle(act)
+      Object.assign(res, {activity: String(id)})
+      console.log("res", res);
+    }
   }
+
+  _isActivityParam = (val) => {
+    // activity param starts with 'activityParamPrefix'
+    return val.indexOf(activityParamPrefix) === 0
+  }
+
+  _isEndParam = (val) => {
+    // activity param starts with 'activityParamPrefix'
+    return val && val.indexOf(endParamPrefix) === 0
+  }
+
+
 }
 
 export default withRouter(RidesPage)

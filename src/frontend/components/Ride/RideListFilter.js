@@ -1,16 +1,21 @@
 import React, {Component} from 'react'
 import {ACTIVITIES} from '../../../constants'
 import {withRouter} from 'react-router-dom'
-import {getSortedActivities, getActivityIdFromTitle} from '../../utils/misc'
+import {getSortedActivities, isMobile} from '../../utils/misc'
 
 class RideListFilter extends Component {
 
   activities = getSortedActivities(ACTIVITIES)
 
   state = {
-    start: this.props.start ? this.props.start : '',
-    end: this.props.end ? this.props.end : '',
-    activity: this.props.activity ? this.props.activity : '',
+    start: '',
+    end: '',
+    activity: '',
+  }
+
+  componentWillMount() {
+    const {start = '', end = '', activity = ''} = this.props
+    this.setState({start, end, activity})
   }
 
   render() {
@@ -25,7 +30,7 @@ class RideListFilter extends Component {
               value={this.state.start}
               name="start"
               onChange={this._onChange}
-              onBlur={this._filter}
+              onBlur={this._onFieldBlur}
             />
           </div>
           {false &&
@@ -67,12 +72,18 @@ class RideListFilter extends Component {
     )
   }
 
+  _onFieldBlur = () => {
+    // only call filter func on blur for mobile
+    isMobile() && this._filter()
+  }
+
   _onChange = (evt) => {
     this.setState({[evt.target.name]: evt.target.value})
   }
 
   _onChangeSelect = (evt) => {
-    this.setState({[evt.target.name]: evt.target.value}, () => this._filter())
+    const {name, value} = evt.target
+    this.setState({[name]: value}, () => this._filter())
   }
 
   _filter = () => {
