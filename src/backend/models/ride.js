@@ -16,6 +16,7 @@ const rideSchema = new Schema({
   activity: {type: String},
   createdAt: {type: Date, default: Date.now()},
   startDate: {type: Date, required: true},
+  returnInfo: {type: String},
   description: {type: String},
   user: {type: Schema.Types.ObjectId, ref: 'User'}
 }, {collection: 'RideList'})

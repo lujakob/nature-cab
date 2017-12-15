@@ -15,7 +15,7 @@ import scriptLoader from 'react-async-script-loader'
 import {getSortedActivities} from '../utils/misc'
 
 const asyncScriptSrc = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEYS.MAPS}&libraries=places`
-const rideSkipMandatoryFields = ['description' , 'startLatLng', 'startCity', 'endLatLng', 'endCity', 'activity']
+const rideSkipMandatoryFields = ['description' , 'startLatLng', 'startCity', 'endLatLng', 'endCity', 'activity', 'returnInfo']
 
 const resetRide = {
   startLocation: '',
@@ -31,6 +31,7 @@ const resetRide = {
   startDate: null,
   startTimeHour: '',
   startTimeMin: '',
+  returnInfo: '',
   description: ''
 }
 
@@ -76,7 +77,8 @@ class CreateRide extends Component {
           startDate: moment(new Date(ride.startDate)),
           startTimeHour: moment(new Date(ride.startDate)).format('kk'),
           startTimeMin: moment(new Date(ride.startDate)).format('mm'),
-          description: ride.description
+          returnInfo: ride.returnInfo || '',
+          description: ride.description || ''
         }})
       this.setState(newState)
     }
@@ -237,8 +239,23 @@ class CreateRide extends Component {
                   <br style={{clear: "both"}}/>
                 </div>
               </div>
+
+              <div className={'form-row'}>
+                <label htmlFor="returnInfo">Rückfahrt</label>
+                <input
+                  type="text"
+                  placeholder="Zum Beispiel: ca 17 Uhr"
+                  value={ride.returnInfo}
+                  name="returnInfo"
+                  onChange={this._setFieldValue}
+                />
+              </div>
+            </fieldset>
+
+            <fieldset className="ride-form-fieldset">
+              <h3>Infos</h3>
               <div className="form-row">
-                <label htmlFor="ride-return-info">Infos zur Fahrt</label>
+                <label htmlFor="ride-return-info">Mehr Infos zur Fahrt</label>
                 <textarea
                   name="description"
                   placeholder="Zum Beispiel: Rückfahrt um 16:00 Uhr am Parkplatz"
@@ -468,6 +485,7 @@ class CreateRide extends Component {
       vehicle: ride.vehicle,
       price: parseInt(ride.price, 10),
       startDate: this._getStartDate(ride),
+      returnInfo: ride.returnInfo,
       description: ride.description
     })
   }
@@ -510,6 +528,7 @@ const RideDetailQuery = gql`
       endLocation
       endLatLng
       startDate
+      returnInfo
       price
       seats
       vehicle
@@ -534,6 +553,7 @@ const AddRideMutation = gql`
       seats
       vehicle
       startDate
+      returnInfo
       description
       user {
         firstname

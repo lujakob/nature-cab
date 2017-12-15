@@ -82,6 +82,14 @@ class RideDetailPage extends Component {
                   {getFormattedDate(ride.startDate)}
                 </div>
               </div>
+              {ride.returnInfo &&
+              <div className="ride-detail-info__row cf">
+                <div className="ride-detail-info__label">Rückfahrt</div>
+                <div className="ride-detail-info__field">
+                  {ride.returnInfo}
+                </div>
+              </div>
+              }
               {getActivityFromId(ride.activity) &&
               <div className="ride-detail-info__row cf">
                 <div className="ride-detail-info__label">Aktivität</div>
@@ -105,13 +113,13 @@ class RideDetailPage extends Component {
 
               {ride.description &&
               <div className="ride-detail-info__row ride-detail-info__row--return-info cf">
-                <div className="ride-detail-info__label">Infos</div>
+                <div className="ride-detail-info__label">Mehr Infos zur Fahrt</div>
                 <div className="ride-detail-info__field">{ride.description}</div>
               </div>
               }
-
             </div>
           </div>
+
           <div className="ride-detail__user-info">
             <div className="ride-detail__user-info-content">
               <h3>Fahrer</h3>
@@ -175,6 +183,7 @@ const RideDetailQuery = gql`
       seats
       vehicle
       activity
+      returnInfo
       description
       user {
         firstname
