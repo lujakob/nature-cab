@@ -94,6 +94,7 @@ export const getVehicleTitleByKey = (value, vehicles) => {
 }
 
 export const vehicleIsCar = (value, vehicles) => {
+  // element[0] of vehicles is 'car'
   return value === vehicles[0]['value']
 }
 

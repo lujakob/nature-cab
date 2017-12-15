@@ -28,7 +28,7 @@ const resetRide = {
   seats: 1,
   vehicle: VEHICLES[0]['value'],
   price: '',
-  startDate: '',
+  startDate: null,
   startTimeHour: '',
   startTimeMin: '',
   returnInfo: ''

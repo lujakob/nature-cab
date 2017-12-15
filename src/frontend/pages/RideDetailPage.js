@@ -115,7 +115,7 @@ class RideDetailPage extends Component {
           <div className="ride-detail__user-info">
             <div className="ride-detail__user-info-content">
               <h3>Fahrer</h3>
-              <RideUser user={ride.user} showVehicle={vehicleIsCar(ride.vehicle, VEHICLES)} showDescription="true"/>
+              <RideUser user={ride.user} showVehicle={this._showVehicleField(ride)} showDescription="true"/>
             </div>
             <div className="ride-detail__action">
               <button
@@ -131,6 +131,10 @@ class RideDetailPage extends Component {
     )
   }
 
+  _showVehicleField(ride) {
+    return vehicleIsCar(ride.vehicle, VEHICLES) && !!ride.user.carType
+  }
+
   _action({firstname, email, phone}) {
     const href = phone
       ? `tel:${phone}`
@@ -139,11 +143,18 @@ class RideDetailPage extends Component {
     window.location.href = href
   }
 
+  /**
+   * _getVehicle - show type and car, or just 'Auto' if values empty
+   * @param ride
+   * @returns {string}
+   * @private
+   */
   _getVehicle(ride) {
-    if (vehicleIsCar(ride.vehicle, VEHICLES)) {
-      return ride.user.carType + ', ' + ride.user.carColor
+    const {vehicle, user: {carType, carColor}} = ride
+    if (vehicleIsCar(vehicle, VEHICLES)) {
+      return carType ? (carType + (carColor ? ', ' + carColor : '')) : 'Auto'
     } else {
-      return getVehicleTitleByKey(ride.vehicle, VEHICLES)
+      return getVehicleTitleByKey(vehicle, VEHICLES)
     }
   }
 
