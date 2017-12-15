@@ -245,22 +245,22 @@ class CreateRide extends Component {
                   onChange={this._setFieldValue}
                 />
               </div>
-
-              {this.state.error &&
-              <div className="error-message dark-red">
-                Bitte füllen Sie alle Felder aus.
-              </div>
-              }
-
-              <div className="form-row form-row--submit">
-                <button
-                  className='link white bg-blue btn-primary'
-                  onClick={() => this._submit()}
-                >
-                  Senden
-                </button>
-              </div>
             </fieldset>
+
+            {this.state.error &&
+            <div className="form-message dark-red">
+              Bitte füllen Sie alle Felder aus.
+            </div>
+            }
+
+            <div className="form-submit">
+              <button
+                className='link white bg-blue btn-primary'
+                onClick={() => this._submit()}
+              >
+                Senden
+              </button>
+            </div>
 
           </div>
           <div className="create-ride-right-col">
@@ -485,11 +485,12 @@ class CreateRide extends Component {
    * @private
    */
   _getStartDate(ride) {
-    return ride.startDate._isAMomentObject
-      ? ride.startDate
+    const {startDate, startTimeHour, startTimeMin} = ride
+    return startDate && startDate._isAMomentObject
+      ? startDate
         .startOf('day')
-        .add(parseInt(ride.startTimeHour, 10), 'hours')
-        .add(parseInt(ride.startTimeMin, 10), 'minutes')
+        .add(parseInt(startTimeHour, 10), 'hours')
+        .add(parseInt(startTimeMin, 10), 'minutes')
         .toDate()
       : ''
   }

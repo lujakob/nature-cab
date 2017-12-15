@@ -64,18 +64,6 @@ fieldset {
       margin-bottom:0;
     }
 
-    &--submit {
-      text-align:right;
-
-      @media  screen and (min-width:768px) {
-        margin-top:20px;
-      }
-    }
-  }
-
-  .error-message {
-    padding:0;
-    margin-bottom:20px;
   }
 
   .form-row.is-error input,
@@ -86,6 +74,14 @@ fieldset {
   }
 }
 
+.form-message {
+  padding:0;
+  margin-bottom:10px;
+}
+
+.form-submit {
+  text-align:right;
+}
 
 .content-placeholder-wrapper {
   position:relative;
@@ -137,10 +133,4 @@ textarea {
 
 .select-time-spacer--time {
   margin-left:5px;
-}
-
-button {
-  &.bg-blue {
-    background-color:$blue;
-  }
 }

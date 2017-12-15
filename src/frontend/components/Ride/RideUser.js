@@ -23,9 +23,11 @@ class RideUser extends Component {
           </div>
         </div>
 
+        {showDescription &&
         <div className="ride-user__spacer"></div>
+        }
 
-        {showVehicle &&
+        {showDescription && showVehicle &&
         <div className="ride-user__add-info">
           <h4>Auto</h4>
           {user.carType + (user.carColor ? ', ' + user.carColor : '')}
@@ -60,7 +62,6 @@ class RideUser extends Component {
       </div>
     )
   }
-
 }
 
 export default RideUser

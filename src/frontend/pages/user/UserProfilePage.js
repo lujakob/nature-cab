@@ -168,18 +168,18 @@ class UserProfilePage extends Component {
         </fieldset>
 
         {this.state.error &&
-        <div className="error-message dark-red">
+        <div className="form-message dark-red">
           Bitte füllen Sie alle Felder aus.
         </div>
         }
 
         {this.state.view === VIEWS.SUCCESS &&
-        <div>Ihr Profil wurde erfolgreich gespeichert.</div>
+        <div className="form-message">Ihr Profil wurde erfolgreich gespeichert.</div>
         }
 
-        <div className="form-row form-row--submit">
+        <div className="form-submit">
           <button
-            className='link white bg-blue'
+            className='link white bg-blue btn-primary'
             onClick={() => this._submit()}
           >
             Speichern
