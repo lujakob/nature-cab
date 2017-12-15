@@ -107,7 +107,7 @@ export const addRideResolver = (root, {ride}) => {
     vehicle: ride.vehicle,
     activity: ride.activity,
     startDate: ride.startDate,
-    returnInfo: ride.returnInfo
+    description: ride.description
   }
 
   return new Promise((resolve, reject) => {

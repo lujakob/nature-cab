@@ -15,7 +15,7 @@ import scriptLoader from 'react-async-script-loader'
 import {getSortedActivities} from '../utils/misc'
 
 const asyncScriptSrc = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEYS.MAPS}&libraries=places`
-const rideSkipMandatoryFields = ['returnInfo' , 'startLatLng', 'startCity', 'endLatLng', 'endCity', 'activity']
+const rideSkipMandatoryFields = ['description' , 'startLatLng', 'startCity', 'endLatLng', 'endCity', 'activity']
 
 const resetRide = {
   startLocation: '',
@@ -31,7 +31,7 @@ const resetRide = {
   startDate: null,
   startTimeHour: '',
   startTimeMin: '',
-  returnInfo: ''
+  description: ''
 }
 
 const VIEWS = {
@@ -76,7 +76,7 @@ class CreateRide extends Component {
           startDate: moment(new Date(ride.startDate)),
           startTimeHour: moment(new Date(ride.startDate)).format('kk'),
           startTimeMin: moment(new Date(ride.startDate)).format('mm'),
-          returnInfo: ride.returnInfo
+          description: ride.description
         }})
       this.setState(newState)
     }
@@ -240,7 +240,7 @@ class CreateRide extends Component {
               <div className="form-row">
                 <label htmlFor="ride-return-info">Infos zur Fahrt</label>
                 <textarea
-                  name="returnInfo"
+                  name="description"
                   placeholder="Zum Beispiel: Rückfahrt um 16:00 Uhr am Parkplatz"
                   onChange={this._setFieldValue}
                 />
@@ -468,7 +468,7 @@ class CreateRide extends Component {
       vehicle: ride.vehicle,
       price: parseInt(ride.price, 10),
       startDate: this._getStartDate(ride),
-      returnInfo: ride.returnInfo
+      description: ride.description
     })
   }
 
@@ -513,7 +513,7 @@ const RideDetailQuery = gql`
       seats
       vehicle
       activity
-      returnInfo
+      description
     }
   }
 `
@@ -533,7 +533,7 @@ const AddRideMutation = gql`
       seats
       vehicle
       startDate
-      returnInfo
+      description
       user {
         firstname
         lastname

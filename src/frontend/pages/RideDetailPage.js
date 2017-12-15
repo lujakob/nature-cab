@@ -103,10 +103,10 @@ class RideDetailPage extends Component {
                 </div>
               </div>
 
-              {ride.returnInfo &&
+              {ride.description &&
               <div className="ride-detail-info__row ride-detail-info__row--return-info cf">
                 <div className="ride-detail-info__label">Infos</div>
-                <div className="ride-detail-info__field">{ride.returnInfo}</div>
+                <div className="ride-detail-info__field">{ride.description}</div>
               </div>
               }
 
@@ -175,7 +175,7 @@ const RideDetailQuery = gql`
       seats
       vehicle
       activity
-      returnInfo
+      description
       user {
         firstname
         lastname

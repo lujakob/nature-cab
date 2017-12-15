@@ -53,7 +53,7 @@ export const rideListQuery = gql`
         seats
         price
         startDate
-        returnInfo
+        description
         user {
           firstname
           lastname

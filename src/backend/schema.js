@@ -19,7 +19,7 @@ type Ride {
   price: Int!
   vehicle: String!
   startDate: String!
-  returnInfo: String
+  description: String
   user: User 
 }
 
@@ -36,7 +36,7 @@ input RideInput {
   price: Int!
   vehicle: String!
   startDate: String!
-  returnInfo: String
+  description: String
   user: String!
 }
 
