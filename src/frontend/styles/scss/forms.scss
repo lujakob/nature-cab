@@ -134,3 +134,7 @@ textarea {
 .select-time-spacer--time {
   margin-left:5px;
 }
+
+#PlacesAutocomplete__autocomplete-container {
+  z-index:1000;
+}
